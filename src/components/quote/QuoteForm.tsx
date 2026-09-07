@@ -1,64 +1,126 @@
-'use client'
+"use client";
 
-import { useEffect, useRef, useState } from 'react'
-import { motion, useInView, type Variants } from 'framer-motion'
+import { useActionState, useEffect, useRef, useState } from "react";
+import { motion, useInView, type Variants } from "framer-motion";
+import {  QuoteFormState, sendQuoteEmail } from "@/app/actions/send-quote-email";
 
-const EASE = 'cubic-bezier(.22,.61,.36,1)'
-const NODE = 64 // px — node diameter; track aligns to its centre
+const EASE = "cubic-bezier(.22,.61,.36,1)";
+const NODE = 64; // px — node diameter; track aligns to its centre
 
-type Step = { n: string; title: string; desc: string; icon: React.ReactNode }
+type Step = { n: string; title: string; desc: string; icon: React.ReactNode };
 
 const STEPS: Step[] = [
   {
-    n: '01',
-    title: 'Request a Free Quote',
-    desc: 'Tell us about your fleet and we’ll prepare a tailored quote — no obligation.',
+    n: "01",
+    title: "Request a Free Quote",
+    desc: "Tell us about your fleet and we’ll prepare a tailored quote — no obligation.",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <rect x="5" y="3" width="14" height="18" rx="3" fill="currentColor" opacity=".16" />
-        <path d="M9 8h6M9 12h6M9 16h3.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-        <path d="M8 3.5h8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+        <rect
+          x="5"
+          y="3"
+          width="14"
+          height="18"
+          rx="3"
+          fill="currentColor"
+          opacity=".16"
+        />
+        <path
+          d="M9 8h6M9 12h6M9 16h3.5"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+        />
+        <path
+          d="M8 3.5h8"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+        />
       </svg>
     ),
   },
   {
-    n: '02',
-    title: 'Schedule a Free Demo',
-    desc: 'Book an appointment and see LOCATOR running live on your own use case.',
+    n: "02",
+    title: "Schedule a Free Demo",
+    desc: "Book an appointment and see LOCATOR running live on your own use case.",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <rect x="3" y="4" width="18" height="12" rx="2.5" fill="currentColor" opacity=".16" />
+        <rect
+          x="3"
+          y="4"
+          width="18"
+          height="12"
+          rx="2.5"
+          fill="currentColor"
+          opacity=".16"
+        />
         <path d="M10 9.2v3.6l3-1.8-3-1.8z" fill="currentColor" />
-        <path d="M8.5 20h7M12 16v4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+        <path
+          d="M8.5 20h7M12 16v4"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+        />
       </svg>
     ),
   },
   {
-    n: '03',
-    title: 'Installation at Your Location',
-    desc: 'Our engineers install and configure everything at a place of your choice.',
+    n: "03",
+    title: "Installation at Your Location",
+    desc: "Our engineers install and configure everything at a place of your choice.",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M12 21s-7-6-7-11a7 7 0 0 1 14 0c0 5-7 11-7 11z" fill="currentColor" opacity=".16" />
-        <path d="M12 21s-7-6-7-11a7 7 0 0 1 14 0c0 5-7 11-7 11z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
+        <path
+          d="M12 21s-7-6-7-11a7 7 0 0 1 14 0c0 5-7 11-7 11z"
+          fill="currentColor"
+          opacity=".16"
+        />
+        <path
+          d="M12 21s-7-6-7-11a7 7 0 0 1 14 0c0 5-7 11-7 11z"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinejoin="round"
+        />
         <circle cx="12" cy="10" r="2.4" fill="currentColor" />
       </svg>
     ),
   },
   {
-    n: '04',
-    title: 'Manage & Grow',
-    desc: 'Start managing your vehicles and teams — and grow your business.',
+    n: "04",
+    title: "Manage & Grow",
+    desc: "Start managing your vehicles and teams — and grow your business.",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M4 20h16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-        <rect x="6" y="12" width="3" height="6" rx="1" fill="currentColor" opacity=".35" />
-        <rect x="10.5" y="8" width="3" height="10" rx="1" fill="currentColor" opacity=".6" />
+        <path
+          d="M4 20h16"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+        />
+        <rect
+          x="6"
+          y="12"
+          width="3"
+          height="6"
+          rx="1"
+          fill="currentColor"
+          opacity=".35"
+        />
+        <rect
+          x="10.5"
+          y="8"
+          width="3"
+          height="10"
+          rx="1"
+          fill="currentColor"
+          opacity=".6"
+        />
         <rect x="15" y="4" width="3" height="14" rx="1" fill="currentColor" />
       </svg>
     ),
   },
-]
+];
 
 // Fixed (not Math.random) so server and client markup match — each entry is
 // one particle: delay, duration, x-drift, size, opacity, colour (0=white,1=blue).
@@ -77,7 +139,7 @@ const STREAM = [
   { d: 2.8, dur: 2.8, x: -3, s: 3, o: 0.65, c: 1 },
   { d: 3.05, dur: 2.2, x: 8, s: 4, o: 0.8, c: 0 },
   { d: 3.3, dur: 2.5, x: -6, s: 2.5, o: 0.55, c: 1 },
-]
+];
 
 // Ambient dots drifting in the panel background — subtle depth.
 const AMBIENT = [
@@ -87,65 +149,116 @@ const AMBIENT = [
   { l: 22, t: 74, dur: 10, d: 2.2, s: 3, o: 0.28 },
   { l: 92, t: 84, dur: 7.5, d: 1, s: 4, o: 0.32 },
   { l: 40, t: 12, dur: 8.5, d: 2.8, s: 3, o: 0.3 },
-]
+];
 
 const FIELDS = [
-  { name: 'name', label: 'Full name', type: 'text', required: true, half: true },
-  { name: 'email', label: 'Email address', type: 'email', required: true, half: true },
-  { name: 'phone', label: 'Phone number', type: 'tel', required: false, half: true },
-  { name: 'company', label: 'Company', type: 'text', required: false, half: true },
-  { name: 'vehicles', label: 'Number of vehicles', type: 'text', required: false, half: false },
-] as const
+  {
+    name: "name",
+    label: "Full name",
+    type: "text",
+    required: true,
+    half: true,
+  },
+  {
+    name: "email",
+    label: "Email address",
+    type: "email",
+    required: true,
+    half: true,
+  },
+  {
+    name: "phone",
+    label: "Phone number",
+    type: "tel",
+    required: false,
+    half: true,
+  },
+  {
+    name: "company",
+    label: "Company",
+    type: "text",
+    required: false,
+    half: true,
+  },
+  {
+    name: "vehicles",
+    label: "Number of vehicles",
+    type: "text",
+    required: false,
+    half: false,
+  },
+] as const;
 
 // Each step waits a full 1.5s after the previous one before it starts.
-const STEP_STAGGER = 1.5
-const STEP_DELAY_CHILDREN = 0.15
+const STEP_STAGGER = 1.5;
+const STEP_DELAY_CHILDREN = 0.15;
 
 const listV: Variants = {
   hidden: {},
-  show: { transition: { staggerChildren: STEP_STAGGER, delayChildren: STEP_DELAY_CHILDREN } },
-}
+  show: {
+    transition: {
+      staggerChildren: STEP_STAGGER,
+      delayChildren: STEP_DELAY_CHILDREN,
+    },
+  },
+};
 const stepV: Variants = {
   hidden: { opacity: 0, x: 26 },
-  show: { opacity: 1, x: 0, transition: { duration: 0.55, ease: [0.22, 0.61, 0.36, 1] } },
-}
+  show: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.55, ease: [0.22, 0.61, 0.36, 1] },
+  },
+};
 const nodeV: Variants = {
   hidden: { scale: 0, rotate: -25 },
-  show: { scale: 1, rotate: 0, transition: { type: 'spring', stiffness: 260, damping: 18 } },
-}
+  show: {
+    scale: 1,
+    rotate: 0,
+    transition: { type: "spring", stiffness: 260, damping: 18 },
+  },
+};
 // Beam draws down after its node has popped, before the next step reveals.
 const beamV: Variants = {
   hidden: { scaleY: 0 },
-  show: { scaleY: 1, transition: { duration: 0.34, ease: [0.22, 0.61, 0.36, 1], delay: 0.18 } },
-}
+  show: {
+    scaleY: 1,
+    transition: { duration: 0.34, ease: [0.22, 0.61, 0.36, 1], delay: 0.18 },
+  },
+};
 
 export default function QuoteForm() {
-  const [sent, setSent] = useState(false)
-  const stepsRef = useRef<HTMLDivElement>(null)
-  const inView = useInView(stepsRef, { once: true, amount: 0.3 })
+  const stepsRef = useRef<HTMLDivElement>(null);
+  const inView = useInView(stepsRef, { once: true, amount: 0.3 });
+
+  const initialState: QuoteFormState = { success: false }
+
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [state, formAction, isPending] = useActionState(
+    sendQuoteEmail,
+    initialState
+  );
+
+  console.log(state, showSuccess)
 
   // Particles for a connector only start once THAT segment's beam has drawn
   // in — otherwise, with a 1.5s gap between steps, you'd see step 3's
   // particles already flowing before step 3 has even appeared.
-  const [revealed, setRevealed] = useState(0)
+  const [revealed, setRevealed] = useState(0);
   useEffect(() => {
-    if (!inView) return
+    if (!inView) return;
     const timers = STEPS.map((_, i) =>
       setTimeout(
         () => setRevealed((r) => Math.max(r, i + 1)),
-        (STEP_DELAY_CHILDREN + i * STEP_STAGGER + 0.5) * 1000,
-      ),
-    )
-    return () => timers.forEach(clearTimeout)
-  }, [inView])
+        (STEP_DELAY_CHILDREN + i * STEP_STAGGER + 0.5) * 1000
+      )
+    );
+    return () => timers.forEach(clearTimeout);
+  }, [inView]);
 
-  // NOTE: no backend endpoint yet — shows the success state locally.
-  // Wire this to a real API route / email service when available.
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    setSent(true)
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
+  useEffect(() => {
+    if (state.success) setShowSuccess(true);
+  }, [state]);
 
   return (
     <section className="qf-section">
@@ -318,49 +431,134 @@ export default function QuoteForm() {
           .qf-stream, .qf-ambient { display: none; }
           .qf-conn-beam { transform: scaleY(1) !important; background: rgba(255,255,255,.4); }
         }
+          .qf-submit:disabled {
+          opacity: .75;
+          cursor: not-allowed;
+          transform: none !important;
+        }
+         .qf-submit:disabled:hover {
+          background: #1360ee;
+          box-shadow: 0 12px 26px -10px rgba(19,96,238,.6);
+        }
+
+         .qf-spinner {
+          width: 18px;
+          height: 18px;
+          border-radius: 50%;
+          border: 2.5px solid rgba(255,255,255,.35);
+          border-top-color: #fff;
+          animation: qfSpin 0.7s linear infinite;
+        }
+        @keyframes qfSpin {
+        to { transform: rotate(360deg); }
+        }
       `}</style>
 
       <div className="qf-shell">
         {/* Left — form */}
         <div className="qf-form-card">
-          {sent ? (
+          {showSuccess ? (
             <div className="qf-success">
               <div className="qf-check">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                <svg
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.4"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
                   <path d="M20 6L9 17l-5-5" />
                 </svg>
               </div>
               <h2 className="qf-title">Request received</h2>
-              <p className="qf-sub">Thanks — our team will get back to you shortly with your tailored quote.</p>
-              <button className="qf-submit" style={{ width: 'auto' }} onClick={() => setSent(false)}>Submit another</button>
+              <p className="qf-sub">
+                Thanks — our team will get back to you shortly with your
+                tailored quote.
+              </p>
+              <button
+                className="qf-submit"
+                style={{ width: "auto" }}
+                onClick={() => setShowSuccess(false)}
+              >
+                Submit another
+              </button>
             </div>
           ) : (
             <>
-              <span className="qf-eyebrow"><span />Request a quote</span>
+              <span className="qf-eyebrow">
+                <span />
+                Request a quote
+              </span>
               <h2 className="qf-title">Tell us about your fleet</h2>
-              <p className="qf-sub">Share a few details and we’ll prepare a quote built around your operation.</p>
+              <p className="qf-sub">
+                Share a few details and we’ll prepare a quote built around your
+                operation.
+              </p>
 
-              <form onSubmit={handleSubmit}>
+              <form action={formAction}>
                 <div className="qf-grid">
                   {FIELDS.map((f) => (
-                    <div key={f.name} className={`qf-field${f.half ? '' : ' full'}`}>
+                    <div
+                      key={f.name}
+                      className={`qf-field${f.half ? "" : " full"}`}
+                    >
                       <label className="qf-label" htmlFor={`qf-${f.name}`}>
-                        {f.label}{f.required && <b> *</b>}
+                        {f.label}
+                        {f.required && <b> *</b>}
                       </label>
-                      <input id={`qf-${f.name}`} className="qf-input" type={f.type} name={f.name} required={f.required} placeholder={f.label} />
+                      <input
+                        id={`qf-${f.name}`}
+                        className="qf-input"
+                        type={f.type}
+                        name={f.name}
+                        required={f.required}
+                        placeholder={f.label}
+                      />
                     </div>
                   ))}
                   <div className="qf-field full">
-                    <label className="qf-label" htmlFor="qf-message">Message</label>
-                    <textarea id="qf-message" className="qf-textarea" name="message" placeholder="Anything specific we should know?" />
+                    <label className="qf-label" htmlFor="qf-message">
+                      Message
+                    </label>
+                    <textarea
+                      id="qf-message"
+                      className="qf-textarea"
+                      name="message"
+                      placeholder="Anything specific we should know?"
+                    />
                   </div>
                 </div>
 
-                <button type="submit" className="qf-submit">
-                  Get a Quote
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M5 12h14M13 6l6 6-6 6" />
-                  </svg>
+                <button
+                  type="submit"
+                  className="qf-submit"
+                  disabled={isPending}
+                >
+                  {isPending ? (
+                    <>
+                      <span className="qf-spinner" aria-hidden="true" />
+                      Sending…
+                    </>
+                  ) : (
+                    <>
+                      Get a Quote
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.4"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path d="M5 12h14M13 6l6 6-6 6" />
+                      </svg>
+                    </>
+                  )}
                 </button>
               </form>
             </>
@@ -374,10 +572,17 @@ export default function QuoteForm() {
               <span
                 key={ai}
                 className="qf-amb"
-                style={{
-                  left: `${a.l}%`, top: `${a.t}%`, width: a.s, height: a.s,
-                  '--dur': `${a.dur}s`, '--d': `${a.d}s`, '--o': a.o,
-                } as React.CSSProperties}
+                style={
+                  {
+                    left: `${a.l}%`,
+                    top: `${a.t}%`,
+                    width: a.s,
+                    height: a.s,
+                    "--dur": `${a.dur}s`,
+                    "--d": `${a.d}s`,
+                    "--o": a.o,
+                  } as React.CSSProperties
+                }
               />
             ))}
           </div>
@@ -388,7 +593,7 @@ export default function QuoteForm() {
             ref={stepsRef}
             variants={listV}
             initial="hidden"
-            animate={inView ? 'show' : 'hidden'}
+            animate={inView ? "show" : "hidden"}
           >
             {STEPS.map((s, i) => (
               <motion.div className="qf-step" key={s.n} variants={stepV}>
@@ -401,14 +606,16 @@ export default function QuoteForm() {
                           <span
                             key={pi}
                             className="qf-p"
-                            style={{
-                              '--d': `${p.d}s`,
-                              '--dur': `${p.dur}s`,
-                              '--x': `${p.x}px`,
-                              '--s': `${p.s}px`,
-                              '--o': p.o,
-                              '--c': p.c ? '#bcd4ff' : '#ffffff',
-                            } as React.CSSProperties}
+                            style={
+                              {
+                                "--d": `${p.d}s`,
+                                "--dur": `${p.dur}s`,
+                                "--x": `${p.x}px`,
+                                "--s": `${p.s}px`,
+                                "--o": p.o,
+                                "--c": p.c ? "#bcd4ff" : "#ffffff",
+                              } as React.CSSProperties
+                            }
                           />
                         ))}
                       </div>
@@ -418,7 +625,9 @@ export default function QuoteForm() {
                 <div className="qf-node-wrap">
                   <span className="qf-halo" aria-hidden="true" />
                   <span className="qf-ring" aria-hidden="true" />
-                  <motion.div className="qf-node" variants={nodeV}>{s.icon}</motion.div>
+                  <motion.div className="qf-node" variants={nodeV}>
+                    {s.icon}
+                  </motion.div>
                   <span className="qf-badge">{s.n}</span>
                 </div>
                 <div>
@@ -431,5 +640,5 @@ export default function QuoteForm() {
         </div>
       </div>
     </section>
-  )
+  );
 }
