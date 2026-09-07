@@ -1,131 +1,304 @@
-'use client'
+"use client";
 
-import { useEffect, useMemo, useState } from 'react'
+import { DemoFormState, sendDemoEmail } from "@/app/actions/send-demo-email";
+import { useActionState, useEffect, useMemo, useState } from "react";
 
-const EASE = 'cubic-bezier(.22,.61,.36,1)'
+const EASE = "cubic-bezier(.22,.61,.36,1)";
 
-const MONTHS_LONG = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-const MONTHS_SHORT = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-const WEEKDAYS_LONG = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-const WEEKDAYS_SHORT = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
-const DOW = ['S', 'M', 'T', 'W', 'T', 'F', 'S']
+const MONTHS_LONG = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+const MONTHS_SHORT = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+const WEEKDAYS_LONG = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
+const WEEKDAYS_SHORT = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+const DOW = ["S", "M", "T", "W", "T", "F", "S"];
 
 const FIELDS = [
-  { name: 'name', label: 'Full name', type: 'text', required: true, half: true, placeholder: 'Full name' },
-  { name: 'email', label: 'Email address', type: 'email', required: true, half: true, placeholder: 'Email address' },
-  { name: 'phone', label: 'Phone number', type: 'tel', required: false, half: true, placeholder: 'Phone number' },
-  { name: 'company', label: 'Company', type: 'text', required: false, half: true, placeholder: 'Company' },
-  { name: 'vehicles', label: 'Number of vehicles', type: 'text', required: false, half: false, placeholder: 'Number of vehicles' },
-] as const
+  {
+    name: "name",
+    label: "Full name",
+    type: "text",
+    required: true,
+    half: true,
+    placeholder: "Full name",
+  },
+  {
+    name: "email",
+    label: "Email address",
+    type: "email",
+    required: true,
+    half: true,
+    placeholder: "Email address",
+  },
+  {
+    name: "phone",
+    label: "Phone number",
+    type: "tel",
+    required: false,
+    half: true,
+    placeholder: "Phone number",
+  },
+  {
+    name: "company",
+    label: "Company",
+    type: "text",
+    required: false,
+    half: true,
+    placeholder: "Company",
+  },
+  {
+    name: "vehicles",
+    label: "Number of vehicles",
+    type: "text",
+    required: false,
+    half: false,
+    placeholder: "Number of vehicles",
+  },
+] as const;
 
 const TRUST = [
   {
-    title: '30–45 min demo', sub: 'Personalized to your needs',
-    icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></svg>,
+    title: "30–45 min demo",
+    sub: "Personalized to your needs",
+    icon: (
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.9"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <circle cx="12" cy="12" r="9" />
+        <path d="M12 7v5l3 2" />
+      </svg>
+    ),
   },
   {
-    title: 'No obligation', sub: 'Just expert guidance',
-    icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="17" rx="2.5" /><path d="M3 9h18M8 2v4M16 2v4" /></svg>,
+    title: "No obligation",
+    sub: "Just expert guidance",
+    icon: (
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.9"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <rect x="3" y="4" width="18" height="17" rx="2.5" />
+        <path d="M3 9h18M8 2v4M16 2v4" />
+      </svg>
+    ),
   },
   {
-    title: 'Secure & private', sub: 'Your data is protected',
-    icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8.5-7 10-4-1.5-7-5.5-7-10V6l7-3z" /><path d="m9 12 2 2 4-4" /></svg>,
+    title: "Secure & private",
+    sub: "Your data is protected",
+    icon: (
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.9"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d="M12 3l7 3v5c0 4.5-3 8.5-7 10-4-1.5-7-5.5-7-10V6l7-3z" />
+        <path d="m9 12 2 2 4-4" />
+      </svg>
+    ),
   },
   {
-    title: 'Expert support', sub: 'We’re here to help',
-    icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"><path d="M4 14v-2a8 8 0 0 1 16 0v2" /><rect x="2.5" y="13" width="4" height="6" rx="1.5" /><rect x="17.5" y="13" width="4" height="6" rx="1.5" /><path d="M20 19a4 4 0 0 1-4 3h-2" /></svg>,
+    title: "Expert support",
+    sub: "We’re here to help",
+    icon: (
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.9"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d="M4 14v-2a8 8 0 0 1 16 0v2" />
+        <rect x="2.5" y="13" width="4" height="6" rx="1.5" />
+        <rect x="17.5" y="13" width="4" height="6" rx="1.5" />
+        <path d="M20 19a4 4 0 0 1-4 3h-2" />
+      </svg>
+    ),
   },
-]
+];
 
-type Cell = { day: number; inMonth: boolean; date: Date }
+type Cell = { day: number; inMonth: boolean; date: Date };
 
 function buildGrid(year: number, month: number): Cell[] {
-  const startDow = new Date(year, month, 1).getDay()
-  const daysInMonth = new Date(year, month + 1, 0).getDate()
-  const prevDays = new Date(year, month, 0).getDate()
-  const cells: Cell[] = []
-  for (let i = startDow - 1; i >= 0; i--) cells.push({ day: prevDays - i, inMonth: false, date: new Date(year, month - 1, prevDays - i) })
-  for (let d = 1; d <= daysInMonth; d++) cells.push({ day: d, inMonth: true, date: new Date(year, month, d) })
-  let next = 1
-  while (cells.length < 42) { cells.push({ day: next, inMonth: false, date: new Date(year, month + 1, next) }); next++ }
-  return cells
-}
-
-function buildSlots(startHour: number, endHour: number, stepMin: number): string[] {
-  const out: string[] = []
-  for (let m = startHour * 60; m <= endHour * 60; m += stepMin) {
-    const h = Math.floor(m / 60)
-    const min = m % 60
-    const ampm = h >= 12 ? 'PM' : 'AM'
-    const hh = ((h + 11) % 12) + 1
-    out.push(`${hh}:${String(min).padStart(2, '0')} ${ampm}`)
+  const startDow = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const prevDays = new Date(year, month, 0).getDate();
+  const cells: Cell[] = [];
+  for (let i = startDow - 1; i >= 0; i--)
+    cells.push({
+      day: prevDays - i,
+      inMonth: false,
+      date: new Date(year, month - 1, prevDays - i),
+    });
+  for (let d = 1; d <= daysInMonth; d++)
+    cells.push({ day: d, inMonth: true, date: new Date(year, month, d) });
+  let next = 1;
+  while (cells.length < 42) {
+    cells.push({
+      day: next,
+      inMonth: false,
+      date: new Date(year, month + 1, next),
+    });
+    next++;
   }
-  return out
+  return cells;
 }
 
-const SLOTS = buildSlots(9, 17, 30)
+function buildSlots(
+  startHour: number,
+  endHour: number,
+  stepMin: number
+): string[] {
+  const out: string[] = [];
+  for (let m = startHour * 60; m <= endHour * 60; m += stepMin) {
+    const h = Math.floor(m / 60);
+    const min = m % 60;
+    const ampm = h >= 12 ? "PM" : "AM";
+    const hh = ((h + 11) % 12) + 1;
+    out.push(`${hh}:${String(min).padStart(2, "0")} ${ampm}`);
+  }
+  return out;
+}
 
-const startOfDay = (d: Date) => { const x = new Date(d); x.setHours(0, 0, 0, 0); return x }
-const addDays = (d: Date, n: number) => { const x = new Date(d); x.setDate(x.getDate() + n); return x }
-const sameDay = (a: Date, b: Date) => a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate()
-const keyOf = (d: Date) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
-const longLabel = (d: Date) => `${WEEKDAYS_LONG[d.getDay()]}, ${MONTHS_SHORT[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`
+const SLOTS = buildSlots(9, 17, 30);
+
+const startOfDay = (d: Date) => {
+  const x = new Date(d);
+  x.setHours(0, 0, 0, 0);
+  return x;
+};
+const addDays = (d: Date, n: number) => {
+  const x = new Date(d);
+  x.setDate(x.getDate() + n);
+  return x;
+};
+const sameDay = (a: Date, b: Date) =>
+  a.getFullYear() === b.getFullYear() &&
+  a.getMonth() === b.getMonth() &&
+  a.getDate() === b.getDate();
+const keyOf = (d: Date) =>
+  `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+const longLabel = (d: Date) =>
+  `${WEEKDAYS_LONG[d.getDay()]}, ${MONTHS_SHORT[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
 
 export default function DemoBooking() {
-  const [today, setToday] = useState<Date | null>(null)
-  const [view, setView] = useState<{ y: number; m: number } | null>(null)
-  const [windowStart, setWindowStart] = useState<Date | null>(null)
-  const [slot, setSlot] = useState<{ key: string; time: string } | null>(null)
-  const [sent, setSent] = useState(false)
-  const [confirmed, setConfirmed] = useState<{ date: string; time: string } | null>(null)
+  const [today, setToday] = useState<Date | null>(null);
+  const [view, setView] = useState<{ y: number; m: number } | null>(null);
+  const [windowStart, setWindowStart] = useState<Date | null>(null);
+  const [slot, setSlot] = useState<{ key: string; time: string } | null>(null);
+  const [confirmed, setConfirmed] = useState<{
+    date: string;
+    time: string;
+  } | null>(null);
+
+  const initialState: DemoFormState = { success: false };
+  const [state, formAction, isPending] = useActionState(
+    sendDemoEmail,
+    initialState
+  );
+  const [showSuccess, setShowSuccess] = useState(false);
+
+  console.log({ showSuccess, state });
 
   useEffect(() => {
-    const t = startOfDay(new Date())
-    setToday(t)
-    setView({ y: t.getFullYear(), m: t.getMonth() })
-    setWindowStart(t)
-  }, [])
-  
+    if (state.success) setShowSuccess(true);
+  }, [state]);
 
-  const grid = useMemo(() => (view ? buildGrid(view.y, view.m) : []), [view])
+  useEffect(() => {
+    const t = startOfDay(new Date());
+    setToday(t);
+    setView({ y: t.getFullYear(), m: t.getMonth() });
+    setWindowStart(t);
+  }, []);
 
-  const atCurrentMonth = today && view ? view.y === today.getFullYear() && view.m === today.getMonth() : true
-  const atFirstDay = today && windowStart ? sameDay(windowStart, today) : true
+  const grid = useMemo(() => (view ? buildGrid(view.y, view.m) : []), [view]);
+
+  const atCurrentMonth =
+    today && view
+      ? view.y === today.getFullYear() && view.m === today.getMonth()
+      : true;
+  const atFirstDay = today && windowStart ? sameDay(windowStart, today) : true;
 
   const selectDay = (d: Date) => {
-    setWindowStart(d)
-    setView({ y: d.getFullYear(), m: d.getMonth() })
-  }
+    setWindowStart(d);
+    setView({ y: d.getFullYear(), m: d.getMonth() });
+  };
 
   const goMonth = (delta: number) => {
     setView((v) => {
-      if (!v) return v
-      const d = new Date(v.y, v.m + delta, 1)
-      return { y: d.getFullYear(), m: d.getMonth() }
-    })
-  }
+      if (!v) return v;
+      const d = new Date(v.y, v.m + delta, 1);
+      return { y: d.getFullYear(), m: d.getMonth() };
+    });
+  };
 
-  const days = windowStart ? [windowStart, addDays(windowStart, 1)] : []
+  const days = windowStart ? [windowStart, addDays(windowStart, 1)] : [];
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    if (!slot) return
-    const fd = new FormData(e.currentTarget)
+    e.preventDefault();
+    if (!slot) return;
+    const fd = new FormData(e.currentTarget);
     const payload = {
-      name: String(fd.get('name') || ''),
-      email: String(fd.get('email') || ''),
-      phone: String(fd.get('phone') || ''),
-      company: String(fd.get('company') || ''),
-      vehicles: String(fd.get('vehicles') || ''),
-      message: String(fd.get('message') || ''),
+      name: String(fd.get("name") || ""),
+      email: String(fd.get("email") || ""),
+      phone: String(fd.get("phone") || ""),
+      company: String(fd.get("company") || ""),
+      vehicles: String(fd.get("vehicles") || ""),
+      message: String(fd.get("message") || ""),
       date: slot.key,
       time: slot.time,
-      timezone: 'GMT+04:00',
-    }
-    setConfirmed({ date: longLabel(new Date(`${payload.date}T00:00:00`)), time: payload.time })
-    setSent(true)
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
+      timezone: "GMT+04:00",
+    };
+    setConfirmed({
+      date: longLabel(new Date(`${payload.date}T00:00:00`)),
+      time: payload.time,
+    });
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   return (
     <section className="db-sec">
@@ -249,6 +422,20 @@ export default function DemoBooking() {
         .db-trust-ico svg { width: 19px; height: 19px; }
         .db-trust-t { margin: 0; font-size: var(--f-13-5); font-weight: 800; color: #1d1d1f; line-height: 1.2; }
         .db-trust-s { margin: 2px 0 0; font-size: var(--f-12); color: #6e6e73; }
+        .db-submit:disabled {
+        cursor: not-allowed;
+        }
+        .db-spinner {
+          width: 18px;
+          height: 18px;
+          border-radius: 50%;
+          border: 2.5px solid rgba(255,255,255,.35);
+          border-top-color: #fff;
+          animation: dbSpin 0.7s linear infinite;
+        }
+        @keyframes dbSpin {
+          to { transform: rotate(360deg); }
+        }
 
         @media (prefers-reduced-motion: reduce) { .db-check { animation: none; } }
       `}</style>
@@ -256,54 +443,172 @@ export default function DemoBooking() {
       <div className="db-shell">
         <div className="db-grid">
           <div className="db-card db-form-card">
-            {sent ? (
+            {showSuccess ? (
               <div className="db-success">
                 <div className="db-check">
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5" /></svg>
+                  <svg
+                    width="32"
+                    height="32"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M20 6 9 17l-5-5" />
+                  </svg>
                 </div>
                 <h2 className="db-title">Your demo is booked</h2>
                 {confirmed && (
                   <div className="db-confirm">
-                    We’ve reserved <b>{confirmed.time}</b> on <b>{confirmed.date}</b>. Our team will email you a
+                    We’ve reserved <b>{confirmed.time}</b> on{" "}
+                    <b>{confirmed.date}</b>. Our team will email you a
                     confirmation and calendar invite shortly.
                   </div>
                 )}
-                <button className="db-submit" style={{ width: 'auto', marginTop: 0 }} onClick={() => { setSent(false); setSlot(null) }}>Book another</button>
+                <button
+                  className="db-submit"
+                  style={{ width: "auto", marginTop: 0 }}
+                  onClick={() => {
+                    setShowSuccess(false);
+                    setSlot(null);
+                  }}
+                >
+                  Book another
+                </button>
               </div>
             ) : (
               <>
-                <span className="db-eyebrow"><span />Request a free demo</span>
+                <span className="db-eyebrow">
+                  <span />
+                  Request a free demo
+                </span>
                 <h2 className="db-title">Tell us about your fleet</h2>
-                <p className="db-sub">Share a few details and we’ll schedule a demo tailored to your operation.</p>
+                <p className="db-sub">
+                  Share a few details and we’ll schedule a demo tailored to your
+                  operation.
+                </p>
 
-                <form onSubmit={handleSubmit}>
+                <form action={formAction}>
                   <div className="db-fgrid">
                     {FIELDS.map((f) => (
-                      <div key={f.name} className={`db-field${f.half ? '' : ' full'}`}>
-                        <label className="db-label" htmlFor={`db-${f.name}`}>{f.label}{f.required && <b> *</b>}</label>
-                        <input id={`db-${f.name}`} className="db-input" type={f.type} name={f.name} required={f.required} placeholder={f.placeholder} />
+                      <div
+                        key={f.name}
+                        className={`db-field${f.half ? "" : " full"}`}
+                      >
+                        <label className="db-label" htmlFor={`db-${f.name}`}>
+                          {f.label}
+                          {f.required && <b> *</b>}
+                        </label>
+                        <input
+                          id={`db-${f.name}`}
+                          className="db-input"
+                          type={f.type}
+                          name={f.name}
+                          required={f.required}
+                          placeholder={f.placeholder}
+                        />
                       </div>
                     ))}
                     <div className="db-field full">
-                      <label className="db-label" htmlFor="db-message">Message <span style={{ color: '#aab0bd', fontWeight: 600 }}>(optional)</span></label>
-                      <textarea id="db-message" className="db-textarea" name="message" placeholder="Anything specific we should know?" />
+                      <label className="db-label" htmlFor="db-message">
+                        Message{" "}
+                        <span style={{ color: "#aab0bd", fontWeight: 600 }}>
+                          (optional)
+                        </span>
+                      </label>
+                      <textarea
+                        id="db-message"
+                        className="db-textarea"
+                        name="message"
+                        placeholder="Anything specific we should know?"
+                      />
                     </div>
+                    <input type="hidden" name="date" value={slot?.key ?? ""} />
+                    <input type="hidden" name="time" value={slot?.time ?? ""} />
+                    <input type="hidden" name="timezone" value="GMT+04:00" />
                   </div>
 
                   <p className="db-pick-hint">
                     {slot ? (
-                      <><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#1360ee" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5" /></svg>Selected <b>{slot.time}</b> on <b>{longLabel(new Date(`${slot.key}T00:00:00`))}</b></>
+                      <>
+                        <svg
+                          width="15"
+                          height="15"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="#1360ee"
+                          strokeWidth="2.4"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="M20 6 9 17l-5-5" />
+                        </svg>
+                        Selected <b>{slot.time}</b> on{" "}
+                        <b>{longLabel(new Date(`${slot.key}T00:00:00`))}</b>
+                      </>
                     ) : (
-                      <><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="9" /><path d="M12 8v4l2.5 1.5" /></svg>Pick a date and time from the scheduler</>
+                      <>
+                        <svg
+                          width="15"
+                          height="15"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <circle cx="12" cy="12" r="9" />
+                          <path d="M12 8v4l2.5 1.5" />
+                        </svg>
+                        Pick a date and time from the scheduler
+                      </>
                     )}
                   </p>
 
-                  <button type="submit" className="db-submit" disabled={!slot}>
-                    Get a Free Demo
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+                  <button
+                    type="submit"
+                    className="db-submit"
+                    disabled={!slot || isPending}
+                  >
+                    {isPending ? (
+                      <>
+                        <span className="db-spinner" aria-hidden="true" />
+                        Booking…
+                      </>
+                    ) : (
+                      <>
+                        Get a Free Demo
+                        <svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2.4"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="M5 12h14M13 6l6 6-6 6" />
+                        </svg>
+                      </>
+                    )}
                   </button>
                   <p className="db-safe">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8.5-7 10-4-1.5-7-5.5-7-10V6l7-3z" /></svg>
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M12 3l7 3v5c0 4.5-3 8.5-7 10-4-1.5-7-5.5-7-10V6l7-3z" />
+                    </svg>
                     Your information is safe with us.
                   </p>
                 </form>
@@ -314,11 +619,23 @@ export default function DemoBooking() {
           <div className="db-card db-sched-card">
             <div className="db-sched-head">
               <span className="db-sched-ico">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="17" rx="2.5" /><path d="M3 9h18M8 2v4M16 2v4" /></svg>
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.9"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <rect x="3" y="4" width="18" height="17" rx="2.5" />
+                  <path d="M3 9h18M8 2v4M16 2v4" />
+                </svg>
               </span>
               <div>
                 <h2 className="db-sched-h">Schedule your demo</h2>
-                <p className="db-sched-p">Select a date and time that works for you.</p>
+                <p className="db-sched-p">
+                  Select a date and time that works for you.
+                </p>
               </div>
             </div>
 
@@ -329,63 +646,164 @@ export default function DemoBooking() {
                 <>
                   <div>
                     <div className="db-cal-top">
-                      <span className="db-cal-month">{MONTHS_LONG[view.m]} {view.y}</span>
+                      <span className="db-cal-month">
+                        {MONTHS_LONG[view.m]} {view.y}
+                      </span>
                       <div className="db-cal-navs">
-                        <button type="button" className="db-nav" onClick={() => goMonth(-1)} disabled={atCurrentMonth} aria-label="Previous month">
-                          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="m15 6-6 6 6 6" /></svg>
+                        <button
+                          type="button"
+                          className="db-nav"
+                          onClick={() => goMonth(-1)}
+                          disabled={atCurrentMonth}
+                          aria-label="Previous month"
+                        >
+                          <svg
+                            width="15"
+                            height="15"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2.4"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          >
+                            <path d="m15 6-6 6 6 6" />
+                          </svg>
                         </button>
-                        <button type="button" className="db-nav" onClick={() => goMonth(1)} aria-label="Next month">
-                          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="m9 6 6 6-6 6" /></svg>
+                        <button
+                          type="button"
+                          className="db-nav"
+                          onClick={() => goMonth(1)}
+                          aria-label="Next month"
+                        >
+                          <svg
+                            width="15"
+                            height="15"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2.4"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          >
+                            <path d="m9 6 6 6-6 6" />
+                          </svg>
                         </button>
                       </div>
                     </div>
-                    <div className="db-dow">{DOW.map((d, i) => <span key={i}>{d}</span>)}</div>
+                    <div className="db-dow">
+                      {DOW.map((d, i) => (
+                        <span key={i}>{d}</span>
+                      ))}
+                    </div>
                     <div className="db-days">
                       {grid.map((c, i) => {
-                        const past = c.date < today
-                        const avail = c.inMonth && !past
-                        const isSel = sameDay(c.date, windowStart)
-                        const cls = ['db-day', !c.inMonth ? 'muted' : '', c.inMonth && past ? 'past' : '', avail && !isSel ? 'avail' : '', isSel ? 'selected' : ''].filter(Boolean).join(' ')
+                        const past = c.date < today;
+                        const avail = c.inMonth && !past;
+                        const isSel = sameDay(c.date, windowStart);
+                        const cls = [
+                          "db-day",
+                          !c.inMonth ? "muted" : "",
+                          c.inMonth && past ? "past" : "",
+                          avail && !isSel ? "avail" : "",
+                          isSel ? "selected" : "",
+                        ]
+                          .filter(Boolean)
+                          .join(" ");
                         return (
-                          <button key={i} type="button" className={cls} disabled={!avail} onClick={() => avail && selectDay(c.date)}>{c.day}</button>
-                        )
+                          <button
+                            key={i}
+                            type="button"
+                            className={cls}
+                            disabled={!avail}
+                            onClick={() => avail && selectDay(c.date)}
+                          >
+                            {c.day}
+                          </button>
+                        );
                       })}
                     </div>
-                    <div className="db-legend"><i />Available dates</div>
+                    <div className="db-legend">
+                      <i />
+                      Available dates
+                    </div>
                   </div>
 
                   <div className="db-times">
                     <p className="db-tz">(GMT+04:00) Gulf Standard Time</p>
                     <div className="db-daynav">
-                      <button type="button" className="db-nav prev" onClick={() => selectDay(addDays(windowStart, -1))} disabled={atFirstDay} aria-label="Previous day">
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="m15 6-6 6 6 6" /></svg>
+                      <button
+                        type="button"
+                        className="db-nav prev"
+                        onClick={() => selectDay(addDays(windowStart, -1))}
+                        disabled={atFirstDay}
+                        aria-label="Previous day"
+                      >
+                        <svg
+                          width="15"
+                          height="15"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2.4"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="m15 6-6 6 6 6" />
+                        </svg>
                       </button>
                       <div className="db-dayheads">
                         {days.map((d) => (
                           <div className="db-dayhead" key={keyOf(d)}>
-                            <div className="db-dayhead-wd">{WEEKDAYS_SHORT[d.getDay()]}</div>
+                            <div className="db-dayhead-wd">
+                              {WEEKDAYS_SHORT[d.getDay()]}
+                            </div>
                             <div className="db-dayhead-d">{d.getDate()}</div>
                           </div>
                         ))}
                       </div>
-                      <button type="button" className="db-nav next" onClick={() => selectDay(addDays(windowStart, 1))} aria-label="Next day">
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="m9 6 6 6-6 6" /></svg>
+                      <button
+                        type="button"
+                        className="db-nav next"
+                        onClick={() => selectDay(addDays(windowStart, 1))}
+                        aria-label="Next day"
+                      >
+                        <svg
+                          width="15"
+                          height="15"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2.4"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="m9 6 6 6-6 6" />
+                        </svg>
                       </button>
                     </div>
                     <div className="db-slots-wrap">
                       <div className="db-cols">
                         {days.map((d) => {
-                          const k = keyOf(d)
+                          const k = keyOf(d);
                           return (
                             <div className="db-col" key={k}>
                               {SLOTS.map((t) => {
-                                const active = slot && slot.key === k && slot.time === t
+                                const active =
+                                  slot && slot.key === k && slot.time === t;
                                 return (
-                                  <button key={t} type="button" className={`db-slot${active ? ' active' : ''}`} onClick={() => setSlot({ key: k, time: t })}>{t}</button>
-                                )
+                                  <button
+                                    key={t}
+                                    type="button"
+                                    className={`db-slot${active ? " active" : ""}`}
+                                    onClick={() => setSlot({ key: k, time: t })}
+                                  >
+                                    {t}
+                                  </button>
+                                );
                               })}
                             </div>
-                          )
+                          );
                         })}
                       </div>
                     </div>
@@ -409,5 +827,5 @@ export default function DemoBooking() {
         </div>
       </div>
     </section>
-  )
+  );
 }

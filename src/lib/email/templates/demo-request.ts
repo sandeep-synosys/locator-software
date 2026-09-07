@@ -5,8 +5,11 @@ export type DemoRequestData = {
   email: string;
   phone?: string;
   company?: string;
-  preferredDate?: string;
-  notes?: string;
+  vehicles?: string;
+  message?: string;
+  date: string;   // e.g. "2026-09-12"
+  time: string;   // e.g. "10:30 AM"
+  timezone: string;
 };
 
 export function demoRequestTemplate(data: DemoRequestData) {
@@ -17,8 +20,9 @@ export function demoRequestTemplate(data: DemoRequestData) {
       { label: "Email", value: data.email },
       { label: "Phone", value: data.phone || "—" },
       { label: "Company", value: data.company || "—" },
-      { label: "Preferred Date", value: data.preferredDate || "—" },
-      { label: "Notes", value: data.notes || "—" },
+      { label: "Vehicles", value: data.vehicles || "—" },
+      { label: "Requested Slot", value: `${data.time} on ${data.date} (${data.timezone})` },
+      { label: "Message", value: data.message || "—" },
     ],
   });
 }
