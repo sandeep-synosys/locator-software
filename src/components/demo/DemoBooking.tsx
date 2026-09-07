@@ -230,10 +230,6 @@ export default function DemoBooking() {
   const [view, setView] = useState<{ y: number; m: number } | null>(null);
   const [windowStart, setWindowStart] = useState<Date | null>(null);
   const [slot, setSlot] = useState<{ key: string; time: string } | null>(null);
-  const [confirmed, setConfirmed] = useState<{
-    date: string;
-    time: string;
-  } | null>(null);
 
   const initialState: DemoFormState = { success: false };
   const [state, formAction, isPending] = useActionState(
@@ -241,8 +237,6 @@ export default function DemoBooking() {
     initialState
   );
   const [showSuccess, setShowSuccess] = useState(false);
-
-  console.log({ showSuccess, state });
 
   useEffect(() => {
     if (state.success) setShowSuccess(true);
@@ -277,28 +271,6 @@ export default function DemoBooking() {
   };
 
   const days = windowStart ? [windowStart, addDays(windowStart, 1)] : [];
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!slot) return;
-    const fd = new FormData(e.currentTarget);
-    const payload = {
-      name: String(fd.get("name") || ""),
-      email: String(fd.get("email") || ""),
-      phone: String(fd.get("phone") || ""),
-      company: String(fd.get("company") || ""),
-      vehicles: String(fd.get("vehicles") || ""),
-      message: String(fd.get("message") || ""),
-      date: slot.key,
-      time: slot.time,
-      timezone: "GMT+04:00",
-    };
-    setConfirmed({
-      date: longLabel(new Date(`${payload.date}T00:00:00`)),
-      time: payload.time,
-    });
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
 
   return (
     <section className="db-sec">
@@ -460,11 +432,12 @@ export default function DemoBooking() {
                   </svg>
                 </div>
                 <h2 className="db-title">Your demo is booked</h2>
-                {confirmed && (
+                {state.bookedDate && state.bookedTime && (
                   <div className="db-confirm">
-                    We’ve reserved <b>{confirmed.time}</b> on{" "}
-                    <b>{confirmed.date}</b>. Our team will email you a
-                    confirmation and calendar invite shortly.
+                    We've reserved <b>{state.bookedTime}</b> on{" "}
+                    <b>{longLabel(new Date(`${state.bookedDate}T00:00:00`))}</b>
+                    . Our team will email you a confirmation and calendar invite
+                    shortly.
                   </div>
                 )}
                 <button
