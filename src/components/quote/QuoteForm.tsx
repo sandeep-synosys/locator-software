@@ -239,8 +239,6 @@ export default function QuoteForm() {
     initialState
   );
 
-  console.log(state, showSuccess)
-
   // Particles for a connector only start once THAT segment's beam has drawn
   // in — otherwise, with a 1.5s gap between steps, you'd see step 3's
   // particles already flowing before step 3 has even appeared.
