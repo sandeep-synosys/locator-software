@@ -3,8 +3,8 @@ import ScrollReveal from '@/components/software/ScrollReveal'
 import CarGpsHero from '@/components/service/car-gps-tracker/CarGpsHero'
 import CarGpsOffers from '@/components/service/car-gps-tracker/CarGpsOffers'
 import CarGpsAbout from '@/components/service/car-gps-tracker/CarGpsAbout'
-import TestimonialCarousel from '@/components/TestimonialCarousel'
-import { LOCATOR_TESTIMONIALS } from '@/components/service/serviceTestimonials'
+import TestimonialCarousel from '@/components/TestimonialCarousel/TestimonialCarousel'
+import { TESTIMONIAL_DATA } from '@/components/TestimonialCarousel/testimonial-data'
 import ServiceVideo from '@/components/service/ServiceVideo'
 import ServiceUseCases from '@/components/service/ServiceUseCases'
 import DeviceCarousel from '@/components/service/tracking-devices/DeviceCarousel'
@@ -36,7 +36,7 @@ export default function CarGpsTrackerPage() {
       <WhoWeAreNumbers />
       <CarGpsAbout />
       <TestimonialCarousel
-        testimonials={LOCATOR_TESTIMONIALS}
+        testimonials={TESTIMONIAL_DATA}
         heading="What Our Clients Say"
         subheading="Real feedback from UAE businesses using the LOCATOR car GPS tracker for vehicles and fleets."
       />

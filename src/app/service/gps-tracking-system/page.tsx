@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import ScrollReveal from '@/components/software/ScrollReveal'
 import GpsTrackingHero from '@/components/service/gps-tracking-system/GpsTrackingHero'
 import LogoMarquee from '@/components/Logomarquee'
-import TestimonialCarousel from '@/components/TestimonialCarousel'
-import { LOCATOR_TESTIMONIALS } from '@/components/service/serviceTestimonials'
+import TestimonialCarousel from '@/components/TestimonialCarousel/TestimonialCarousel'
+import { TESTIMONIAL_DATA } from '@/components/TestimonialCarousel/testimonial-data'
 import GpsTrackingLaptop from '@/components/service/gps-tracking-system/GpsTrackingLaptop'
 import GpsTrackingWhy from '@/components/service/gps-tracking-system/GpsTrackingWhy'
 import ServiceAppScreens from '@/components/service/ServiceAppScreens'
@@ -35,7 +35,7 @@ export default function GpsTrackingSystemPage() {
       <GpsTrackingHero />
       <LogoMarquee />
       <TestimonialCarousel
-        testimonials={LOCATOR_TESTIMONIALS}
+        testimonials={TESTIMONIAL_DATA}
         heading="What Our Clients Say"
         subheading="Real feedback from UAE businesses using the LOCATOR GPS tracking system for vehicles and fleets."
       />
