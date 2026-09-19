@@ -3,8 +3,8 @@ import ScrollReveal from '@/components/software/ScrollReveal'
 import GpsTrackerHero from '@/components/service/gps-tracker/GpsTrackerHero'
 import GpsTrackerData from '@/components/service/gps-tracker/GpsTrackerData'
 import GpsTrackerWhy from '@/components/service/gps-tracker/GpsTrackerWhy'
-import TestimonialCarousel from '@/components/TestimonialCarousel'
-import { LOCATOR_TESTIMONIALS } from '@/components/service/serviceTestimonials'
+import TestimonialCarousel from '@/components/TestimonialCarousel/TestimonialCarousel'
+import { TESTIMONIAL_DATA } from '@/components/TestimonialCarousel/testimonial-data'
 import ServiceAppScreens from '@/components/service/ServiceAppScreens'
 import ServiceUseCases from '@/components/service/ServiceUseCases'
 import ServiceVideo from '@/components/service/ServiceVideo'
@@ -37,7 +37,7 @@ export default function GpsTrackerPage() {
       <WhoWeAreNumbers />
       <GpsTrackerWhy />
       <TestimonialCarousel
-        testimonials={LOCATOR_TESTIMONIALS}
+        testimonials={TESTIMONIAL_DATA}
         heading="What Our Clients Say"
         subheading="Real feedback from UAE businesses using the LOCATOR GPS tracker for vehicles, fleets, and assets."
       />

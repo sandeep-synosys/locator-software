@@ -5,8 +5,8 @@ import LogoMarquee from '@/components/Logomarquee'
 import CarTrackerStats from '@/components/service/car-tracker/CarTrackerStats'
 import ServiceWhyChoose from '@/components/service/ServiceWhyChoose'
 import CarTrackerFeatures from '@/components/service/car-tracker/CarTrackerFeatures'
-import TestimonialCarousel from '@/components/TestimonialCarousel'
-import { LOCATOR_TESTIMONIALS } from '@/components/service/serviceTestimonials'
+import TestimonialCarousel from '@/components/TestimonialCarousel/TestimonialCarousel'
+import { TESTIMONIAL_DATA } from '@/components/TestimonialCarousel/testimonial-data'
 import ServiceVideo from '@/components/service/ServiceVideo'
 import ServiceUseCases from '@/components/service/ServiceUseCases'
 import DeviceCarousel from '@/components/service/tracking-devices/DeviceCarousel'
@@ -40,7 +40,7 @@ export default function CarTrackerPage() {
       <ServiceWhyChoose />
       <CarTrackerFeatures />
       <TestimonialCarousel
-        testimonials={LOCATOR_TESTIMONIALS}
+        testimonials={TESTIMONIAL_DATA}
         heading="What Our Clients Say"
         subheading="Real feedback from UAE businesses using the LOCATOR car tracker app for vehicles, fleets, and drivers."
       />

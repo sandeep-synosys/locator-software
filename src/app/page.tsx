@@ -13,7 +13,7 @@ import Footer from "@/components/layouts/Footer";
 // defer their client JS into separate chunks. SSR stays ON — the HTML is still
 // server-rendered, so there is no pop-in, layout shift, or visual change.
 const TestimonialCarousel = dynamic(
-  () => import("@/components/TestimonialCarousel"),
+  () => import("@/components/TestimonialCarousel/TestimonialCarousel"),
 );
 const LogoMarquee = dynamic(() => import("@/components/Logomarquee"));
 const BlogSection = dynamic(() => import("@/components/BlogSection"));
