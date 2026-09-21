@@ -413,6 +413,7 @@ export type SocialPost = {
   time: string
   text: string
   image: string
+  type: 'video' | 'image' | 'carousel'
   /** Engagement counts rendered in the reaction bar. */
   likes: number
   comments: number
@@ -437,6 +438,7 @@ export const SOCIAL_POSTS: SocialPost[] = [
     likes: 1240,
     comments: 62,
     reposts: 18,
+    type: 'image',
     href: 'https://www.instagram.com/p/DdikipqNRBq/?stkn=MW50ODhsOHN1OWNudQ%3D%3D',
   },
   {
@@ -450,20 +452,22 @@ export const SOCIAL_POSTS: SocialPost[] = [
     likes: 1470,
     comments: 88,
     reposts: 204,
+    type: 'image',
     href: '#',
   },
   {
     id: 's9',
     network: 'linkedin',
     handle: 'Locator',
-    subtitle: '18,420 followers',
+    subtitle: '18,90 followers',
     time: '2d',
-    text: 'We installed our 10,000th unit this month.\n\nWhat that number actually represents: 900+ fleets, 14 industries, and an installation team that now covers Dubai, Abu Dhabi and Riyadh from the ground.\n\nThank you to every operator who trusted us early.',
-    image: '/services/public-and-gov.webp',
+    text: '📍 GPS showing the wrong location? \n\nYour device may not be broken. Temporary signal interference may affect updates. Our team is monitoring the situation. We wish everyone safety during this time.',
+    image: '/newsroom/social/linkedin/linkedin-post-3.jpg',
     likes: 1310,
     comments: 96,
     reposts: 133,
-    href: '#',
+    type: 'image',
+    href: 'https://www.linkedin.com/posts/locatormedia_gps-showing-the-wrong-location-your-device-activity-7436673272894758912-LJLr/?utm_source=social_share_send&utm_medium=android_app&rcm=ACoAACmPmNAB089clJh72tsQ6KEag52o6SLp5oc&utm_campaign=whatsapp',
   },
   {
     id: 's7',
@@ -476,7 +480,22 @@ export const SOCIAL_POSTS: SocialPost[] = [
     likes: 986,
     comments: 44,
     reposts: 12,
+    type: 'image',
     href: 'https://www.instagram.com/p/DMR4f38xYSt/?stkn=b3I0ejNxcHRpcWU=',
+  },
+  {
+    id: 's15',
+    network: 'linkedin',
+    handle: 'Locator',
+    subtitle: '18,90 followers',
+    time: '4d',
+    text: 'Behind every smile 😊 , someone is making it happen. \n#LocatorUAE #FleetManagement #SmartMobility #DubaiBusiness #UAEBusiness',
+    image: 'https://dms.licdn.com/playlist/vid/v2/D4E05AQEpmWB-A77eAQ/thumbnail-shrink_720_1280/B4EaCueYQOH4Ao-/0/1789633596979?e=1790596800&v=beta&t=lgDnWyvizU4uDg3c9pvBl0JXcaU7Pkw-G9lcdrT0P2A&quot;',
+    likes: 356,
+    comments: 19,
+    reposts: 47,
+    type: 'video',
+    href: 'https://www.linkedin.com/posts/locatormedia_behind-every-smile-someone-is-making-it-activity-7506267449454051328-KZkX/?utm_source=social_share_send&utm_medium=android_app&rcm=ACoAACmPmNAB089clJh72tsQ6KEag52o6SLp5oc&utm_campaign=whatsapp',
   },
   {
     id: 's10',
@@ -489,6 +508,7 @@ export const SOCIAL_POSTS: SocialPost[] = [
     likes: 2240,
     comments: 137,
     reposts: 318,
+    type: 'image',
     href: '#',
   },
   {
@@ -502,6 +522,7 @@ export const SOCIAL_POSTS: SocialPost[] = [
     likes: 1105,
     comments: 51,
     reposts: 22,
+    type: 'image',
     href: 'https://www.instagram.com/p/DMW_DsARvtw/?stkn=MjQ3YTJhc2dmZ3Yw',
   },
 
@@ -511,12 +532,13 @@ export const SOCIAL_POSTS: SocialPost[] = [
     handle: 'Locator',
     subtitle: '18,420 followers',
     time: '5h',
-    text: 'AI is changing how fleets operate in 2026.\n\nOur VP of Product breaks down what actually moves the needle — and what is just noise. Three things we keep seeing across the 900+ fleets on our platform:\n\n1. Predictive maintenance beats scheduled maintenance, but only once you have 6+ months of engine-hour data.\n2. Driver scores change nothing on their own. The coaching loop is the product.\n3. Route optimisation savings mostly come from fewer failed deliveries, not shorter distance.\n\nFull breakdown in the comments. 👇',
-    image: '/newsroom/graphical-report.png',
+    text: '🤝It’s our privilege to be a Platinum Partner of Teltonika, a world-leading hashtag#IoT and hashtag#telematics hardware manufacturer.\nTogether we grow, delivering smarter and more connected fleet solutions across the UAE.\n\n #Locator #Teltonika #IoT #Telematics #TogetherWeGrow #FleetTracking #UAE #locatoruae #synosys',
+    image: '/newsroom/social/linkedin/linkedin-post-1.jpg',
     likes: 428,
     comments: 37,
     reposts: 51,
-    href: '#',
+    type: 'image',
+    href: 'https://www.linkedin.com/posts/locatormedia_iot-telematics-locator-activity-7386323318154571776-DBDc/?utm_source=social_share_send&utm_medium=android_app&rcm=ACoAACmPmNAB089clJh72tsQ6KEag52o6SLp5oc&utm_campaign=whatsapp',
   },
   {
     id: 's1',
@@ -529,6 +551,7 @@ export const SOCIAL_POSTS: SocialPost[] = [
     likes: 1240,
     comments: 62,
     reposts: 18,
+    type: 'image',
     href: 'https://www.instagram.com/p/DMZdmnMOLEc/?stkn=MWFna2JwYm1rdndvaQ%3D%3D',
   },
   {
@@ -542,7 +565,22 @@ export const SOCIAL_POSTS: SocialPost[] = [
     likes: 892,
     comments: 41,
     reposts: 24,
+    type: 'image',
     href: '#',
+  },
+  {
+    id: 's16',
+    network: 'linkedin',
+    handle: 'Locator',
+    subtitle: '18,420 followers',
+    time: '3d',
+    text: 'Every smart route adds to your savings. 💰 \nTrack smarter. Route better. Save more. \n\n #Locator #FleetManagement #GPS #FuelSavings #SmartMobility #UAE',
+    image: '/newsroom/social/linkedin/linkedin-post-4.jpg',
+    likes: 428,
+    comments: 37,
+    reposts: 51,
+    type: 'image',
+    href: 'https://www.linkedin.com/posts/locatormedia_locator-fleetmanagement-gps-activity-7506365494124474368-Spl9/?utm_source=social_share_send&utm_medium=android_app&rcm=ACoAACmPmNAB089clJh72tsQ6KEag52o6SLp5oc&utm_campaign=whatsapp',
   },
   {
     id: 's3',
@@ -555,6 +593,7 @@ export const SOCIAL_POSTS: SocialPost[] = [
     likes: 604,
     comments: 28,
     reposts: 33,
+    type: 'image',
     href: '#',
   },
   {
@@ -568,6 +607,7 @@ export const SOCIAL_POSTS: SocialPost[] = [
     likes: 1240,
     comments: 62,
     reposts: 18,
+    type: 'image',
     href: 'https://www.instagram.com/p/DQELheVkQ4K/?stkn=MXZ1bXIyNXJuZ2Jzbw%3D%3D',
   },
   {
@@ -581,20 +621,22 @@ export const SOCIAL_POSTS: SocialPost[] = [
     likes: 2130,
     comments: 94,
     reposts: 312,
+    type: 'image',
     href: '#',
   },
   {
     id: 's6',
     network: 'linkedin',
     handle: 'Locator',
-    subtitle: '18,420 followers',
+    subtitle: '18,90 followers',
     time: '4d',
-    text: 'We are hiring GPS field technicians across the UAE and KSA.\n\nIf you have hands-on vehicle electrical experience and want to work on connected fleets rather than one-off installs, we would like to talk. Riyadh, Dubai, and Abu Dhabi.',
-    image: '/newsroom/facility-management-fleet.webp',
+    text: 'Teltonika Middle East Summit 2025! 🚀\nThe event brought together telematics and IoT leaders to discuss the future of connected mobility. Locator’s long-term partnership with Teltonika Telematics continues to drive innovation in GPS tracking and fleet management across the UAE. \nOur CEO Shams OP represented Locator UAE at the summit, engaging with industry experts on advancing smarter, more reliable fleet solutions. 🌍✨ \n\n#TeltonikaSummit2025 #Telematics #GPS #Innovation #Locator #UAE #FleetManagement',
+    image: '/newsroom/social/linkedin/linkedin-post-2-1.jpg',
     likes: 356,
     comments: 19,
     reposts: 47,
-    href: '#',
+    type: 'image',
+    href: 'https://www.linkedin.com/posts/locatormedia_teltonikasummit2025-telematics-gps-activity-7390389182529191936-vU2X/?utm_source=social_share_send&utm_medium=android_app&rcm=ACoAACmPmNAB089clJh72tsQ6KEag52o6SLp5oc&utm_campaign=whatsapp',
   },
   {
     id: 's13',
@@ -607,6 +649,7 @@ export const SOCIAL_POSTS: SocialPost[] = [
     likes: 1240,
     comments: 62,
     reposts: 18,
+    type: 'image',
     href: 'https://www.instagram.com/p/DVp7jnlGZT8/?stkn=MTIwdGczMHJwMWg5eQ%3D%3D',
   },
 ]

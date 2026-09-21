@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, type ReactNode } from 'react'
-import Image from 'next/image'
+// import Image from 'next/image'
 import type { SocialPost } from './newsroom-data'
 
 const EASE = 'cubic-bezier(.22,.61,.36,1)'
@@ -118,8 +118,13 @@ export default function SocialCard({ post, clampAt = CLAMP_AT }: { post: SocialP
           background: rgba(230,57,70,.95); color: #fff; box-shadow: 0 8px 24px rgba(0,0,0,.4);
           transition: transform .2s ${EASE};
         }
+        .nsc-play-general{
+          position: absolute; inset: 0; margin: auto; z-index: 2;
+          width: 62px; height: 44px; border-radius: 11px; display: grid; place-items: center;
+          transition: transform .2s ${EASE};
+        }
         .nsc-media:hover .nsc-play { transform: scale(1.08); }
-
+        .nsc-media:hover .nsc-play-general { transform: scale(1.08); }
         /* ── Reaction counts ── */
         .nsc-counts {
           display: flex; align-items: center; gap: 6px;
@@ -195,11 +200,21 @@ export default function SocialCard({ post, clampAt = CLAMP_AT }: { post: SocialP
 
       <a className="nsc-media" href={post.href} target="_blank" rel="noopener noreferrer">
         {/* <Image src={post.image} alt="" fill sizes="(max-width: 1040px) 100vw, 700px" /> */}
-          <img
-            src={post.image}
-            alt=""
-            className="nsc-image"
-          />
+        <img
+          src={post.image}
+          alt=""
+          className="nsc-image"
+        />
+          {post.type === 'video' && (
+            <span className="nsc-play-general">
+              <svg xmlns="http://www.w3.org/2000/svg" height="60px" width="60px" version="1.1" viewBox="0 0 512 512" enableBackground="new 0 0 512 512" fill="#ffffff" stroke="#ffffff">
+                <g id="SVGRepo_bgCarrier" strokeWidth="0"/>
+                <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"/>
+                <g id="SVGRepo_iconCarrier"> <g> <g fill="#ffffff"> <path d="m354.2,247.4l-135.1-92.4c-4.2-3.1-15.4-3.1-16.3,8.6v184.8c1,11.7 12.4,11.9 16.3,8.6l135.1-92.4c3.5-2.1 8.3-10.7 0-17.2zm-130.5,81.3v-145.4l106.1,72.7-106.1,72.7z"/> <path d="M256,11C120.9,11,11,120.9,11,256s109.9,245,245,245s245-109.9,245-245S391.1,11,256,11z M256,480.1 C132.4,480.1,31.9,379.6,31.9,256S132.4,31.9,256,31.9S480.1,132.4,480.1,256S379.6,480.1,256,480.1z"/> </g> </g> </g>
+                </svg>
+            </span>
+          )}
+
         {post.network === 'youtube' && (
           <span className="nsc-play">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7L8 5Z" /></svg>
