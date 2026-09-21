@@ -99,8 +99,19 @@ export default function SocialCard({ post, clampAt = CLAMP_AT }: { post: SocialP
         }
         .nsc-more:hover { color: #1360ee; text-decoration: underline; }
 
-        .nsc-media { position: relative; display: block; aspect-ratio: 16 / 10; background: #0b1220; overflow: hidden; }
-        .nsc-media img { object-fit: cover; }
+        .nsc-media {
+          position: relative;
+          display: block;
+          width: 100%;
+          overflow: hidden;
+          background: #fff;
+        }
+
+        .nsc-image {
+          display: block;
+          width: 100%;
+          height: auto;
+        }
         .nsc-play {
           position: absolute; inset: 0; margin: auto; z-index: 2;
           width: 62px; height: 44px; border-radius: 11px; display: grid; place-items: center;
@@ -183,7 +194,12 @@ export default function SocialCard({ post, clampAt = CLAMP_AT }: { post: SocialP
       </p>
 
       <a className="nsc-media" href={post.href} target="_blank" rel="noopener noreferrer">
-        <Image src={post.image} alt="" fill sizes="(max-width: 1040px) 100vw, 700px" />
+        {/* <Image src={post.image} alt="" fill sizes="(max-width: 1040px) 100vw, 700px" /> */}
+          <img
+            src={post.image}
+            alt=""
+            className="nsc-image"
+          />
         {post.network === 'youtube' && (
           <span className="nsc-play">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7L8 5Z" /></svg>
