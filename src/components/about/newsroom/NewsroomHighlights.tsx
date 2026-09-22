@@ -433,7 +433,10 @@ export default function NewsroomHighlights() {
           transition: opacity .6s ${EASE}, transform .6s ${EASE};
         }
         .nrx-slide.is-on { opacity: 1; transform: none; }
-        .nrx-slide > * { height: 100%; }
+        // .nrx-slide > * { height: 100%; }
+        .nrx-slide > * {
+          height: auto;
+        }
 
         @media (max-width: 1000px) {
           /* Stacked, the column is far wider, so a tighter slide keeps the
@@ -542,8 +545,8 @@ export default function NewsroomHighlights() {
                   >
                     {/* Shorter than the feed's default 210: this column is about
                         a third the width, so the same string ran far longer. */}
-                    <SocialCard post={p} clampAt={135} />
-                  </div>
+                    <SocialCard post={p}/>
+                  </div> 
                 ))}
               </div>
               <div className="nrx-tabs">

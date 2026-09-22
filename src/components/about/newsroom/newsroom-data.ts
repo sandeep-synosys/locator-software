@@ -448,7 +448,7 @@ export const SOCIAL_POSTS: SocialPost[] = [
     subtitle: '@locator_ae',
     time: '6h',
     text: 'Shipped today: geofence dwell alerts now fire on exit as well as entry, so you catch the trailer that left early — not just the one that arrived late.',
-    image: '/software/hero-phone/mobile-notifications.png',
+    image: '/newsroom/social/instapost-6.heic',
     likes: 1470,
     comments: 88,
     reposts: 204,

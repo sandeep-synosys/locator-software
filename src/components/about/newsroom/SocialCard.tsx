@@ -1,13 +1,11 @@
 'use client'
 
-import { useState, type ReactNode } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react'
 // import Image from 'next/image'
 import type { SocialPost } from './newsroom-data'
-
 const EASE = 'cubic-bezier(.22,.61,.36,1)'
 
 /** Text longer than this collapses behind a "…see more" toggle, like the real feed. */
-const CLAMP_AT = 210
 
 const NETWORK: Record<SocialPost['network'], { label: string; color: string; icon: ReactNode }> = {
   linkedin: {
@@ -48,6 +46,74 @@ const ACTION_ICON = {
   send: <path d="m22 2-7 20-4-9-9-4 20-7Z" />,
 }
 
+function getTextPreview(
+  text: string,
+  element: HTMLElement,
+  maxLines: number
+) {
+  const style = window.getComputedStyle(element)
+
+  const measure = document.createElement('span')
+
+  measure.style.position = 'absolute'
+  measure.style.visibility = 'hidden'
+  measure.style.pointerEvents = 'none'
+  measure.style.width = `${element.clientWidth}px`
+  measure.style.font = style.font
+  measure.style.fontSize = style.fontSize
+  measure.style.fontFamily = style.fontFamily
+  measure.style.fontWeight = style.fontWeight
+  measure.style.letterSpacing = style.letterSpacing
+  measure.style.lineHeight = style.lineHeight
+  measure.style.whiteSpace = 'pre-line'
+  measure.style.wordBreak = style.wordBreak
+  measure.style.overflowWrap = style.overflowWrap
+
+  document.body.appendChild(measure)
+
+  const lineHeight = parseFloat(style.lineHeight)
+  const maxHeight = lineHeight * maxLines
+
+  const suffix = '...more'
+
+  const fits = (value: string) => {
+    measure.textContent = value + suffix
+    return measure.getBoundingClientRect().height <= maxHeight + 0.5
+  }
+
+  if (fits(text)) {
+    measure.remove()
+
+    return {
+      text,
+      truncated: false,
+    }
+  }
+
+  let low = 0
+  let high = text.length
+
+  while (low < high) {
+    const middle = Math.ceil((low + high) / 2)
+
+    if (fits(text.slice(0, middle).trimEnd())) {
+      low = middle
+    } else {
+      high = middle - 1
+    }
+  }
+
+  const preview = text.slice(0, low).trimEnd()
+
+  measure.remove()
+
+  return {
+    text: preview,
+    truncated: true,
+  }
+}
+
+
 /**
  * `clampAt` lets a narrow host ask for a shorter excerpt. The highlights rail
  * runs these cards in a ~330px column where the default 210 characters spill
@@ -55,12 +121,32 @@ const ACTION_ICON = {
  * rather than with a CSS line-clamp keeps the "see more" toggle meaningful —
  * a CSS clamp hides text the component still thinks it is showing.
  */
-export default function SocialCard({ post, clampAt = CLAMP_AT }: { post: SocialPost; clampAt?: number }) {
+export default function SocialCard({ post }: { post: SocialPost }) {
   const net = NETWORK[post.network]
-  const [expanded, setExpanded] = useState(false)
-  const long = post.text.length > clampAt
-  const shown = long && !expanded ? `${post.text.slice(0, clampAt).trimEnd()}…` : post.text
+  const textRef = useRef<HTMLParagraphElement>(null)
 
+  const [preview, setPreview] = useState({
+    text: post.text,
+    truncated: false,
+  })
+
+  useLayoutEffect(() => {
+    const element = textRef.current
+
+    if (!element) return
+
+    const calculate = () => {
+      const result = getTextPreview(post.text, element, 4)
+      setPreview(result)
+    }
+
+    calculate()
+
+    const observer = new ResizeObserver(calculate)
+    observer.observe(element)
+
+    return () => observer.disconnect()
+  }, [post.text])
   return (
     <article className="nsc">
       <style href="nr-socialcard" precedence="medium">{`
@@ -89,29 +175,47 @@ export default function SocialCard({ post, clampAt = CLAMP_AT }: { post: SocialP
         .nsc-follow:hover { background: rgba(19,96,238,.08); }
 
         /* ── Body ── */
-        .nsc-text {
-          margin: 11px 0 0; padding: 0 16px 12px;
-          font-size: var(--f-14); line-height: 1.5; color: #1b2433; white-space: pre-line;
+        .nsc-text-wrap {
+          margin: 11px 0 0;
+          padding: 0 16px 12px;
         }
-        .nsc-more {
-          border: 0; background: transparent; padding: 0; cursor: pointer; font-family: inherit;
-          font-size: var(--f-14); color: #8b93a3;
-        }
-        .nsc-more:hover { color: #1360ee; text-decoration: underline; }
 
+        .nsc-text {
+          margin: 0;
+          font-size: var(--f-14);
+          line-height: 1.5;
+          color: #1b2433;
+          white-space: pre-line;
+        }
+
+        .nsc-more {
+          font-size: var(--f-14);
+          line-height: 1.5;
+          color: #8b93a3;
+          text-decoration: none;
+          cursor: pointer;
+          white-space: nowrap;
+        }
+
+        .nsc-more:hover {
+          color: #1360ee;
+          text-decoration: underline;
+        }
+        
         .nsc-media {
-          position: relative;
-          display: block;
-          width: 100%;
-          overflow: hidden;
-          background: #fff;
+          aspect-ratio: 4 / 3;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: #f5f5f5;
         }
 
         .nsc-image {
-          display: block;
           width: 100%;
-          height: auto;
+          height: 100%;
+          object-fit: contain;
         }
+
         .nsc-play {
           position: absolute; inset: 0; margin: auto; z-index: 2;
           width: 62px; height: 44px; border-radius: 11px; display: grid; place-items: center;
@@ -186,17 +290,25 @@ export default function SocialCard({ post, clampAt = CLAMP_AT }: { post: SocialP
         </a>
       </header>
 
-      <p className="nsc-text">
-        {shown}
-        {long && !expanded && (
-          <>
-            {' '}
-            <button type="button" className="nsc-more" onClick={() => setExpanded(true)}>
-              see more
-            </button>
-          </>
-        )}
-      </p>
+      <div className="nsc-text-wrap">
+        <p ref={textRef} className="nsc-text">
+          {preview.text}
+
+          {preview.truncated && (
+            <>
+              {' '}
+              <a
+                className="nsc-more"
+                href={post.href}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                ...more
+              </a>
+            </>
+          )}
+        </p>
+      </div>
 
       <a className="nsc-media" href={post.href} target="_blank" rel="noopener noreferrer">
         {/* <Image src={post.image} alt="" fill sizes="(max-width: 1040px) 100vw, 700px" /> */}
