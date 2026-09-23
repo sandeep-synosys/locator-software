@@ -411,13 +411,6 @@ export default function SocialCard({
       box-shadow: 0 8px 24px rgba(0, 0, 0, .4);
     }
 
-    .nsc-play-general {
-      background: rgba(11, 18, 32, .72);
-      color: #fff;
-
-      box-shadow: 0 8px 24px rgba(0, 0, 0, .28);
-    }
-
     .nsc-media:hover .nsc-play,
     .nsc-media:hover .nsc-play-general {
       transform: scale(1.08);
@@ -733,7 +726,7 @@ export default function SocialCard({
           }}
         />
 
-        {post.type === 'video' && (
+        {post.type === 'video' && post.network !== 'youtube' && (
           <span className="nsc-play-general">
             <svg
               xmlns="http://www.w3.org/2000/svg"
