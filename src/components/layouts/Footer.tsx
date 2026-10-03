@@ -576,7 +576,7 @@ export default function Footer() {
             <span>
               Copyright 2026{" "}
               <a
-                href="https://aryzetech.com"
+                href="https://synosys.ai/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="footer-textlink"
