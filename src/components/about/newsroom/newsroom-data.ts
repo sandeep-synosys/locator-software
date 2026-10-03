@@ -490,7 +490,7 @@ export const SOCIAL_POSTS: SocialPost[] = [
     subtitle: '18,90 followers',
     time: '4d',
     text: 'Behind every smile 😊 , someone is making it happen. \n#LocatorUAE #FleetManagement #SmartMobility #DubaiBusiness #UAEBusiness',
-    image: 'https://dms.licdn.com/playlist/vid/v2/D4E05AQEpmWB-A77eAQ/thumbnail-shrink_720_1280/B4EaCueYQOH4Ao-/0/1789633596979?e=1790596800&v=beta&t=lgDnWyvizU4uDg3c9pvBl0JXcaU7Pkw-G9lcdrT0P2A&quot;',
+    image: '/newsroom/social/linkedin/linkedin-post-5.webp',
     likes: 356,
     comments: 19,
     reposts: 47,
