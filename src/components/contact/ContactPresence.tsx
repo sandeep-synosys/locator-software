@@ -49,18 +49,19 @@ const MARKETS: Market[] = [
     cta: 'Call this office',
     href: 'tel:+917306550767',
   },
-  { country: 'Saudi Arabia', flag: '/flags/saudi-arabia.svg', live: false, cta: 'Stay Tuned', href: '#contact-form' },
-  { country: 'Qatar',        flag: '/flags/qatar.svg',        live: false, cta: 'Stay Tuned', href: '#contact-form' },
-  { country: 'Oman',         flag: '/flags/oman.svg',         live: false, cta: 'Stay Tuned', href: '#contact-form' },
-  { country: 'Kuwait',       flag: '/flags/kuwait.svg',       live: false, cta: 'Stay Tuned', href: '#contact-form' },
-  { country: 'Bahrain',      flag: '/flags/bahrain.svg',      live: false, cta: 'Stay Tuned', href: '#contact-form' },
+  // { country: 'Saudi Arabia', flag: '/flags/saudi-arabia.svg', live: false, cta: 'Stay Tuned', href: '#contact-form' },
+  // { country: 'Qatar',        flag: '/flags/qatar.svg',        live: false, cta: 'Stay Tuned', href: '#contact-form' },
+  // { country: 'Oman',         flag: '/flags/oman.svg',         live: false, cta: 'Stay Tuned', href: '#contact-form' },
+  // { country: 'Kuwait',       flag: '/flags/kuwait.svg',       live: false, cta: 'Stay Tuned', href: '#contact-form' },
+  // { country: 'Bahrain',      flag: '/flags/bahrain.svg',      live: false, cta: 'Stay Tuned', href: '#contact-form' },
 ]
 
 const AUTOPLAY_MS = 3600
 
 // Rendered twice back-to-back so the rail always has more of itself to
 // scroll into — that's what makes the loop endless instead of hitting a wall.
-const LOOP_MARKETS = [...MARKETS, ...MARKETS]
+// const LOOP_MARKETS = [...MARKETS, ...MARKETS]
+const LOOP_MARKETS = [...MARKETS]
 
 export default function ContactPresence() {
   const trackRef = useRef<HTMLDivElement>(null)
@@ -305,7 +306,7 @@ export default function ContactPresence() {
         <div className="ctp-fade l" aria-hidden="true" />
         <div className="ctp-fade r" aria-hidden="true" />
 
-        <button
+        {/* <button
           type="button" className="ctp-arrow l" aria-label="Previous markets"
           onClick={() => scrollBy(-1)}
         >
@@ -320,7 +321,7 @@ export default function ContactPresence() {
           <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
             <path d="m9 6 6 6-6 6" />
           </svg>
-        </button>
+        </button> */}
 
         <div className="ctp-track" ref={trackRef} tabIndex={0} role="region" aria-label="Markets Locator operates in">
           {LOOP_MARKETS.map((m, i) => {

@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import ScrollReveal from '@/components/software/ScrollReveal'
 import CareerHero from '@/components/about/career/CareerHero'
 import CareerJobsList from '@/components/about/career/CareerJobsList'
-import CareerTeamSpotlight from '@/components/about/career/CareerTeamSpotlight'
+// import CareerTeamSpotlight from '@/components/about/career/CareerTeamSpotlight'
 import CareerValues from '@/components/about/career/CareerValues'
 import AboutPillarNav from '@/components/about/AboutPillarNav'
 import Footer from '@/components/layouts/Footer'
@@ -26,7 +26,7 @@ export default function AboutCareerPage() {
       <ScrollReveal />
       <CareerHero />
       <CareerJobsList />
-      <CareerTeamSpotlight />
+      {/* <CareerTeamSpotlight /> */}
       <CareerValues />
       <AboutPillarNav current="career" />
       <Footer />

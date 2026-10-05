@@ -20,7 +20,7 @@ import Navbar from './Navbar'
 const headlineStyle: React.CSSProperties = {
   fontSize: 'clamp(17px, 3.5vw, max(30px, min(3.2vw - 19px, 56px)))',
   fontWeight: 300,
-  color: 'rgba(255,255,255,0.58)',
+  color: 'rgba(255,255,255,0.8)',
   lineHeight: 1.45,
   letterSpacing: '0.02em',
   margin: 0,
@@ -29,7 +29,7 @@ const headlineStyle: React.CSSProperties = {
 const subheadingStyle: React.CSSProperties = {
   fontSize: 'clamp(12px, 1.6vw, max(15px, min(1.6vw - 9.5px, 26px)))',
   fontWeight: 300,
-  color: 'rgba(255,255,255,0.42)',
+  color: 'rgba(255,255,255,0.7)',
   lineHeight: 1.5,
   letterSpacing: '0.01em',
   margin: '0.6rem 0 0',
