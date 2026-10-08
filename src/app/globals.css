@@ -4416,7 +4416,7 @@ span[style*="height: 4px"][style*="border-radius: 999px"] {
     pointer-events: none;
   }
 
-  .home-main .hero-mobile-road-surface { position: absolute; inset: 0; overflow: hidden; top:50px;}
+  .home-main .hero-mobile-road-surface { position: absolute; inset: 0; overflow: hidden; transform: translateY(20px);}
   .home-main .hero-mobile-road {
     /* The supplied mobile road already contains the full curve: no crop. */
     object-fit: fill;
