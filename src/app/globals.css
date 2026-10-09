@@ -4532,7 +4532,7 @@ span[style*="height: 4px"][style*="border-radius: 999px"] {
    beside each other. The skyline retains its enlarged, cropped width. */
 @media (max-width: 640px) {
   .home-main .hero-section-wrapper {
-    --mobile-fleet-height: min(69.3vw, 30svh);
+    --mobile-fleet-height: 69.3vw;
   }
   .home-main .hero-headline-wrap {
     padding: clamp(20px, 7vw, 36px) 4.5vw clamp(132px, 40vw, 256px);
