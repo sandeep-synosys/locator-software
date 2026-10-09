@@ -4472,3 +4472,58 @@ span[style*="height: 4px"][style*="border-radius: 999px"] {
   }
   .home-main .hero-mobile-cta svg { width: 16px; height: 16px; }
 }
+
+/* Keep the reference composition on every mobile height. These final overrides
+   replace the compact short-screen layout without changing custom colours or
+   the road's translateY adjustment. Short phones scroll instead of shrinking. */
+@media (max-width: 640px) {
+  .home-main .hero-section-wrapper {
+    --mobile-fleet-height: 69.3vw;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh !important;
+    min-height: 100svh !important;
+  }
+
+  .home-main .hero-navbar-wrap { flex: 0 0 64px; }
+
+  .home-main .hero-headline-wrap {
+    flex: 1 0 auto;
+    padding: clamp(48px, 17vw, 100px) 4.5vw clamp(88px, 28vw, 160px);
+  }
+
+  .home-main .hero-headline-slide h1 {
+    font-size: clamp(26px, 8.3vw, 50px) !important;
+  }
+
+  .home-main .hero-headline-slide p {
+    max-width: 76vw !important;
+    margin: 6vw 0 0 1.8vw !important;
+    font-size: clamp(14px, 3.85vw, 23px) !important;
+  }
+
+  .home-main .hero-mobile-ctas {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    margin: 9vw 0 0 1.5vw;
+  }
+
+  .home-main .hero-mobile-cta {
+    flex: none;
+    width: max(175px, 43.5vw);
+    min-height: 44px;
+    gap: 3.5vw;
+    padding: 2.4vw 3vw;
+    font-size: clamp(13px, 3.5vw, 21px);
+  }
+
+  .home-main .hero-mobile-cta svg { width: 4.3vw; height: 4.3vw; }
+  .home-main .hero-mobile-fleet { flex: 0 0 var(--mobile-fleet-height); }
+
+  .home-main .hero-mobile-bus { width: 16vw; }
+  .home-main .hero-mobile-truck { width: 16vw; }
+  .home-main .hero-mobile-van { width: 22vw; }
+  .home-main .hero-mobile-car { width: 40vw; }
+  .home-main .hero-mobile-scooter { width: 58vw; }
+}
