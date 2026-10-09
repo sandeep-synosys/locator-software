@@ -4438,7 +4438,7 @@ span[style*="height: 4px"][style*="border-radius: 999px"] {
   .home-main .hero-mobile-van { width: min(22vw, 9.9svh); left: 36%; top: 19%; }
   .home-main .hero-mobile-car { width: min(40vw, 18svh); left: 0; top: 32%; }
   .home-main .hero-mobile-scooter { width: min(58vw, 26svh); right: 0; top: 40%; }
-  .home-main .hero-mobile-car .hero-mobile-pin { width: 45%; }
+  .home-main .hero-mobile-car .hero-mobile-pin { width: 45%; bottom: 70%;  }
   .home-main .hero-mobile-scooter .hero-mobile-pin { width: 30%; }
   .home-main .hero-mobile-bus .hero-mobile-pin,
   .home-main .hero-mobile-van .hero-mobile-pin { width: 12%; }
@@ -4526,4 +4526,24 @@ span[style*="height: 4px"][style*="border-radius: 999px"] {
   .home-main .hero-mobile-van { width: 22vw; }
   .home-main .hero-mobile-car { width: 40vw; }
   .home-main .hero-mobile-scooter { width: 58vw; }
+}
+
+/* Fit the reference composition on typical phones without moving the CTAs
+   beside each other. The skyline retains its enlarged, cropped width. */
+@media (max-width: 640px) {
+  .home-main .hero-section-wrapper {
+    --mobile-fleet-height: min(69.3vw, 30svh);
+  }
+  .home-main .hero-headline-wrap {
+    padding: clamp(20px, 7vw, 36px) 4.5vw clamp(132px, 40vw, 256px);
+  }
+  .home-main .hero-headline-slide h1 {
+    font-size: clamp(26px, 7.2vw, 46px) !important;
+  }
+  .home-main .hero-headline-slide p {
+    max-width: 85vw !important;
+    margin-top: 16px !important;
+    font-size: clamp(14px, 3.65vw, 21px) !important;
+  }
+  .home-main .hero-mobile-ctas { margin-top: 20px; }
 }
