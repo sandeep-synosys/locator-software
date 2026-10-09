@@ -7,6 +7,7 @@ import NewsroomHighlights from '@/components/about/newsroom/NewsroomHighlights'
 import NewsroomSubscribe from '@/components/about/newsroom/NewsroomSubscribe'
 import AboutPillarNav from '@/components/about/AboutPillarNav'
 import Footer from '@/components/layouts/Footer'
+import NewsroomVideosAndBlogs from '@/components/about/newsroom/NewsroomVideosAndBlogs'
 
 export const metadata: Metadata = {
   title: 'Newsroom — About Locator',
@@ -29,6 +30,7 @@ export default function AboutNewsroomPage() {
       <NewsroomTicker />
       <NewsroomBoard />
       <NewsroomHighlights />
+      <NewsroomVideosAndBlogs />
       <NewsroomSubscribe />
       <AboutPillarNav current="newsroom" />
       <Footer />

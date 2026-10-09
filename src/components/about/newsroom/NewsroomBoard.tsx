@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import NewsroomRail from './NewsroomRail'
-import SocialCard from './SocialCard'
+// import SocialCard from './SocialCard'
 import NewsroomWatch from './NewsroomWatch'
 import {
   BLOG_POSTS,
@@ -21,6 +21,7 @@ import {
   type SocialPost,
 } from './newsroom-data'
 import { BLOG_BASE } from './blog/blog-index'
+import SocialPreviewCard from './SocialPreviewCard'
 
 const EASE = 'cubic-bezier(.22,.61,.36,1)'
 
@@ -497,7 +498,8 @@ export default function NewsroomBoard() {
                 {/* Full LinkedIn-style feed below the highlights. */}
                 <div className="nrb-feed">
                   {SOCIAL_POSTS.slice(3).map((p) => (
-                    <SocialCard key={p.id} post={p} />
+                    // <SocialCard key={p.id} post={p} />
+                    <SocialPreviewCard key={p.id} post={p} />
                   ))}
                 </div>
               </>
