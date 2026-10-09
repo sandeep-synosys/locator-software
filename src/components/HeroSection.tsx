@@ -1,6 +1,7 @@
 // Server component: pure markup, inline styles and CSS-only animations.
 // Only the interactive <Navbar> (its own 'use client' boundary) ships JS.
 import Image from 'next/image'
+import Link from 'next/link'
 import Navbar from './Navbar'
 
 // The hero is full-bleed, so nothing here was ever "squeezed into a container" — the
@@ -34,6 +35,25 @@ const subheadingStyle: React.CSSProperties = {
   letterSpacing: '0.01em',
   margin: '0.6rem 0 0',
   maxWidth: 'max(38rem, min(39vw, 60rem))',
+}
+
+const mobileVehicles = [
+  { id: 'bus', src: 'bus.png' },
+  { id: 'truck', src: 'track.png' },
+  { id: 'van', src: 'van.png' },
+  { id: 'car', src: 'car.png' },
+  { id: 'scooter', src: 'bike.png' },
+]
+
+function CtaIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+      <rect x="1" y="1" width="6" height="6" rx="1" />
+      <rect x="9" y="1" width="6" height="6" rx="1" />
+      <rect x="1" y="9" width="6" height="6" rx="1" />
+      <rect x="9" y="9" width="6" height="6" rx="1" />
+    </svg>
+  )
 }
 
 const heroHeadlines = [
@@ -450,7 +470,7 @@ export default function HeroSection() {
       </div>
 
       {/* Navbar — high z so its mobile drawer overlays everything else */}
-      <div style={{ position: 'relative', zIndex: 50 }}>
+      <div className="hero-navbar-wrap" style={{ position: 'relative', zIndex: 50 }}>
         <Navbar />
       </div>
 
@@ -471,7 +491,48 @@ export default function HeroSection() {
             </div>
           ))}
         </div>
+        <div className="hero-mobile-ctas">
+          <Link href="/get-a-quote" className="hero-mobile-cta">
+            <CtaIcon />Get a Quote
+          </Link>
+          <Link href="/get-a-free-demo" className="hero-mobile-cta hero-mobile-cta-demo">
+            <CtaIcon />Get a Free Demo
+          </Link>
+        </div>
       </div>
+
+      <div className="hero-mobile-fleet" aria-hidden="true">
+        <div className="hero-mobile-road-surface">
+          <Image
+            src="/home/road/road-mobile.png"
+            alt=""
+            fill
+            sizes="(max-width: 640px) 100vw, 1px"
+            className="hero-mobile-road"
+          />
+        </div>
+        {mobileVehicles.map((vehicle) => (
+          <div key={vehicle.id} className={`hero-mobile-vehicle hero-mobile-${vehicle.id}`}>
+            <Image
+              src="/home/road/gps-pin.svg"
+              alt=""
+              width={64}
+              height={80}
+              className="hero-mobile-pin"
+            />
+            <Image
+              src={`/home/road/${vehicle.src}`}
+              alt=""
+              width={1600}
+              height={900}
+              sizes="(max-width: 640px) 40vw, 1px"
+              className="hero-mobile-vehicle-image"
+            />
+          </div>
+        ))}
+      </div>
+
+
     </section>
   )
 }
