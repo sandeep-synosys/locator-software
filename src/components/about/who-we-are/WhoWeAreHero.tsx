@@ -191,7 +191,7 @@ export default function WhoWeAreHero() {
                 LOCATOR is more than a GPS tracking provider — we&apos;re a technology company building intelligent fleet telematics and IoT solutions that connect vehicles and assets, and turn real-time data into actionable business intelligence.
               </p>
 
-              <div className="wwa-badge wwa-anim" style={{ animationDelay: '.22s' }}>
+              {/* <div className="wwa-badge wwa-anim" style={{ animationDelay: '.22s' }}>
                 <span className="wwa-badge-label">Part of</span>
                 <Image
                   src="/about/who-we-are/sysnonas.png"
@@ -200,7 +200,7 @@ export default function WhoWeAreHero() {
                   height={28}
                   style={{ display: 'inline-block', verticalAlign: 'middle' }}
                 />
-              </div>
+              </div> */}
 
               <div className="wwa-cta-row wwa-anim" style={{ animationDelay: '.3s' }}>
                 <Link href="/contact" className="wwa-btn wwa-btn-primary">
