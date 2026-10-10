@@ -9,7 +9,7 @@ import {
 } from "@/app/actions/send-quick-contact";
 
 const companyLinks = [
-  { href: "/about/purpose", label: "Who We Are" },
+  { href: "/about/who-we-are", label: "Who We Are" },
   { href: "/about/vision", label: "Vision" },
   { href: "/about/career", label: "Careers" },
   { href: "/about/newsroom", label: "Newsroom" },
@@ -39,7 +39,7 @@ const serviceLinks = [
 ];
 
 const supportLinks = [
-  { href: "/software#faq", label: "FAQ" },
+  { href: "/faq", label: "FAQ" },
   { href: "/benefits-of-gps-tracking", label: "Benefits Of GPS Tracking" },
 ];
 

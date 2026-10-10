@@ -2,6 +2,15 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  async redirects() {
+    return [
+      {
+        source: '/about/purpose',
+        destination: '/about/who-we-are',
+        permanent: true,
+      },
+    ];
+  },
   poweredByHeader: false,
   compress: true,
   
