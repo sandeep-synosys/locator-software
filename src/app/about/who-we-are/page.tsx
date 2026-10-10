@@ -18,12 +18,12 @@ export const metadata: Metadata = {
   title: 'Who We Are — About Locator',
   description:
     'LOCATOR is a technology company building intelligent fleet telematics and IoT solutions — connecting vehicles and assets and turning real-time data into actionable business intelligence across the UAE.',
-  alternates: { canonical: '/about/purpose' },
+  alternates: { canonical: '/about/who-we-are' },
   openGraph: {
     title: 'Who We Are | Locator',
     description:
       'More than a GPS provider — a connected mobility company shaping the future of fleet telematics and IoT.',
-    url: '/about/purpose',
+    url: '/about/who-we-are',
     type: 'website',
   },
 }
@@ -42,7 +42,7 @@ export default function WhoWeArePage() {
       {/* <WhoWeAreWhyChoose /> */}
       {/* <WhoWeAreVideo /> */}
       <WhoWeAreFAQ />
-      <AboutPillarNav current="purpose" />
+      <AboutPillarNav current="who-we-are" />
       <SoftwareBlog /> {/* No single topic — About page shows the most recent posts overall */}
       <Footer />
     </main>

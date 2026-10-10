@@ -20,7 +20,7 @@ export type AboutPage = {
 // with the navigation instead of contradicting it.
 export const ABOUT_PAGES: AboutPage[] = [
   {
-    slug: 'purpose',
+    slug: 'who-we-are',
     name: 'Who We Are',
     tagline: 'Get to know LOCATOR',
     accent: '#1360ee',
