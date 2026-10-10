@@ -76,9 +76,6 @@ export const metadata: Metadata = {
   creator: siteConfig.name,
   publisher: siteConfig.name,
   metadataBase: new URL(siteConfig.url),
-  alternates: {
-    canonical: "/",
-  },
   icons: {
     icon: [
       { url: '/icon.png', type: 'image/png' },
@@ -108,17 +105,23 @@ export const metadata: Metadata = {
     description: siteConfig.description,
     images: [siteConfig.ogImage],
   },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
+  robots: isProd
+  ? {
       index: true,
       follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
+    }
+  : {
+      index: false,
+      follow: false,
+      googleBot: { index: false, follow: false },
     },
-  },
 };
 
 export default function RootLayout({
