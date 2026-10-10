@@ -3,7 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { siteConfig } from "@/config/site";
 import ScrollRestoration from "@/components/ScrollRestoration";
-// import ContactDock from "@/components/common/ContactDock";
+import ContactDock from "@/components/common/ContactDock";
 import StyledJsxRegistry from "./StyledJsxRegistry";
 import Script from "next/script";
 
@@ -138,7 +138,7 @@ export default function RootLayout({
         <StyledJsxRegistry>
           <ScrollRestoration />
           {children}
-          {/* <ContactDock /> */}
+          <ContactDock />
           <Script
             id="tawk-to-chat"
             strategy="lazyOnload"

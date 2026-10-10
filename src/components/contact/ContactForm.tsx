@@ -2,6 +2,11 @@
 
 import { useState } from 'react'
 
+const LOCATOR_MAP_URL =
+  'https://www.google.com/maps/place/Locator+GPS+Tracker+for+Car+Dubai/@25.2194077,55.2798261,17z/data=!3m1!4b1!4m6!3m5!1s0x3e5f42d64d345f65:0xf2109013bb2bffd7!8m2!3d25.2194077!4d55.2798261!16s%2Fg%2F11h0gttlv?entry=ttu&g_ep=EgoyMDI2MTAwNy4wIKXMDSoASAFQAw%3D%3D'
+const LOCATOR_MAP_EMBED_URL =
+  'https://maps.google.com/maps?q=25.2194077%2C55.2798261&z=17&output=embed'
+
 const EASE = 'cubic-bezier(.22,.61,.36,1)'
 
 // Each field carries its own leading glyph — the icon sits inside the control,
@@ -326,14 +331,14 @@ export default function ContactForm() {
         <div className="ctf-aside" data-reveal="right">
           <div className="ctf-map">
             <iframe
-              title="Locator head office — Sheikh Zayed Road, Trade Centre 1, Dubai"
-              src="https://www.google.com/maps?q=Sheikh+Zayed+Road+Trade+Centre+1+Dubai&output=embed"
+              title="Locator GPS Tracker for Car Dubai — Map"
+              src={LOCATOR_MAP_EMBED_URL}
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
             />
             <a
               className="ctf-map-pill"
-              href="https://maps.google.com/?q=Sheikh+Zayed+Road+Trade+Centre+1+Dubai"
+              href={LOCATOR_MAP_URL}
               target="_blank"
               rel="noopener noreferrer"
             >

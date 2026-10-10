@@ -50,7 +50,7 @@ export const SOFTWARE_MODULES: SoftwareModule[] = [
   },
   {
     slug: 'dashcam',
-    name: 'AI Dashcams',
+    name: 'AI Video Telematics',
     tagline: 'Video telematics & safety',
     accent: '#0a3aa0',
     icon: (

@@ -10,7 +10,7 @@ type Step = { n: string; title: string; desc: string; icon: React.ReactNode }
 const STEPS: Step[] = [
   {
     n: '01',
-    title: 'Request a Free Quote',
+    title: 'Request a Free Demo',
     desc: 'Tell us about your fleet and we’ll prepare a tailored quote.',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">

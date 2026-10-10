@@ -332,7 +332,7 @@ export default function Navbar() {
           >
             <span className="sr-only">Locator</span>
             <Image
-              src="/brand/logo.png"
+              src="/brand/logo-white-worldmark.png"
               alt=""
               fill
               sizes="120px"

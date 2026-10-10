@@ -19,9 +19,9 @@ const LogoMarquee = dynamic(() => import("@/components/Logomarquee"));
 const BlogSection = dynamic(() => import("@/components/BlogSection"));
 
 export const metadata: Metadata = {
-  title: "Fleet Telematics, GPS Tracking & Video Telematics UAE",
+  title: "#1 GPS and Fleet Tracking System Provider in UAE | LOCATOR",
   description:
-    "LOCATOR delivers GPS fleet tracking, AI video telematics, smart IoT asset monitoring, and RTA-certified solutions across the UAE. Real-time visibility for vehicles, drivers, and business assets.",
+    "Manage your fleet smarter with LOCATOR’s GPS vehicle tracking and fleet management solutions in the UAE. Improve efficiency, reduce fuel costs and optimise operations.",
   alternates: { canonical: "/" },
   openGraph: {
     title: "LOCATOR — Fleet Telematics & GPS Tracking UAE",
