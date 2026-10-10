@@ -1,15 +1,10 @@
 import type { NextConfig } from "next";
+import { redirects as legacyRedirects } from './redirects';
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   async redirects() {
-    return [
-      {
-        source: '/about/purpose',
-        destination: '/about/who-we-are',
-        permanent: true,
-      },
-    ];
+    return legacyRedirects;
   },
   poweredByHeader: false,
   compress: true,
