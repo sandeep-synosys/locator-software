@@ -3,8 +3,9 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { siteConfig } from "@/config/site";
 import ScrollRestoration from "@/components/ScrollRestoration";
-import ContactDock from "@/components/common/ContactDock";
+// import ContactDock from "@/components/common/ContactDock";
 import StyledJsxRegistry from "./StyledJsxRegistry";
+import Script from "next/script";
 
 // Self-hosted rather than next/font/google.
 //
@@ -137,9 +138,13 @@ export default function RootLayout({
         <StyledJsxRegistry>
           <ScrollRestoration />
           {children}
-          {/* Last in the body so it paints over page content without needing to
-              out-bid anyone on z-index. It is position:fixed and adds no height. */}
-          <ContactDock />
+          {/* <ContactDock /> */}
+          <Script
+            id="tawk-to-chat"
+            strategy="lazyOnload"
+            src="https://embed.tawk.to/5ed23f408ee2956d73a601e9/default"
+            crossOrigin="anonymous"
+          />
         </StyledJsxRegistry>
       </body>
     </html>
