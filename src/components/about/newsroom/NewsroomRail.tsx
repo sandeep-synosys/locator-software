@@ -445,7 +445,7 @@ export default function NewsroomRail() {
           </div>
         </div>
 
-        <div className="nrr-card">
+        {/* <div className="nrr-card">
           <div className="nrr-head">
             <h3>Customer Review Videos</h3>
             <a className="nrr-viewall" href="#newsroom-feed">View All →</a>
@@ -454,9 +454,6 @@ export default function NewsroomRail() {
             {REVIEW_VIDEOS.map((v) => (
               <a key={v.id} href={v.href} className="nrr-vid">
                 <div className="nrr-thumb">
-                  {/* Matches the 100px thumb column below; a stale, smaller
-                      hint makes Next serve an undersized source and the still
-                      renders soft. */}
                   <Image src={v.image} alt="" fill sizes="100px" />
                   <span className="nrr-play"><span>
                     <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7L8 5Z" /></svg>
@@ -467,7 +464,7 @@ export default function NewsroomRail() {
               </a>
             ))}
           </div>
-        </div>
+        </div> */}
       </aside>
     </>
   )
