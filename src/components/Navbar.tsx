@@ -332,7 +332,7 @@ export default function Navbar() {
           >
             <span className="sr-only">Locator</span>
             <Image
-              src="/brand/logo.png"
+              src="/brand/logo-white-worldmark.png"
               alt=""
               fill
               sizes="120px"
@@ -764,9 +764,16 @@ export default function Navbar() {
                 height={28}
                 className="rounded-full border-2 border-white/30"
               />
-              <span style={{ color: 'rgba(255,255,255,0.85)', fontSize: '14px', fontWeight: 500 }}>
-                United Arab Emirates
-              </span>
+              <div style={{ display: 'flex',flexDirection: 'column', alignItems: 'left'}}>
+                <span style={{ color: 'rgba(255,255,255,0.85)', fontSize: '14px', fontWeight: 500 }}>
+                  United Arab Emirates
+                </span>
+                <a href="tel:+971508746686">
+                  <span style={{ color: 'rgba(255,255,255,0.85)', fontSize: '14px', fontWeight: 500 }}>
+                    050 874 66 88
+                  </span>
+                </a>
+              </div>
             </div>
             {/* Same button as the desktop bar, full width. The reference shows one
                 design, so the drawer does not get a second one — only the width and

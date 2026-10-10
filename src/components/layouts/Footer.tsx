@@ -43,9 +43,13 @@ const supportLinks = [
   { href: "/benefits-of-gps-tracking", label: "Benefits Of GPS Tracking" },
 ];
 
+const mapUrl = "https://www.google.com/maps/place/Locator+GPS+Tracker+for+Car+Dubai/@25.2194077,55.2798261,17z/data=!3m1!4b1!4m6!3m5!1s0x3e5f42d64d345f65:0xf2109013bb2bffd7!8m2!3d25.2194077!4d55.2798261!16s%2Fg%2F11h0gttlv";
+
+const mapEmbedUrl = "https://maps.google.com/maps?q=25.2194077%2C55.2798261&z=17&output=embed";
+
 const socialLinks = [
   {
-    href: "https://facebook.com",
+    href: "https://www.facebook.com/locatormedia",
     label: "Facebook",
     icon: (
       <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
@@ -54,7 +58,7 @@ const socialLinks = [
     ),
   },
   {
-    href: "https://instagram.com",
+    href: "https://www.instagram.com/locatormedia?srtk=MWtnMnVmZHFyNnE4bA==",
     label: "Instagram",
     icon: (
       <svg
@@ -412,24 +416,28 @@ export default function Footer() {
                   Find Us
                 </span>
               </div>
-              <a
-                href="https://maps.google.com/?q=City+Tower+2+Sheikh+Zayed+Road+Dubai"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="footer-map"
-                style={{
-                  display: "block",
-                  borderRadius: "12px",
-                  overflow: "hidden",
-                  position: "relative",
-                }}
-              >
+                <a
+                  href={mapUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="footer-map"
+                  style={{
+                    display: "block",
+                    borderRadius: "12px",
+                    overflow: "hidden",
+                    position: "relative",
+                  }}
+                >
                 <iframe
-                  title="Locator Dubai"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3610.1788!2d55.27076!3d25.20484!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f43348a67e24b%3A0xff45e502e1cbe99!2sCity%20Tower%202!5e0!3m2!1sen!2sae!4v1700000000000!5m2!1sen!2sae"
+                  title="Locator GPS Tracker for Car Dubai - Location"
+                  src={mapEmbedUrl}
                   width="100%"
                   height="210"
-                  style={{ border: 0, display: "block", pointerEvents: "none" }}
+                  style={{
+                    border: 0,
+                    display: "block",
+                    pointerEvents: "none",
+                  }}
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
                 />

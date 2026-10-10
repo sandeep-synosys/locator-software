@@ -92,10 +92,10 @@ const NOTIF_MAP: Record<number, Notif[]> = {
 // All four are customLayout now: each is the phone mockup underneath its own
 // notification stack, so none of them should size the panel from its own ratio.
 const IMAGE_MAP: Record<number, { src: string; alt: string; w: number; h: number; objectFit?: 'contain' | 'cover'; objectPosition?: string; customLayout?: boolean }> = {
-  2: { src: '/software/fleet-telematics/geofence.png',          alt: 'LOCATOR mobile alert for a vehicle idling on site',          w: 1050, h: 1023, customLayout: true },
+  2: { src: '/software/fleet-telematics/idle-alerts.png',          alt: 'LOCATOR mobile alert for a vehicle idling on site',          w: 1050, h: 1023, customLayout: true },
   3: { src: '/software/fleet-telematics/after-hours.png',       alt: 'LOCATOR mobile alert for a vehicle moving outside office hours', w: 435,  h: 366,  customLayout: true },
   5: { src: '/software/fleet-telematics/service-reminders.png', alt: 'LOCATOR notifications — service and document reminders due', w: 1116, h: 1578, customLayout: true },
-  8: { src: '/software/fleet-telematics/idle-alerts.png',       alt: 'LOCATOR live view with geofence and POI zones',              w: 725,  h: 698,  customLayout: true },
+  8: { src: '/software/fleet-telematics/geofence.png',       alt: 'LOCATOR live view with geofence and POI zones',              w: 725,  h: 698,  customLayout: true },
 }
 
 type Slot = { index: number; state: 'entering' | 'visible' | 'exiting' }

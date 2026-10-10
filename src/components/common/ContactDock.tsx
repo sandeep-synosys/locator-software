@@ -180,9 +180,10 @@ export default function ContactDock() {
       {/* Opposite corner. Its own fixed root rather than a third item in the stack
           above — the two groups genuinely live at opposite ends of the viewport,
           and only this one has to dodge the Skip pill. */}
-      <div className={`cdock-chat${state}`}>
+          
+      {/* <div className={`cdock-chat${state}`}>
         <SupportChat />
-      </div>
+      </div> */}
 
       <style jsx>{`
         /* Shared geometry, declared on both roots. SupportChat reads these same
@@ -286,28 +287,22 @@ export default function ContactDock() {
           display: block;
         }
 
-        /* ── Attention ripple on WhatsApp only ──────────────────────────────────
-           One channel gets it, not both: two competing pulses in the same corner
-           read as an alert rather than as an invitation.
-
-           The keyframes are mostly idle on purpose. Rather than run a short loop
-           forever — which becomes visual noise within about thirty seconds — the
-           ripple occupies the first ~28% of a 9s cycle and the rest is dead air, so
-           it recurs roughly every seven seconds and is absent in between. */
-        .cdock__btn--whatsapp::before {
-          content: '';
-          position: absolute;
-          inset: 0;
-          border-radius: inherit;
-          border: 2px solid var(--from);
-          opacity: 0;
-          animation: cdockRipple 9s cubic-bezier(0.16, 1, 0.3, 1) 1.6s infinite;
-          pointer-events: none;
+        /* Two quick beats, then a pause. Animate only the glyphs so the
+           clickable buttons and their entrance/hover transforms stay stable. */
+        .cdock.is-visible .cdock__icon {
+          transform-origin: center;
+          animation: cdockHeartbeat 3.2s ease-in-out calc(0.6s + var(--delay)) infinite;
         }
-        @keyframes cdockRipple {
-          0% { transform: scale(1); opacity: 0.55; }
-          28% { transform: scale(1.7); opacity: 0; }
-          100% { transform: scale(1.7); opacity: 0; }
+        @keyframes cdockHeartbeat {
+          0%, 30%, 100% { transform: scale(1); }
+          10% { transform: scale(1.22); }
+          17% { transform: scale(1); }
+          24% { transform: scale(1.14); }
+        }
+        .cdock.is-visible .cdock__btn:hover .cdock__icon,
+        .cdock.is-visible .cdock__btn:focus-visible .cdock__icon {
+          animation: none;
+          transform: scale(1.08);
         }
 
         /* ── Label ────────────────────────────────────────────────────────────
@@ -405,7 +400,7 @@ export default function ContactDock() {
             transition-duration: 0.01ms;
             transition-delay: 0ms;
           }
-          .cdock__btn--whatsapp::before {
+          .cdock.is-visible .cdock__icon {
             animation: none;
           }
           .cdock__btn:hover,
