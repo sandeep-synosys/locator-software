@@ -424,7 +424,7 @@ export default function NewsroomBoard() {
                   </div>
                 </a>
 
-                <div className="nrb-grid">
+                {/* <div className="nrb-grid">
                   {highlights.map((item) => (
                     <Card key={item.id} item={item} />
                   ))}
@@ -479,7 +479,7 @@ export default function NewsroomBoard() {
                       ))}
                     </div>
                   </div>
-                </div>
+                </div> */}
               </>
             )}
 
