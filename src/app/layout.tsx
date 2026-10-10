@@ -6,6 +6,24 @@ import ScrollRestoration from "@/components/ScrollRestoration";
 import ContactDock from "@/components/common/ContactDock";
 import StyledJsxRegistry from "./StyledJsxRegistry";
 import Script from "next/script";
+import { GoogleTagManager } from '@next/third-parties/google';
+
+// ---------------------------------------------------------------------------
+// Environment switch.
+//
+// Only the LIVE site (locator.ae) sets SITE_ENV=production. On beta, local dev,
+// preview builds, or anywhere the variable is missing, this is false, so:
+//   - Google Tag Manager (GTM-W99N62T) is NOT loaded  -> no beta traffic or test
+//     conversions in the real GA4 / Google Ads data
+//   - the Tawk.to chat widget is NOT loaded           -> no beta chats in the
+//     live chat inbox
+//   - robots meta is noindex,nofollow                 -> beta can't get indexed
+//
+// Failing safe is deliberate: forgetting the variable can never leak tracking
+// or indexing, it just leaves them off.
+// ---------------------------------------------------------------------------
+const isProd = process.env.SITE_ENV === "production";
+const GTM_ID = "GTM-W99N62T";
 
 // Self-hosted rather than next/font/google.
 //
@@ -114,6 +132,7 @@ export default function RootLayout({
       className={`${poppins.variable} ${inter.variable}`}
       suppressHydrationWarning
     >
+      {isProd && <GoogleTagManager gtmId={GTM_ID} />}
       <body
         className="min-h-screen bg-background font-poppins antialiased"
         suppressHydrationWarning
@@ -131,6 +150,16 @@ export default function RootLayout({
             }),
           }}
         />
+        {isProd && (
+          <noscript>
+            <iframe
+              src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
+              height="0"
+              width="0"
+              style={{ display: 'none', visibility: 'hidden' }}
+            />
+          </noscript>
+        )}
         {/* Wraps everything that can contain `<style jsx>` — page content and the
             dock alike — so those rules are written into the document during
             rendering instead of being injected by the client at hydration. See
