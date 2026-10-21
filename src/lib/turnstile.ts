@@ -1,6 +1,11 @@
 import "server-only";
 
-export type TurnstileAction = "contact" | "quote" | "demo" | "quick_contact";
+export type TurnstileAction =
+  | "contact"
+  | "quote"
+  | "demo"
+  | "quick_contact"
+  | "career_application";
 
 type Verification = { success: true } | { success: false; error: string };
 const unavailable =

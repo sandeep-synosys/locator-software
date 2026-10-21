@@ -94,6 +94,16 @@ function form(token = 'valid-fixture-token') {
   return data;
 }
 
+const jobs = load('src/components/about/career/jobs-data.ts');
+function careerForm(token = 'valid-fixture-token') {
+  const data = form(token);
+  for (const [key, value] of Object.entries({ jobSlug: jobs.JOBS[0].slug,
+    firstName: 'Test', lastName: 'Applicant', countryCode: '+971', phone: '0500000000',
+    onsite: 'Yes', salary: 'AED 3000', screening: 'yes' })) data.set(key, value);
+  data.set('resume', new File(['Mock resume contents'], 'resume.pdf', { type: 'application/pdf' }));
+  return data;
+}
+
 test('missing, empty, file and oversized tokens fail before requesting Cloudflare', async () => {
   const api = setup();
   for (const token of [null, '', ' ', 'x'.repeat(2049), new File(['x'], 'token.txt')]) {
@@ -156,6 +166,7 @@ test('each delivery entry point denies invalid verification and sends only after
     ['src/app/actions/send-demo-email.ts', 'sendDemoEmail', 'demo-request', 'demoRequestTemplate', 'demo'],
     ['src/app/actions/send-quick-contact.ts', 'sendQuickContact', 'quick-message', 'quickMessageTemplate', 'quick_contact'],
     ['src/app/api/contact/route.ts', 'POST', 'contact-message', 'contactMessageTemplate', 'contact'],
+    ['src/app/api/career-application/route.ts', 'POST', 'career-application', 'careerApplicationTemplate', 'career_application'],
   ];
   for (const [file, fn, template, templateFn, action] of handlers) {
     let deliveries = 0;
@@ -167,12 +178,14 @@ test('each delivery entry point denies invalid verification and sends only after
     });
     const handler = load(file, {
       '@/lib/turnstile': api,
+      '@/components/about/career/jobs-data': jobs,
       '@/lib/email/send-mail': { sendMail: async () => { deliveries++; } },
       [`@/lib/email/templates/${template}`]: { [templateFn]: () => '<p>Mocked</p>' },
     }, { process: api.process });
     async function submit(token) {
       if (fn !== 'POST') return handler[fn]({ success: false }, form(token));
-      const response = await handler.POST(new Request('http://localhost/api/contact', { method: 'POST', body: form(token) }));
+      const body = action === 'career_application' ? careerForm(token) : form(token);
+      const response = await handler.POST(new Request('http://localhost/api/' + (action === 'career_application' ? 'career-application' : 'contact'), { method: 'POST', body }));
       return response.json();
     }
     assert.equal((await submit(null)).success, false, file);
@@ -201,4 +214,47 @@ test('Cloudflare outage blocks every mail entry point', async () => {
     '@/lib/email/templates/contact-message': { contactMessageTemplate: () => '<p>Mock</p>' } }, { process: api.process });
   assert.equal((await (await contact.POST(new Request('http://localhost/api/contact', { method: 'POST', body: form() }))).json()).success, false);
   assert.equal(deliveries, 0);
+});
+
+test('career applications reject failed verification, wrong actions/hostnames and missing configuration before sending resumes', async () => {
+  for (const [env, reply] of [
+    [{}, { success: false, 'error-codes': ['timeout-or-duplicate'] }],
+    [{}, { success: true, action: 'contact', hostname: 'locator.ae' }],
+    [{}, { success: true, action: 'career_application', hostname: 'other.example' }],
+    [{}, new Error('Cloudflare unavailable')],
+    [{ TURNSTILE_SECRET_KEY: '' }, { success: true, action: 'career_application', hostname: 'locator.ae' }],
+  ]) {
+    let deliveries = 0;
+    const api = setup(env, reply);
+    const handler = load('src/app/api/career-application/route.ts', {
+      '@/lib/turnstile': api, '@/components/about/career/jobs-data': jobs,
+      '@/lib/email/send-mail': { sendMail: async () => { deliveries++; } },
+      '@/lib/email/templates/career-application': { careerApplicationTemplate: () => '<p>Mock</p>' },
+    }, { process: api.process });
+    const response = await handler.POST(new Request('http://localhost/api/career-application', { method: 'POST', body: careerForm() }));
+    assert.equal(response.status, 400);
+    assert.equal((await response.json()).success, false);
+    assert.equal(deliveries, 0);
+  }
+});
+
+test('verified career applications retain resume delivery and safely report email failure', async () => {
+  const api = setup({}, { success: true, action: 'career_application', hostname: 'locator.ae' });
+  let failMail = true;
+  const messages = [];
+  const handler = load('src/app/api/career-application/route.ts', {
+    '@/lib/turnstile': api, '@/components/about/career/jobs-data': jobs,
+    '@/lib/email/send-mail': { sendMail: async message => { messages.push(message); if (failMail) throw Error('Mock mail failure'); } },
+    '@/lib/email/templates/career-application': { careerApplicationTemplate: () => '<p>Mock application</p>' },
+  }, { process: api.process });
+  let attempt = 0;
+  const submit = () => handler.POST(new Request('http://localhost/api/career-application', { method: 'POST', body: careerForm('career-fixture-token-' + ++attempt) }));
+  assert.equal((await submit()).status, 500);
+  failMail = false;
+  const response = await submit();
+  assert.equal(response.status, 200);
+  assert.equal((await response.json()).success, true);
+  assert.equal(messages[1].attachments[0].filename, 'resume.pdf');
+  assert.equal(messages[1].attachments[0].content.toString(), 'Mock resume contents');
+  assert.equal(messages[1].replyTo, 'person@example.invalid');
 });

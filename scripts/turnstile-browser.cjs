@@ -201,6 +201,69 @@ async function check(origin) {
       await t.context.close();
     }
 
+    const career = await setup('/about/career/sales-executive');
+    assert.equal(await field(career.page, 'career_application').count(), 0, 'Career widget only mounts in the application tab');
+    await career.page.getByRole('tab', { name: 'Application', exact: true }).click();
+    await field(career.page, 'career_application').getByRole('button', { name: 'Complete test security check' }).waitFor();
+    const application = form(career.page, 'career_application');
+    const applicationSubmit = application.getByRole('button', { name: 'Submit application', exact: true });
+    assert.equal(await applicationSubmit.isDisabled(), true);
+    await complete(career.page, 'career_application');
+    assert.equal(await applicationSubmit.isDisabled(), false);
+    await event(career.page, 'career_application', 'expired-callback');
+    assert.equal(await applicationSubmit.isDisabled(), true);
+    await complete(career.page, 'career_application');
+    await career.page.evaluate(() => { window.__oldCareerWidget = [...window.__turnstileTest.widgets.values()].find(w => w.options.action === 'career_application').options; });
+    await career.page.getByRole('tab', { name: 'Overview', exact: true }).click();
+    await career.page.waitForFunction(() => ![...window.__turnstileTest.widgets.values()].some(w => w.options.action === 'career_application'));
+    await career.page.getByRole('tab', { name: 'Application', exact: true }).click();
+    await field(career.page, 'career_application').getByRole('button', { name: 'Complete test security check' }).waitFor();
+    await career.page.evaluate(() => window.__oldCareerWidget.callback('removed-career-token'));
+    assert.equal(await applicationSubmit.isDisabled(), true, 'Old tab callbacks cannot verify the new application');
+    for (const [name, value] of Object.entries({ firstName: 'Test', lastName: 'Applicant', email: 'test@example.invalid',
+      phone: '0500000000', coverLetter: 'Keep this application after failure', onsite: 'Yes', salary: 'AED 3000' })) {
+      await application.locator(`[name="${name}"]`).fill(value);
+    }
+    await application.locator('[name=resume]').setInputFiles({ name: 'resume.pdf', mimeType: 'application/pdf', buffer: Buffer.from('Mock resume') });
+    await application.locator('.jd-yn-btn').filter({ hasText: /^Yes$/ }).click();
+    await complete(career.page, 'career_application');
+    // The genuine API denies this request: the test server has an empty secret.
+    await applicationSubmit.click();
+    await application.getByRole('alert').getByText('Security verification is temporarily unavailable.', { exact: false }).waitFor();
+    await career.page.waitForFunction(() => document.querySelector('[data-turnstile-action="career_application"] input').value === '');
+    assert.equal(await applicationSubmit.isDisabled(), true);
+    assert.equal(await application.locator('[name=firstName]').inputValue(), 'Test');
+    assert.equal(await application.locator('[name=coverLetter]').inputValue(), 'Keep this application after failure');
+    assert.equal(await application.locator('[name=resume]').evaluate(el => el.files[0].name), 'resume.pdf');
+    assert.equal(await application.locator('[name=screening][value=yes]').isChecked(), true);
+    assert.equal(career.scriptRequests(), 1, 'Career and footer share the SDK');
+    await career.page.route('**/api/career-application', route => route.fulfill({ contentType: 'application/json', body: JSON.stringify({ success: true }) }));
+    await complete(career.page, 'career_application');
+    await applicationSubmit.click();
+    await career.page.getByRole('heading', { name: 'Application received', exact: true }).waitFor();
+    assert.equal(await field(career.page, 'career_application').count(), 0);
+    assert.deepEqual(career.errors, []);
+    checks += 6;
+    await career.context.close();
+
+    for (const width of [320, 390]) {
+      const mobileCareer = await setup('/about/career/sales-executive', width);
+      await mobileCareer.page.getByRole('tab', { name: 'Application', exact: true }).click();
+      const widget = field(mobileCareer.page, 'career_application').getByRole('button', { name: 'Complete test security check' });
+      await widget.waitFor();
+      const bounds = await widget.boundingBox();
+      assert.ok(bounds.x >= 0 && bounds.x + bounds.width <= width);
+      await complete(mobileCareer.page, 'career_application');
+      assert.equal(await form(mobileCareer.page, 'career_application').locator('button[type=submit]').isDisabled(), false);
+      if (process.env.SCREENSHOT_DIR) {
+        await widget.scrollIntoViewIfNeeded();
+        await mobileCareer.page.screenshot({ path: `${process.env.SCREENSHOT_DIR}/turnstile-career-${width}-mobile.png` });
+      }
+      assert.deepEqual(mobileCareer.errors, []);
+      checks++;
+      await mobileCareer.context.close();
+    }
+
     const footer = await setup('/contact');
     const quick = form(footer.page, 'quick_contact');
     assert.equal(await quick.locator('button[type=submit]').isDisabled(), true);

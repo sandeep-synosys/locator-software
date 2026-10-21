@@ -1,6 +1,7 @@
 import { getJob } from '@/components/about/career/jobs-data'
 import { sendMail } from '@/lib/email/send-mail'
 import { careerApplicationTemplate } from '@/lib/email/templates/career-application'
+import { verifyTurnstile } from '@/lib/turnstile'
 
 export const runtime = 'nodejs'
 
@@ -91,6 +92,9 @@ export async function POST(request: Request) {
   if (resume.size > MAX_RESUME_BYTES) return failure('Your resume must be no larger than 5 MB.', 413)
   const extension = resume.name.split('.').pop()?.toLowerCase() || ''
   if (!RESUME_TYPES[extension]) return failure('Please upload a PDF, DOC, DOCX, ODT, or RTF resume.')
+
+  const verification = await verifyTurnstile(form, 'career_application')
+  if (!verification.success) return failure(verification.error, 400)
 
   try {
     await sendMail({
