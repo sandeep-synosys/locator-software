@@ -57,7 +57,7 @@ const sections = [
     "paragraphs": [
       "Our website may use cookies, browser storage, analytics, and conversion tracking to support functionality, understand website interactions, and measure events such as successful enquiries and demo bookings. These technologies may process device identifiers, IP addresses, and interaction information; they are not necessarily anonymous.",
       "Browser storage is also used to retain an on-site support chat conversation during your visit. Embedded Vimeo videos, Google Maps, and links to services such as WhatsApp may involve third-party processing of browser, device, and interaction information under those providers’ privacy policies.",
-      "We use Cloudflare Turnstile to help verify enquiry form submissions and reduce automated spam. This involves Cloudflare processing browser and device signals for verification. We validate the verification token with Cloudflare before sending an enquiry email.",
+      "We use Cloudflare Turnstile to help verify enquiry and career application form submissions and reduce automated spam. This involves Cloudflare processing browser and device signals for verification. We validate the verification token with Cloudflare before sending an enquiry or application email.",
       "You can manage cookies and browser storage through your browser settings. Restricting them may affect some website features. This policy does not replace the privacy policies of third-party websites or services."
     ]
   },
@@ -164,7 +164,7 @@ export default function PrivacyPolicyPage() {
       <header className="pp-hero">
         <h1>Privacy <span>Policy</span></h1>
         <p className="pp-hero-description">This Privacy Policy explains how LOCATOR collects, uses, protects, and manages your personal information.</p>
-        <p className="pp-updated">Last updated: <time dateTime="2026-10-19">19 October 2026</time></p>
+        <p className="pp-updated">Last updated: <time dateTime="2026-10-21">21 October 2026</time></p>
       </header>
       <div className="pp-layout">
         <aside className="pp-sidebar">

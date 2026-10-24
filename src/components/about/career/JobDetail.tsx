@@ -1,6 +1,7 @@
 'use client'
 
 import PrivacyNotice from '@/components/common/PrivacyNotice'
+import TurnstileField from '@/components/common/TurnstileField'
 import { useRef, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -21,6 +22,8 @@ const COUNTRY_CODES = [
 type Experience = { id: number; value: string }
 
 export default function JobDetail({ job }: { job: Job }) {
+  const [turnstileToken, setTurnstileToken] = useState('')
+  const [verificationAttempt, setVerificationAttempt] = useState(0)
   const [tab, setTab] = useState<'overview' | 'application'>('overview')
   const [sent, setSent] = useState(false)
   const [sending, setSending] = useState(false)
@@ -35,6 +38,10 @@ export default function JobDetail({ job }: { job: Job }) {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (sending) return
+    if (!turnstileToken) {
+      setSubmitError('Please complete the security check before submitting.')
+      return
+    }
     const formData = new FormData(e.currentTarget)
     formData.set('jobSlug', job.slug)
     const resume = formData.get('resume')
@@ -56,6 +63,8 @@ export default function JobDetail({ job }: { job: Job }) {
     } catch {
       setSubmitError('Unable to send your application. Please try again.')
     } finally {
+      setTurnstileToken('')
+      setVerificationAttempt(value => value + 1)
       setSending(false)
     }
   }
@@ -427,7 +436,8 @@ export default function JobDetail({ job }: { job: Job }) {
               {submitError && (
                 <p role="alert" style={{ color: '#b42318', marginBottom: '12px' }}>{submitError}</p>
               )}
-              <button type="submit" className="jd-submit" disabled={sending}>
+              <TurnstileField action="career_application" onTokenChange={setTurnstileToken} resetKey={verificationAttempt} />
+              <button type="submit" className="jd-submit" disabled={sending || !turnstileToken}>
                 {sending ? 'Sending application…' : 'Submit application'}
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
               </button>
