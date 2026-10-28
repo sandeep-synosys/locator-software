@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
+import Image from "@/components/common/ViewportImage";
 import TurnstileField from "@/components/common/TurnstileField";
 import PrivacyNotice from "@/components/common/PrivacyNotice";
 import { useActionState, useEffect, useRef, useState } from "react";
@@ -220,14 +220,13 @@ export default function Footer() {
       >
         {/* ── Secondary brand mark — same logo used across the Software pages ── */}
         <div style={{ marginBottom: "36px", paddingLeft: "24px" }}>
-          {/* eager: small, and lazy left an empty gap where the brand mark goes
-              for as long as the footer was on screen mid-download. */}
+          {/* Fetch before the footer enters view at its actual display size. */}
           <Image
             src="/brand/logo-wordmark.png"
             alt="Locator"
-            width={2617}
-            height={911}
-            loading="eager"
+            width={138}
+            height={48}
+            sizes="138px"
             style={{ width: "auto", height: "48px" }}
           />
         </div>
@@ -366,7 +365,7 @@ export default function Footer() {
                 </p>
               )}
               <PrivacyNotice />
-                <TurnstileField action="quick_contact" onTokenChange={setTurnstileToken} resetKey={quickContactState} />
+                <TurnstileField action="quick_contact" onTokenChange={setTurnstileToken} resetKey={quickContactState} deferred />
               <button
                 className="footer-btn-primary"
                 type="submit"

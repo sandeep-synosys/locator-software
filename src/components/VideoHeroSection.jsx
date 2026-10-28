@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { ViewportNativeImage } from "@/components/common/ViewportImage";
 import {
   LOCATOR_VIDEO_ALLOW,
   LOCATOR_VIDEO_POSTER,
@@ -136,7 +137,7 @@ export default function VideoHeroSection({
                 (already-decoded) image underneath means the frame the viewer
                 sees while the embed loads is the film's own — it fades out
                 only once the player has loaded over the top of it. */}
-            <img
+            <ViewportNativeImage
               className={`vhs__video vhs__poster${ready ? " vhs__poster--hidden" : ""}`}
               src={poster}
               alt=""

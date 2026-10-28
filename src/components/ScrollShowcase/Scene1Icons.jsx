@@ -1,6 +1,6 @@
 'use client';
 import { forwardRef, useLayoutEffect, useRef, useState, useEffect } from 'react';
-import Image from 'next/image';
+import Image from '@/components/common/ViewportImage';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { MotionPathPlugin } from 'gsap/MotionPathPlugin';
@@ -1171,27 +1171,13 @@ export default forwardRef(function Scene1Icons(_props, ref) {
           background:'#fff',
         }}
       >
-        {/* EVERY artwork layer in this scene is loading="eager". Do not drop it.
-            These sit inside a ScrollTrigger-PINNED section: the section is already
-            filling the viewport while GSAP fades each layer in, so "near the
-            viewport" — the only thing lazy loading waits for — is already true by
-            the time the reveal starts. The fetch then begins as the layer becomes
-            visible and the user watches the mockup animate in with the artwork
-            missing, leaving an empty panel where the dashboard should be. That is
-            the Fleet/Video Telematics flash; it was reproduced at scrollY 1800,
-            3400 and 4600 and disappears when these load eagerly.
-            eager is NOT `priority` here: Next 16 gates the <link rel="preload"> on
-            a separate `preload` prop (isLazy = !priority && !preload && …), so
-            these stay out of <head> and never compete with the first viewport.
-            next/image requests them at Low priority either way — the only thing
-            that changes is that the request starts at page load instead of at
-            scroll. */}
+        {/* ViewportImage loads all layers before the section arrives, including
+            layers still hidden by the timeline, without document preloads. */}
         <Image
           src="/showcase/mobile-app.webp"
           alt="Mobile app interface"
           fill
           sizes={`${PHONE_W}px`}
-          loading="eager"
           style={{ objectFit:'cover', objectPosition:'center top' }}
         />
       </div>
@@ -1223,7 +1209,6 @@ export default forwardRef(function Scene1Icons(_props, ref) {
             alt="Desktop dashboard interface"
             fill
             sizes={`${DT_W}px`}
-            loading="eager"
             style={{ objectFit:'contain', objectPosition:'left top' }}
           />
         </div>
@@ -1261,7 +1246,6 @@ export default forwardRef(function Scene1Icons(_props, ref) {
           alt="Vehicle hover popup"
           fill
           sizes="225px"
-          loading="eager"
           style={{ objectFit:'contain', objectPosition:'left top' }}
         />
       </div>
@@ -1290,7 +1274,6 @@ export default forwardRef(function Scene1Icons(_props, ref) {
           alt="Map/Satellite toggle"
           fill
           sizes="110px"
-          loading="eager"
           style={{ objectFit:'contain', objectPosition:'left top' }}
         />
       </div>
