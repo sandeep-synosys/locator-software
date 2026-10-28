@@ -75,7 +75,11 @@ async function check(origin) {
     }
     const field = (page, action) => page.locator(`[data-turnstile-action="${action}"]`);
     const form = (page, action) => page.locator('form').filter({ has: field(page, action) });
-    async function complete(page, action) { await field(page, action).getByRole('button', { name: 'Complete test security check' }).click(); }
+    const leadEvents = page => page.evaluate(() => (window.dataLayer || []).filter(event => event.event === 'locator_lead_submitted'));
+    async function complete(page, action) {
+      await field(page, action).scrollIntoViewIfNeeded();
+      await field(page, action).getByRole('button', { name: 'Complete test security check' }).click();
+    }
     async function event(page, action, name) {
       await page.evaluate(({ action, name }) => {
         const widget = [...window.__turnstileTest.widgets.values()].find(w => w.options.action === action);
@@ -181,6 +185,7 @@ async function check(origin) {
         });
         await submit.click();
         await target.getByRole('alert').waitFor();
+        assert.equal((await leadEvents(t.page)).length, 0, 'Rejected leads must not count as conversions');
         assert.equal(await target.locator('[name=name]').inputValue(), 'Test enquiry');
         assert.equal(await target.locator('[name=attachment]').evaluate(el => el.files.length), 1);
         await t.page.waitForFunction(() => document.querySelector('[data-turnstile-action="contact"] input').value === '');
@@ -188,10 +193,13 @@ async function check(origin) {
         await complete(t.page, action);
         await submit.click();
         await t.page.getByRole('heading', { name: 'Message received', exact: true }).waitFor();
+        assert.deepEqual(await leadEvents(t.page), [{ event: 'locator_lead_submitted', form_type: 'contact' }],
+          'A successful contact sends exactly one existing GTM conversion event');
       } else {
         // Actual server action, deliberately missing the secret: no Siteverify or SMTP call.
         await submit.click();
         await target.getByRole('alert').waitFor();
+        assert.equal((await leadEvents(t.page)).length, 0, 'Failed server actions must not count as conversions');
         assert.equal(await target.locator('[name=name]').inputValue(), 'Test enquiry');
         await t.page.waitForFunction(action => document.querySelector('[data-turnstile-action="' + action + '"] input').value === '', action);
         assert.equal(await submit.isDisabled(), true);
@@ -331,7 +339,10 @@ async function check(origin) {
       await field(navigation.page, action).getByRole('button', { name: 'Complete test security check' }).waitFor();
       await navigation.page.waitForFunction(action => {
         const widgets = [...window.__turnstileTest.widgets.values()];
-        return widgets.length === 2 && widgets.some(w => w.options.action === action) && widgets.some(w => w.options.action === 'quick_contact');
+        // The footer is deferred until approached, so it may not be mounted.
+        return widgets.filter(w => w.options.action === action).length === 1 &&
+          widgets.every(w => w.options.action === action || w.options.action === 'quick_contact') &&
+          widgets.filter(w => w.options.action === 'quick_contact').length <= 1;
       }, action);
       assert.equal(await navigation.page.evaluate(() => window.__testDocument), 'retained', 'Exercise Next.js navigation rather than full reloads');
       await complete(navigation.page, action);

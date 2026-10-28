@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { ViewportNativeImage } from "@/components/common/ViewportImage";
 
 /**
  * IoTFeaturesSection
@@ -509,18 +510,11 @@ function FeatureIcon({ name }) {
 function FeaturePreview({ type, customImage }) {
   // If user passes a custom image src, render that instead of the placeholder SVG
   //
-  // These three previews were briefly lazy, to keep 261KB of webp out of <head>
-  // while the stylesheet was still a separate request it could starve. That
-  // reason is gone — the CSS is inlined into the document now — and lazy cost
-  // more than it saved: the cards fade in on an IntersectionObserver, so on a
-  // slow connection they arrived, faded up and sat there as empty boxes while
-  // the artwork was still downloading. Measured on Slow 3G, graph.webp and
-  // percentage.webp were on screen and visible but unloaded across 5 and 11
-  // consecutive scroll positions. Eager costs bandwidth early; an empty card is
-  // the bug the client is reporting.
+  // Fetch before the section arrives, without preloading these offscreen
+  // previews in the document head or waiting for their reveal animation.
   if (customImage) {
     return (
-      <img
+      <ViewportNativeImage
         src={customImage}
         alt=""
         decoding="async"

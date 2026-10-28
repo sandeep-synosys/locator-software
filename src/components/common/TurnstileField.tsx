@@ -80,10 +80,12 @@ export default function TurnstileField({
   action,
   onTokenChange,
   resetKey,
+  deferred = false,
 }: {
   action: TurnstileAction;
   onTokenChange: (token: string) => void;
   resetKey: unknown;
+  deferred?: boolean;
 }) {
   const container = useRef<HTMLDivElement>(null);
   const [token, setToken] = useState("");
@@ -91,6 +93,29 @@ export default function TurnstileField({
   const [retry, setRetry] = useState(0);
   const pathname = usePathname();
   const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY?.trim();
+  const [activated, setActivated] = useState(!deferred);
+
+  useEffect(() => {
+    if (activated) return;
+    const form = container.current?.closest("form");
+    if (!form) return;
+    const activate = () => setActivated(true);
+    // Focus starts loading even when someone jumps directly to a form field.
+    form.addEventListener("focusin", activate);
+    if (!("IntersectionObserver" in window)) {
+      activate();
+      return () => form.removeEventListener("focusin", activate);
+    }
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) activate(); },
+      { rootMargin: "600px 0px" },
+    );
+    observer.observe(form);
+    return () => {
+      observer.disconnect();
+      form.removeEventListener("focusin", activate);
+    };
+  }, [activated]);
 
   useEffect(() => {
     let cancelled = false;
@@ -104,7 +129,7 @@ export default function TurnstileField({
     // Synchronize with the external widget after every completed submission.
     // Tokens are single-use, including when email delivery later fails.
     update("");
-    if (siteKey) {
+    if (siteKey && activated) {
       loadTurnstile()
         .then((api) => {
           if (cancelled || !container.current) return;
@@ -181,7 +206,7 @@ export default function TurnstileField({
       if (widget !== undefined) window.turnstile?.remove(widget);
       onTokenChange("");
     };
-  }, [action, onTokenChange, resetKey, retry, siteKey, pathname]);
+  }, [action, onTokenChange, resetKey, retry, siteKey, pathname, activated]);
 
   return (
     <div

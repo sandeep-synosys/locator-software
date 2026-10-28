@@ -1,6 +1,6 @@
 'use client';
 import { forwardRef, useLayoutEffect, useRef, useEffect, useState } from 'react';
-import Image from 'next/image';
+import Image from '@/components/common/ViewportImage';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import BrowserChrome from './BrowserChrome';
@@ -959,18 +959,12 @@ export default forwardRef(function Scene4Pricing(_props, ref) {
             The dev server tolerates that; Vercel's optimizer 404s, which is why
             encoding these only ever broke in production. */}
         <div style={{ position:'relative', flex:1, background:'#fff' }}>
-          {/* loading="eager" — see the long note in Scene1Icons. This is the panel
-              that rendered empty at scrollY 3400/4600: the section is pinned and
-              already on screen when GSAP reveals it, so lazy loading only starts
-              the fetch once the user is watching. eager does NOT add a <link
-              rel="preload"> in Next 16 (that is the separate `preload` prop), so
-              nothing here competes with the first viewport. */}
+          {/* Start this hidden layer before the section reaches the viewport. */}
           <Image
             src="/showcase/video-telematics-dashboard.webp"
             alt="Video telematics dashboard"
             fill
             sizes={`${FW}px`}
-            loading="eager"
             style={{ objectFit:'contain', objectPosition:'left top' }}
           />
         </div>
@@ -1002,7 +996,6 @@ export default forwardRef(function Scene4Pricing(_props, ref) {
           alt="Vehicle hover popup"
           fill
           sizes="250px"
-          loading="eager"
           style={{ objectFit:'contain', objectPosition:'left top' }}
         />
       </div>

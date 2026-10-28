@@ -220,7 +220,7 @@ export default function RoadSection() {
           alt="Road"
           fill
           className="object-cover object-top"
-          priority
+          sizes="100vw"
         />
       </div>
 
@@ -293,7 +293,6 @@ export default function RoadSection() {
               width={182}
               height={153}
               className="object-contain"
-              priority
             />
           </div>
         </div>

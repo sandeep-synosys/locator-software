@@ -4,10 +4,6 @@
 //
 // ORDER MATTERS: Next.js uses the first matching rule, so exact URLs come first and the
 // ':slug' fallbacks (old site routed by numeric ID only and ignored the slug) come last.
-//
-// TODO (not redirected here): /task-manager/privacy-policy.html and
-// /mobile-app-privacy-policy/privacy-policy.html - serve them from the new site (e.g. public/)
-// or add redirects once the new privacy-policy URLs are known. App-store listings likely link to them.
 
 export type RedirectRule = { source: string; destination: string; permanent: true };
 
@@ -16,6 +12,9 @@ const rules: [string, string][] = [
   ['/aboutus.html', '/about/who-we-are'],
   ['/index.html', '/'],
   ['/index.php', '/'],
+  ['/task-manager/privacy-policy.html', '/privacy-policy'],
+  ['/task-manager', '/service/task-manager'],
+  ['/mobile-app-privacy-policy/privacy-policy.html', '/privacy-policy'],
   ['/about', '/about/who-we-are'],
   ['/software.html', '/software'],
   ['/services.html', '/service/fleet-telematics'],

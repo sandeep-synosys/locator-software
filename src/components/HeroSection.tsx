@@ -352,8 +352,9 @@ export default function HeroSection() {
         <Image
           src="/home/hero/sky.png"
           alt=""
-          width={420}
-          height={320}
+          width={4034}
+          height={2094}
+          sizes="(max-width: 640px) 1px, 28vw"
           style={{
             width: '100%',
             height: 'auto',
@@ -380,8 +381,9 @@ export default function HeroSection() {
         <Image
           src="/home/hero/sky.png"
           alt=""
-          width={380}
-          height={280}
+          width={4034}
+          height={2094}
+          sizes="(max-width: 640px) 1px, 24vw"
           style={{
             width: '100%',
             height: 'auto',
@@ -446,8 +448,10 @@ export default function HeroSection() {
         <Image
           src="/home/hero/building.png"
           alt="Dubai Skyline"
-          width={590}
-          height={334}
+          width={3055}
+          height={1443}
+          sizes="(max-width: 640px) 190vw, max(590px, min(52vw, calc(119vh - 512px), 1100px))"
+          fetchPriority="high"
           style={{
             width: '100%',
             height: 'auto',
@@ -463,8 +467,8 @@ export default function HeroSection() {
         <Image
           src="/home/hero/cloud.svg"
           alt="Cloud"
-          width={400}
-          height={267}
+          width={1920}
+          height={1080}
           style={{ opacity: 0.7, width: 'clamp(180px, 30vw, max(400px, min(26vw, 46vh, 620px)))', height: 'auto' }}
         />
       </div>
