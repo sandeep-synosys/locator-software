@@ -8,12 +8,12 @@ export const metadata: Metadata = {
   title: 'Frequently Asked Questions — GPS Tracking & Fleet Telematics UAE',
   description:
     'Find answers about LOCATOR GPS installation, fleet tracking, the platform and mobile app, support, plans, and coverage across the UAE.',
-  alternates: { canonical: '/faq' },
+  alternates: { canonical: '/frequently-asked-questions' },
   openGraph: {
     title: 'Frequently Asked Questions | Locator',
     description:
       'Answers to common questions about LOCATOR GPS tracking, installation, platform features, support, and coverage.',
-    url: '/faq',
+    url: '/frequently-asked-questions',
     type: 'website',
   },
 }
