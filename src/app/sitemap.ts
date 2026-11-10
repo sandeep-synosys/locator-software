@@ -11,7 +11,7 @@ const ROUTES: { path: string; priority: number }[] = [
   { path: "/get-a-quote", priority: 0.8 },
   { path: "/get-a-free-demo", priority: 0.8 },
   { path: "/contact", priority: 0.8 },
-  { path: "/faq", priority: 0.6 },
+  { path: "/frequently-asked-questions", priority: 0.6 },
   { path: "/privacy-policy", priority: 0.3 },
   { path: "/about/who-we-are", priority: 0.8 },
   { path: "/about/vision", priority: 0.8 },

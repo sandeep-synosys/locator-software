@@ -42,7 +42,7 @@ const serviceLinks = [
 ];
 
 const supportLinks = [
-  { href: "/faq", label: "FAQ" },
+  { href: "/frequently-asked-questions", label: "FAQ" },
   { href: "/benefits-of-gps-tracking", label: "Benefits Of GPS Tracking" },
 ];
 

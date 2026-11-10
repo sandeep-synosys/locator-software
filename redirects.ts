@@ -8,6 +8,9 @@
 export type RedirectRule = { source: string; destination: string; permanent: true };
 
 const rules: [string, string][] = [
+  // ---------- Renamed routes on the new site (keep old links, ads and rankings working) ----------
+  ['/faq', '/frequently-asked-questions'],
+
   // ---------- Exact URLs (from mapping sheet + sitemaps) ----------
   ['/aboutus.html', '/about/who-we-are'],
   ['/index.html', '/'],
@@ -90,7 +93,7 @@ const rules: [string, string][] = [
   ['/assistance-on-securepath-certificate-process.html', '/securepath'],
   ['/guidance-on-securepath-certification-process.html', '/securepath'],
   ['/partners.html', '/'],
-  ['/faq.html', '/faq'],
+  ['/faq.html', '/frequently-asked-questions'],
   ['/service-details.html', '/service/fleet-telematics'],
   ['/service-details.html/2/Delivery-Trucks-Tracking', '/service/fleet-telematics'],
   ['/service-details.html/3/Field-Staff-Tracking', '/service/task-manager'],
@@ -106,7 +109,7 @@ const rules: [string, string][] = [
   ['/software.php', '/software'],
   ['/services.php', '/service/fleet-telematics'],
   ['/service-details.php', '/service/fleet-telematics'],
-  ['/faq.php', '/faq'],
+  ['/faq.php', '/frequently-asked-questions'],
   ['/career.php', '/about/career'],
   ['/blog.php', '/about/newsroom/blog'],
   ['/gps-tracking.php', '/benefits-of-gps-tracking'],
