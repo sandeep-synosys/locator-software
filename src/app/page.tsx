@@ -21,7 +21,16 @@ const BlogSection = dynamic(() => import("@/components/BlogSection"));
 export const metadata: Metadata = {
   title: "GPS tracking & Fleet Management Software in UAE | Locator",
   description:
-    "Manage your fleet smarter with LOCATOR’s GPS vehicle tracking and fleet management solutions in the UAE. Improve efficiency, reduce fuel costs and optimise operations.",
+    "Manage your fleet with GPS tracking, fleet management software and video telematics in UAE. Reduce costs, improve driver safety and get a free demo",
+  keywords: [
+    "fleet management UAE",
+    "GPS tracking Dubai",
+    "vehicle tracking system UAE",
+    "fleet management software",
+    "video telematics",
+    "fleet telematics Dubai",
+    "IoT asset tracking UAE",
+  ],
   alternates: { canonical: "/" },
   openGraph: {
     title: "LOCATOR — Fleet Telematics & GPS Tracking UAE",
