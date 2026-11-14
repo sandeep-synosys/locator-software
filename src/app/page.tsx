@@ -19,7 +19,7 @@ const LogoMarquee = dynamic(() => import("@/components/Logomarquee"));
 const BlogSection = dynamic(() => import("@/components/BlogSection"));
 
 export const metadata: Metadata = {
-  title: "GPS tracking & Fleet Management Software in UAE",
+  title: "GPS tracking & Fleet Management Software in UAE | Locator",
   description:
     "Manage your fleet smarter with LOCATOR’s GPS vehicle tracking and fleet management solutions in the UAE. Improve efficiency, reduce fuel costs and optimise operations.",
   alternates: { canonical: "/" },
