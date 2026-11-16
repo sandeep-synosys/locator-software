@@ -20,7 +20,7 @@ import WhoWeAreNumbers from '@/components/about/who-we-are/WhoWeAreNumbers'
 const ServiceFAQ = dynamic(() => import('@/components/service/ServiceFAQ'))
 
 export const metadata: Metadata = {
-  title: 'Vehicle Tracking System UAE — The Best GPS Tracker | LOCATOR',
+  title: { absolute: 'Vehicle Tracking System UAE — The Best GPS Tracker | LOCATOR' },
   description:
     'Manage your fleet with LOCATOR’s vehicle tracking system in the UAE. Track live locations, monitor routes and driver activity. Get a free demo.',
   keywords: [
