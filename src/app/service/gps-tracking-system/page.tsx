@@ -15,14 +15,21 @@ import Footer from '@/components/layouts/Footer'
 import WhoWeAreNumbers from '@/components/about/who-we-are/WhoWeAreNumbers'
 
 export const metadata: Metadata = {
-  title: 'GPS Tracking System for Vehicles | UAE — Locator',
+  title: { absolute: 'GPS Tracking System for Vehicles in UAE | LOCATOR' },
   description:
-    'Our GPS tracker software makes your life easier when it comes to managing your vehicles and team — live tracking, alerts, geofencing, and detailed reports across the UAE.',
+    'Track vehicles in real time with LOCATOR GPS tracking in the UAE. Monitor routes, driver activity and idle time, set alerts and manage your fleet with ease.',
+  keywords: [
+    'GPS tracking system UAE',
+    'GPS vehicle tracking',
+    'GPS tracking Dubai',
+    'Vehicle GPS tracker',
+    'GPS tracking software UAE',
+  ],
   alternates: { canonical: '/service/gps-tracking-system' },
   openGraph: {
-    title: 'GPS Tracking System for Vehicles | UAE — Locator',
+    title: 'GPS Tracking System for Vehicles in UAE | LOCATOR',
     description:
-      'Live tracking, alerts, geofencing, and detailed reports for every vehicle in your fleet — powered by LOCATOR.',
+      'Track vehicles in real time with LOCATOR GPS tracking in the UAE. Monitor routes, driver activity and idle time, set alerts and manage your fleet with ease.',
     url: '/service/gps-tracking-system',
     type: 'website',
   },
