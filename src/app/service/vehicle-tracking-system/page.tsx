@@ -20,14 +20,21 @@ import WhoWeAreNumbers from '@/components/about/who-we-are/WhoWeAreNumbers'
 const ServiceFAQ = dynamic(() => import('@/components/service/ServiceFAQ'))
 
 export const metadata: Metadata = {
-  title: 'Vehicle Tracking System UAE — The Best GPS Tracker',
+  title: 'Vehicle Tracking System UAE — The Best GPS Tracker | LOCATOR',
   description:
-    'Manage your vehicles with one click. LOCATOR vehicle tracking for UAE fleets — real-time GPS location, proper fuel management, customisable alerts and 100% accurate reports.',
+    'Manage your fleet with LOCATOR’s vehicle tracking system in the UAE. Track live locations, monitor routes and driver activity. Get a free demo.',
+  keywords: [
+    'Vehicle tracking system UAE',
+    'GPS vehicle tracking',
+    'Live GPS tracking',
+    'Vehicle tracking Dubai',
+    'GPS fleet monitoring',
+  ],
   alternates: { canonical: '/service/vehicle-tracking-system' },
   openGraph: {
-    title: 'The Best Vehicle Tracking System in UAE | LOCATOR',
+    title: 'Vehicle Tracking System UAE — The Best GPS Tracker | LOCATOR',
     description:
-      'Real-time location, fuel management and customisable alerts for every vehicle you own — across Dubai and all Emirates.',
+      'Manage your fleet with LOCATOR’s vehicle tracking system in the UAE. Track live locations, monitor routes and driver activity. Get a free demo.',
     url: '/service/vehicle-tracking-system',
     type: 'website',
   },
