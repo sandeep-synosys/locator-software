@@ -64,9 +64,14 @@ export default function WhoWeAreHero() {
         @media (prefers-reduced-motion: no-preference) { .wwa-anim { opacity: 0; animation: wwaRise .8s ${EASE} forwards; } }
 
 
+        .wwa-eyebrow {
+          margin: 0 0 clamp(10px,1.2vw,14px);
+          font-size: var(--f-13, 13px); font-weight: 800; letter-spacing: .12em;
+          text-transform: uppercase; color: #1360ee;
+        }
         .wwa-title {
           margin: 0;
-          font-size: clamp(28px, calc(2.5vw + 16px), 46px);
+          font-size: clamp(28px, calc(1.6vw + 16px), 40px);
           font-weight: 800; line-height: 1.16; letter-spacing: -.022em;
           color: #0b1220;
         }
@@ -74,7 +79,7 @@ export default function WhoWeAreHero() {
 
 
         .wwa-lead {
-          margin: clamp(14px,1.6vw,18px) 0 0; max-width: 48ch;
+          margin: clamp(14px,1.6vw,18px) 0 0; max-width: 62ch;
           font-size: clamp(15px, 1.05vw, 17px);
           line-height: 1.72; color: #55607a;
         }
@@ -212,14 +217,16 @@ export default function WhoWeAreHero() {
         <div className="wwa-body">
           <div className="wwa-inner">
             <div className="wwa-content">
+              <p className="wwa-eyebrow wwa-anim" style={{ animationDelay: '0s' }}>Who we are</p>
+
               <h1 className="wwa-title wwa-anim" style={{ animationDelay: '.05s' }}>
-                <span style={{ color: '#0b1220' }}>Who</span>{' '}
-                <span style={{ color: '#1360ee' }}>We Are</span>
+                GPS Tracking &amp; Fleet <br />
+                Management Company <span style={{ color: '#1360ee' }}>in the UAE</span>
               </h1>
 
 
               <p className="wwa-lead wwa-anim" style={{ animationDelay: '.14s' }}>
-                LOCATOR is more than a GPS tracking provider — we're a technology company building intelligent fleet telematics and IoT solutions that connect vehicles and assets, and turn real-time data into actionable business intelligence.
+                LOCATOR is a technology company providing GPS tracking, fleet management software and intelligent IoT solutions for businesses across the UAE, with operations in Dubai and Abu Dhabi. We connect vehicles and assets through real-time tracking and telematics, turning data into actionable business intelligence.
               </p>
 
 

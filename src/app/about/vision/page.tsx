@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { siteConfig } from '@/config/site'
 import ScrollReveal from '@/components/software/ScrollReveal'
 import VisionHero from '@/components/about/VisionHero'
 import VisionRoadmap from '@/components/about/VisionRoadmap'
@@ -7,16 +8,29 @@ import AboutPillarNav from '@/components/about/AboutPillarNav'
 import Footer from '@/components/layouts/Footer'
 
 export const metadata: Metadata = {
-  title: 'Our Vision — About Locator',
+  // Absolute: the brief's title already ends with the brand, so skip the "| LOCATOR" template.
+  title: { absolute: 'LOCATOR Vision | Connected Mobility & IoT in the UAE' },
   description:
-    'By 2035, we envision a globally connected world where one million IoT devices enable smarter mobility, safer assets, and more intelligent operations.',
+    'Explore LOCATOR’s vision for connected mobility and IoT innovation, from the UAE to the GCC and beyond. Our 2035 ambition: one million connected devices.',
   alternates: { canonical: '/about/vision' },
+  // Page-level openGraph/twitter replace the layout's objects wholesale, so the
+  // shared image, site name and locale are restated here.
   openGraph: {
-    title: 'Our Vision | Locator',
+    title: 'LOCATOR Vision | Connected Mobility & IoT in the UAE',
     description:
-      'A trusted global leader in AI-powered IoT innovation — one million connected devices by 2035.',
+      'Explore LOCATOR’s vision for connected mobility and IoT innovation, from the UAE to the GCC and beyond. Our 2035 ambition: one million connected devices.',
     url: '/about/vision',
     type: 'website',
+    siteName: siteConfig.name,
+    locale: siteConfig.locale,
+    images: [{ url: siteConfig.ogImage, width: 1200, height: 630, alt: 'LOCATOR Vision | Connected Mobility & IoT in the UAE' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'LOCATOR Vision | Connected Mobility & IoT in the UAE',
+    description:
+      'Explore LOCATOR’s vision for connected mobility and IoT innovation, from the UAE to the GCC and beyond. Our 2035 ambition: one million connected devices.',
+    images: [siteConfig.ogImage],
   },
 }
 

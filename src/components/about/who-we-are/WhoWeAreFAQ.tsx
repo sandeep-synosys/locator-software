@@ -49,6 +49,7 @@ export default function WhoWeAreFAQ() {
           transition: border-color .2s ${EASE}, box-shadow .2s ${EASE}, background .2s ${EASE};
         }
         .wwf-item.on { border-color: #cdd9ff; border-left-color: #1360ee; background: #fafbff; box-shadow: 0 2px 20px rgba(19,96,238,.08); }
+        .wwf-q { margin: 0; font: inherit; letter-spacing: inherit; }
         .wwf-trig { width: 100%; background: none; border: none; display: flex; align-items: flex-start; gap: 14px; padding: 17px 18px; cursor: pointer; font-family: inherit; text-align: left; }
         .wwf-num { font-size: var(--f-10); font-weight: 700; font-family: ui-monospace, 'Cascadia Code', monospace; color: #c4c4d0; padding-top: 3px; flex-shrink: 0; width: 18px; letter-spacing: .02em; transition: color .18s ${EASE}; }
         .wwf-item.on .wwf-num { color: #1360ee; }
@@ -88,7 +89,8 @@ export default function WhoWeAreFAQ() {
           <div data-reveal data-reveal-delay="80" style={{ display: 'flex', flexDirection: 'column', gap: '7px' }}>
             {FAQS.map((item, i) => (
               <div key={item.q} className={`wwf-item${openIdx === i ? ' on' : ''}`}>
-                <button className="wwf-trig" onClick={() => toggle(i)}>
+                <h3 className="wwf-q">
+                <button className="wwf-trig" onClick={() => toggle(i)} aria-expanded={openIdx === i}>
                   <span className="wwf-num">{String(i + 1).padStart(2, '0')}</span>
                   <span className="wwf-qtext">{item.q}</span>
                   <span className="wwf-icon" aria-hidden="true">
@@ -97,6 +99,7 @@ export default function WhoWeAreFAQ() {
                     </svg>
                   </span>
                 </button>
+                </h3>
                 <div className="wwf-body">
                   <div className="wwf-inner">
                     <p className="wwf-ans">{item.a}</p>

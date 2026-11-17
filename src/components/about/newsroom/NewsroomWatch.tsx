@@ -3,22 +3,48 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import { NEWS_ITEMS, type NewsItem } from './newsroom-data'
+import { timeAgo, youtubeEmbedUrl, type WatchRequest } from './video-link'
 
 const EASE = 'cubic-bezier(.22,.61,.36,1)'
 
 const VIDEOS = NEWS_ITEMS.filter((i) => i.category === 'videos')
+const CHANNEL_NAME = 'LOCATOR Media'
+const CHANNEL_URL = 'https://www.youtube.com/@locatormedia820'
+
+const ageOf = (v: NewsItem) => (v.publishedAt ? timeAgo(v.publishedAt) : v.ago)
+
+function findVideo(id?: string) {
+  return (id && VIDEOS.find((v) => v.youtubeId === id)) || VIDEOS[0]
+}
 
 /**
  * YouTube watch-page layout: one large poster/player on the left with the
  * title, channel row, and description beneath it, and an "Up next" playlist
  * rail on the right. Selecting a row swaps the player rather than navigating,
  * so the whole tab behaves like a single player surface.
+ *
+ * The poster stays until a visitor presses play; only then is the YouTube
+ * iframe mounted, so the tab costs no third-party requests until it is used.
+ * `request` lets other sections (e.g. CustomerReviewVideos) open a specific
+ * video — each new request object selects it and, when `play` is set, starts it.
  */
-export default function NewsroomWatch() {
-  const [active, setActive] = useState<NewsItem>(VIDEOS[0])
-  const [playing, setPlaying] = useState(false)
+export default function NewsroomWatch({ request }: { request?: WatchRequest | null } = {}) {
+  const [active, setActive] = useState<NewsItem>(() => findVideo(request?.id))
+  const [playing, setPlaying] = useState(() => Boolean(request?.id && request.play))
+
+  // Adjust state while rendering when a new request arrives (React's
+  // "storing information from previous renders" pattern — no effect needed).
+  const [handled, setHandled] = useState(request)
+  if (request !== handled) {
+    setHandled(request)
+    if (request) {
+      setActive(findVideo(request.id))
+      setPlaying(Boolean(request.id && request.play))
+    }
+  }
 
   const queue = VIDEOS.filter((v) => v.id !== active.id)
+  const activeAge = ageOf(active)
 
   return (
     <div className="nyw">
@@ -29,14 +55,19 @@ export default function NewsroomWatch() {
         /* ── Player ── */
         .nyw-stage {
           position: relative; aspect-ratio: 16 / 9; border-radius: 14px; overflow: hidden;
-          background: #000; cursor: pointer; border: 0; padding: 0; width: 100%; display: block;
+          background: #000; width: 100%; display: block;
         }
-        .nyw-stage img { object-fit: cover; transition: opacity .3s ${EASE}; }
-        .nyw-stage[data-playing='true'] img { opacity: .55; }
+        .nyw-poster {
+          position: absolute; inset: 0; width: 100%; height: 100%; display: block;
+          border: 0; padding: 0; margin: 0; background: transparent; cursor: pointer;
+        }
+        .nyw-stage img { object-fit: cover; }
         .nyw-stage::after {
-          content: ''; position: absolute; inset: 0; z-index: 1;
+          content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
           background: linear-gradient(0deg, rgba(0,0,0,.55) 0%, transparent 28%);
         }
+        .nyw-stage[data-playing='true']::after { display: none; }
+        .nyw-frame { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; z-index: 2; }
 
         .nyw-bigplay {
           position: absolute; inset: 0; margin: auto; z-index: 3;
@@ -44,25 +75,12 @@ export default function NewsroomWatch() {
           background: rgba(230,57,70,.94); color: #fff; box-shadow: 0 12px 34px rgba(0,0,0,.5);
           transition: transform .22s ${EASE}, background .22s ${EASE};
         }
-        .nyw-stage:hover .nyw-bigplay { transform: scale(1.08); background: #e63946; }
+        .nyw-poster:hover .nyw-bigplay, .nyw-poster:focus-visible .nyw-bigplay { transform: scale(1.08); background: #e63946; }
 
-        .nyw-loading {
-          position: absolute; inset: 0; z-index: 3; display: grid; place-items: center; gap: 12px;
-          align-content: center; color: rgba(255,255,255,.85); font-size: var(--f-13); font-weight: 600;
-        }
-        .nyw-spin {
-          width: 34px; height: 34px; border-radius: 50%;
-          border: 3px solid rgba(255,255,255,.22); border-top-color: #e63946;
-          animation: nyw-spin .8s linear infinite;
-        }
-        @keyframes nyw-spin { to { transform: rotate(360deg); } }
-
-        /* Fake scrub bar so the stage reads as a player, not a hero image. */
+        /* Static scrub bar on the poster so the stage reads as a player, not a hero image. */
         .nyw-bar { position: absolute; left: 14px; right: 14px; bottom: 12px; z-index: 4; }
         .nyw-bar-track { height: 4px; border-radius: 3px; background: rgba(255,255,255,.32); overflow: hidden; }
         .nyw-bar-fill { display: block; height: 100%; background: #e63946; width: 0; }
-        .nyw-stage[data-playing='true'] .nyw-bar-fill { animation: nyw-fill 14s linear forwards; }
-        @keyframes nyw-fill { to { width: 62%; } }
         .nyw-bar-meta { display: flex; justify-content: space-between; margin-top: 6px; font-size: var(--f-11); color: rgba(255,255,255,.8); font-variant-numeric: tabular-nums; }
 
         /* ── Title block ── */
@@ -72,10 +90,13 @@ export default function NewsroomWatch() {
         .nyw-channel { display: flex; align-items: center; gap: 11px; }
         .nyw-avatar { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: #1360ee; color: #fff; font-size: var(--f-16); font-weight: 800; }
         .nyw-cname { margin: 0; display: flex; align-items: center; gap: 4px; font-size: var(--f-14); font-weight: 700; color: #0b1220; }
+        .nyw-cname a { color: inherit; text-decoration: none; }
+        .nyw-cname a:hover { text-decoration: underline; }
         .nyw-cname svg { color: #9aa2b1; }
 
         /* ── Description ── */
         .nyw-desc { margin: 14px 0 0; padding: 14px 16px; border-radius: 12px; background: #f0f2f5; }
+        .nyw-desc-stats { margin: 0 0 6px; font-size: var(--f-13-5); font-weight: 700; color: #0b1220; }
         .nyw-desc-text { margin: 0; font-size: var(--f-13-5); line-height: 1.6; color: #3d4657; white-space: pre-line; }
 
         /* ── Playlist rail ── */
@@ -119,38 +140,44 @@ export default function NewsroomWatch() {
       `}</style>
 
       <div>
-        <button
-          type="button"
-          className="nyw-stage"
-          data-playing={playing}
-          onClick={() => setPlaying((p) => !p)}
-          aria-label={playing ? `Pause ${active.title}` : `Play ${active.title}`}
-        >
-          <Image
-            src={active.image}
-            alt=""
-            fill
-            priority
-            sizes="(max-width: 1040px) 100vw, 860px"
-          />
-          {playing ? (
-            <span className="nyw-loading">
-              <span className="nyw-spin" />
-              Loading video…
-            </span>
+        <div className="nyw-stage" data-playing={playing}>
+          {playing && active.youtubeId ? (
+            <iframe
+              key={active.youtubeId}
+              className="nyw-frame"
+              src={youtubeEmbedUrl(active.youtubeId, true)}
+              title={active.title}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allowFullScreen
+            />
           ) : (
-            <span className="nyw-bigplay">
-              <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7L8 5Z" /></svg>
-            </span>
+            <button
+              type="button"
+              className="nyw-poster"
+              onClick={() => setPlaying(true)}
+              aria-label={`Play ${active.title}`}
+            >
+              <Image
+                src={active.image}
+                alt=""
+                fill
+                priority
+                sizes="(max-width: 1040px) 100vw, 860px"
+              />
+              <span className="nyw-bigplay">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7L8 5Z" /></svg>
+              </span>
+              <span className="nyw-bar">
+                <span className="nyw-bar-track"><span className="nyw-bar-fill" /></span>
+                <span className="nyw-bar-meta">
+                  <span>0:00</span>
+                  <span>{active.duration}</span>
+                </span>
+              </span>
+            </button>
           )}
-          <span className="nyw-bar">
-            <span className="nyw-bar-track"><span className="nyw-bar-fill" /></span>
-            <span className="nyw-bar-meta">
-              <span>0:00</span>
-              <span>{active.duration}</span>
-            </span>
-          </span>
-        </button>
+        </div>
 
         <h2 className="nyw-title">{active.title}</h2>
 
@@ -159,7 +186,7 @@ export default function NewsroomWatch() {
             <span className="nyw-avatar">L</span>
             <div>
               <p className="nyw-cname">
-                Locator
+                <a href={CHANNEL_URL} target="_blank" rel="noopener noreferrer">{CHANNEL_NAME}</a>
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm-1.3 14.5-4-4 1.6-1.6 2.4 2.4 5.4-5.4 1.6 1.6-7 7Z" />
                 </svg>
@@ -169,6 +196,11 @@ export default function NewsroomWatch() {
         </div>
 
         <div className="nyw-desc">
+          {(active.views || active.date) && (
+            <p className="nyw-desc-stats" suppressHydrationWarning>
+              {[active.views, activeAge, active.date].filter(Boolean).join(' · ')}
+            </p>
+          )}
           <p className="nyw-desc-text">{active.excerpt}</p>
         </div>
       </div>
@@ -177,19 +209,19 @@ export default function NewsroomWatch() {
         <div className="nyw-rail-head">
           <div>
             <h3>Mix — Locator Fleet Intelligence</h3>
-            <p>Customer stories, product demos, and tutorials</p>
+            <p>Videos from the {CHANNEL_NAME} YouTube channel</p>
           </div>
           <span className="nyw-rail-count">1 / {VIDEOS.length}</span>
         </div>
 
-        <button type="button" className="nyw-row" data-active="true">
+        <button type="button" className="nyw-row" data-active="true" onClick={() => setPlaying(true)} aria-label={`Play ${active.title}`}>
           <span className="nyw-thumb">
             <Image src={active.image} alt="" fill sizes="158px" />
             <span className="nyw-nowplaying">Now playing</span>
           </span>
           <span>
             <span className="nyw-row-title" style={{ display: 'block' }}>{active.title}</span>
-            <span className="nyw-row-meta" style={{ display: 'block' }}>Locator</span>
+            <span className="nyw-row-meta" style={{ display: 'block' }}>{CHANNEL_NAME}</span>
           </span>
         </button>
 
@@ -209,8 +241,8 @@ export default function NewsroomWatch() {
             </span>
             <span>
               <span className="nyw-row-title" style={{ display: 'block' }}>{v.title}</span>
-              <span className="nyw-row-meta" style={{ display: 'block' }}>
-                Locator · {v.ago}
+              <span className="nyw-row-meta" style={{ display: 'block' }} suppressHydrationWarning>
+                {CHANNEL_NAME} · {[v.views, ageOf(v)].filter(Boolean).join(' · ')}
               </span>
             </span>
           </button>

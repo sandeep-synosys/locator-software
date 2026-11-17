@@ -1,11 +1,12 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import NewsroomRail from './NewsroomRail'
 // import SocialCard from './SocialCard'
 import NewsroomWatch from './NewsroomWatch'
+import { WATCH_EVENT, openNewsroomVideo, parseVideoHash, videoHash, type WatchRequest } from './video-link'
 import {
   BLOG_POSTS,
   CATEGORY_COLOR,
@@ -81,8 +82,20 @@ function Card({ item, size = 'md' }: { item: NewsItem; size?: 'md' | 'lg' }) {
   // Real routes (the migrated blog) go through Link so they prefetch and
   // navigate client-side; placeholder '#' hrefs stay plain anchors.
   const Shell = item.href.startsWith('/') ? Link : 'a'
+  // YouTube videos open in the Videos-tab player rather than leaving the site.
+  const youtubeId = item.youtubeId
+  const watch = youtubeId
+    ? {
+        href: videoHash(youtubeId),
+        onClick: (e: React.MouseEvent<HTMLAnchorElement>) => {
+          if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return
+          e.preventDefault()
+          openNewsroomVideo(youtubeId)
+        },
+      }
+    : { href: item.href }
   return (
-    <Shell href={item.href} className={`nrb-card nrb-card--${size}`}>
+    <Shell {...watch} className={`nrb-card nrb-card--${size}`}>
       <div className="nrb-card-media" data-fit={item.fit ?? 'cover'} style={item.fit === 'contain' && item.imageAspect ? { aspectRatio: item.imageAspect } : undefined}>
         <Image
           src={item.image}
@@ -115,6 +128,37 @@ function Card({ item, size = 'md' }: { item: NewsItem; size?: 'md' | 'lg' }) {
 
 export default function NewsroomBoard() {
   const [tab, setTab] = useState<Tab>('all')
+  // Set when another section (or a #video-… link) asks to open a video. A new
+  // object each time, so NewsroomWatch reacts even to the same video twice.
+  const [watchRequest, setWatchRequest] = useState<WatchRequest | null>(null)
+
+  useEffect(() => {
+    const open = (request: WatchRequest, scroll: boolean) => {
+      setTab('videos')
+      setWatchRequest({ ...request })
+      if (scroll) {
+        requestAnimationFrame(() => document.getElementById('newsroom-feed')?.scrollIntoView({ behavior: 'smooth', block: 'start' }))
+      }
+    }
+    // Shared links land with the video selected but not playing — browsers
+    // block autoplay with sound without a click.
+    const fromHash = (scroll: boolean) => {
+      const parsed = parseVideoHash(window.location.hash)
+      if (parsed) open({ id: parsed.id, play: false }, scroll)
+    }
+    const onWatch = (e: Event) => open((e as CustomEvent<WatchRequest>).detail ?? { play: false }, true)
+    const onHashChange = () => fromHash(true)
+
+    // Next frame: after hydration, and keeps state updates out of the effect body.
+    const raf = requestAnimationFrame(() => fromHash(false))
+    window.addEventListener(WATCH_EVENT, onWatch)
+    window.addEventListener('hashchange', onHashChange)
+    return () => {
+      cancelAnimationFrame(raf)
+      window.removeEventListener(WATCH_EVENT, onWatch)
+      window.removeEventListener('hashchange', onHashChange)
+    }
+  }, [])
 
   // Blog lives in its own array (it is editorial, not news), so the pool the
   // filter runs over depends on which tab is active.
@@ -384,7 +428,10 @@ export default function NewsroomBoard() {
               type="button"
               aria-selected={tab === t.id}
               className="nrb-tab"
-              onClick={() => setTab(t.id)}
+              onClick={() => {
+                setTab(t.id)
+                setWatchRequest(null)
+              }}
             >
               {t.label}
             </button>
@@ -393,7 +440,7 @@ export default function NewsroomBoard() {
 
         {tab === 'videos' ? (
           <div className="nrb-watch">
-            <NewsroomWatch />
+            <NewsroomWatch request={watchRequest} />
           </div>
         ) : (
         <div className="nrb-cols">

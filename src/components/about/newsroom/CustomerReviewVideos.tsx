@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import { NEWS_ITEMS, type NewsItem } from './newsroom-data'
+import { VIDEOS_TAB_HASH, openNewsroomVideo, videoHash } from './video-link'
 
 const EASE = 'cubic-bezier(.22,.61,.36,1)'
 const VIDEOS = NEWS_ITEMS.filter((item) => item.category === 'videos')
@@ -53,9 +54,26 @@ function PlayButton({ small = false }: { small?: boolean }) {
   )
 }
 
+/**
+ * Videos with a YouTube id open in the newsroom player (Videos tab) instead of
+ * leaving the site; the hash href keeps the link shareable and works in a new tab.
+ */
+function watchLinkProps(v: NewsItem) {
+  if (!v.youtubeId) return { href: v.href }
+  const id = v.youtubeId
+  return {
+    href: videoHash(id),
+    onClick: (e: React.MouseEvent<HTMLAnchorElement>) => {
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return
+      e.preventDefault()
+      openNewsroomVideo(id)
+    },
+  }
+}
+
 function FeaturedVideo({ v }: { v: NewsItem }) {
   return (
-    <a href={v.href} className="crv-feat">
+    <a {...watchLinkProps(v)} className="crv-feat">
       <span className="crv-feat-media">
         <Image src={v.image} alt="" fill sizes="(max-width: 700px) 100vw, 520px" />
         {v.duration && <span className="crv-dur">{v.duration}</span>}
@@ -72,7 +90,7 @@ function FeaturedVideo({ v }: { v: NewsItem }) {
 
 function CompactVideo({ v }: { v: NewsItem }) {
   return (
-    <a href={v.href} className="crv-vid">
+    <a {...watchLinkProps(v)} className="crv-vid">
       <span className="crv-vid-thumb">
         <Image src={v.image} alt="" fill sizes="112px" />
         {v.duration && <span className="crv-dur crv-dur--sm">{v.duration}</span>}
@@ -405,7 +423,15 @@ export default function CustomerReviewVideos() {
               Customer Review Videos
             </h2>
 
-            <a href="#newsroom-feed" className="crv-view-all">
+            <a
+              href={VIDEOS_TAB_HASH}
+              className="crv-view-all"
+              onClick={(e) => {
+                if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return
+                e.preventDefault()
+                openNewsroomVideo()
+              }}
+            >
               View All →
             </a>
           </div>

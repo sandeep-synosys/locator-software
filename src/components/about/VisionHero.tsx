@@ -62,9 +62,14 @@ export default function VisionHero() {
         .vsh-kicker { display: block; margin-bottom: 18px; }
         .vsh-kicker span { display: inline-block; width: 38px; height: 3px; border-radius: 2px; background: linear-gradient(90deg,#1360ee,#06a4e2); }
 
+        .vsh-eyebrow {
+          margin: 0 0 clamp(10px,1.2vw,14px);
+          font-size: var(--f-13, 13px); font-weight: 800; letter-spacing: .12em;
+          text-transform: uppercase; color: #1360ee;
+        }
         .vsh-title {
           margin: 0;
-          font-size: clamp(34px, calc(2.6vw + 18px), 58px);
+          font-size: clamp(30px, calc(1.9vw + 16px), 46px);
           font-weight: 800; line-height: 1.08; letter-spacing: -.026em;
           background: linear-gradient(105deg, #1360ee 0%, #0d73e3 46%, #06a4e2 100%);
           -webkit-background-clip: text; background-clip: text;
@@ -158,15 +163,17 @@ export default function VisionHero() {
                 <span />
               </span>
 
+              <p className="vsh-eyebrow vsh-anim" style={{ animationDelay: '.03s' }}>Our vision</p>
+
               <h1 className="vsh-title vsh-anim" style={{ animationDelay: '.06s' }}>
-                <span style={{ WebkitTextFillColor: '#0b1220', color: '#0b1220' }}>Our</span>{' '}
-                Vision
+                <span style={{ WebkitTextFillColor: '#0b1220', color: '#0b1220' }}>Shaping the Future of</span>{' '}
+                Connected Mobility
               </h1>
 
               <div className="vsh-divider vsh-anim" style={{ animationDelay: '.14s' }} />
 
               <p className="vsh-tagline vsh-anim" style={{ animationDelay: '.2s' }}>
-                LOCATOR envisions a <em>smarter, more connected future</em> where intelligent IoT technology brings vehicles, assets, and operations together, transforming real-time data into meaningful insights, safer mobility, and more efficient businesses.
+                From our roots in the UAE, LOCATOR envisions a <em>smarter, more connected future</em> across the GCC and beyond. Through GPS tracking, fleet management and intelligent IoT technologies, we aim to transform how businesses manage vehicles, assets and operations — enabling safer mobility, greater visibility and more efficient businesses.
               </p>
 
             </div>
