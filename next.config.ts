@@ -11,7 +11,8 @@ const nextConfig: NextConfig = {
   
   images: {
     formats: ["image/avif", "image/webp"],
-    remotePatterns: [],
+    // YouTube thumbnails for the newsroom videos (components/about/newsroom/newsroom-data.ts).
+    remotePatterns: [{ protocol: "https", hostname: "i.ytimg.com", pathname: "/vi/**" }],
   },
 
   experimental: {
