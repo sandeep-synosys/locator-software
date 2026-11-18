@@ -93,7 +93,17 @@ const REVIEW_VIDEOS = NEWS_ITEMS.filter((i) => i.category === 'videos').slice(0,
  * be correct — and a re-rendering timestamp inside a hidden element would be
  * wasted work every second.
  */
-function LiveCardBody({ u, elapsed = 0 }: { u: LiveUpdate; elapsed?: number }) {
+function LiveCardBody({
+  u,
+  elapsed = 0,
+  titleAs: Title = 'p',
+}: {
+  u: LiveUpdate
+  elapsed?: number
+  /** h3 only in the full list, which renders every update exactly once; the
+      sizer and rotating copies stay <p> so the titles aren't duplicated as headings. */
+  titleAs?: 'p' | 'h3'
+}) {
   const s = KIND_STYLE[u.kind]
   return (
     <>
@@ -105,7 +115,7 @@ function LiveCardBody({ u, elapsed = 0 }: { u: LiveUpdate; elapsed?: number }) {
           <span className="nrr-src">Locator</span>
           <span className="nrr-time">{formatAgo(u.secondsAgo + elapsed)}</span>
         </div>
-        <p className="nrr-title">{u.title}</p>
+        <Title className="nrr-title">{u.title}</Title>
         <p className="nrr-body">{u.body}</p>
         <span className="nrr-cta">{u.cta} →</span>
       </div>
@@ -150,7 +160,10 @@ export default function NewsroomRail() {
 
         .nrr-card { border: 1px solid #e7ecf6; border-radius: 16px; background: #fff; box-shadow: 0 2px 10px rgba(11,18,32,.03); overflow: hidden; }
         .nrr-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 17px 18px 12px; }
-        .nrr-head h3 { margin: 0; font-size: var(--f-15-5); font-weight: 800; letter-spacing: -.018em; color: #0b1220; white-space: nowrap; }
+        .nrr-head h2, .nrr-head h3 { margin: 0; font-size: var(--f-15-5); font-weight: 800; letter-spacing: -.018em; color: #0b1220; white-space: nowrap; }
+        /* The longer section title may not fit beside the Live pill in a narrow
+           rail, so it wraps (balanced) instead of overflowing the card. */
+        .nrr-head h2 { white-space: normal; text-wrap: balance; min-width: 0; line-height: 1.25; }
 
         .nrr-live-pill {
           display: inline-flex; align-items: center; gap: 6px;
@@ -362,7 +375,7 @@ export default function NewsroomRail() {
       <aside className="nrr">
         <div className="nrr-card">
           <div className="nrr-head">
-            <h3>Live Updates</h3>
+            <h2>Latest Updates from LOCATOR</h2>
             <span className="nrr-live-pill"><i />Live</span>
           </div>
           {/* The rotating single-card view. Hidden outright while the full
@@ -421,7 +434,7 @@ export default function NewsroomRail() {
                       className="nrr-item"
                       tabIndex={expanded ? undefined : -1}
                     >
-                      <LiveCardBody u={u} elapsed={elapsed} />
+                      <LiveCardBody u={u} elapsed={elapsed} titleAs="h3" />
                     </a>
                   </li>
                 ))}

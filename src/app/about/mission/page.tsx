@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { siteConfig } from '@/config/site'
 import ScrollReveal from '@/components/software/ScrollReveal'
 import MissionHero from '@/components/about/MissionHero'
 import MissionPillars from '@/components/about/MissionPillars'
@@ -7,16 +8,29 @@ import AboutPillarNav from '@/components/about/AboutPillarNav'
 import Footer from '@/components/layouts/Footer'
 
 export const metadata: Metadata = {
-  title: 'Our Mission — About Locator',
+  // Absolute: the brief's title already ends with the brand, so skip the "| LOCATOR" template.
+  title: { absolute: 'Our Mission | GPS Tracking & Fleet Solutions in UAE | LOCATOR' },
   description:
-    'Our mission is to empower businesses worldwide with AI-powered IoT solutions that create safer, smarter, and more efficient operations — turning complexity into clarity and growth.',
+    'Discover LOCATOR’s mission to help UAE businesses build safer, smarter and more efficient operations through AI-powered IoT, GPS tracking and fleet management solutions.',
   alternates: { canonical: '/about/mission' },
+  // Page-level openGraph/twitter replace the layout's objects wholesale, so the
+  // shared image, site name and locale are restated here.
   openGraph: {
-    title: 'Our Mission | Locator',
+    title: 'Our Mission | GPS Tracking & Fleet Solutions in UAE | LOCATOR',
     description:
-      'Empowering businesses worldwide with AI-powered IoT solutions for safer, smarter, more efficient operations.',
+      'Discover LOCATOR’s mission to help UAE businesses build safer, smarter and more efficient operations through AI-powered IoT, GPS tracking and fleet management solutions.',
     url: '/about/mission',
     type: 'website',
+    siteName: siteConfig.name,
+    locale: siteConfig.locale,
+    images: [{ url: siteConfig.ogImage, width: 1200, height: 630, alt: 'Our Mission | GPS Tracking & Fleet Solutions in UAE | LOCATOR' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Our Mission | GPS Tracking & Fleet Solutions in UAE | LOCATOR',
+    description:
+      'Discover LOCATOR’s mission to help UAE businesses build safer, smarter and more efficient operations through AI-powered IoT, GPS tracking and fleet management solutions.',
+    images: [siteConfig.ogImage],
   },
 }
 

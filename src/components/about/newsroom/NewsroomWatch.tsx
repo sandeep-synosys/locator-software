@@ -179,7 +179,7 @@ export default function NewsroomWatch({ request }: { request?: WatchRequest | nu
           )}
         </div>
 
-        <h2 className="nyw-title">{active.title}</h2>
+        <h3 className="nyw-title">{active.title}</h3>
 
         <div className="nyw-meta">
           <div className="nyw-channel">

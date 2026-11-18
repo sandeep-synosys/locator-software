@@ -25,11 +25,12 @@ export default function AboutPillarNav({ current }: { current: string }) {
         .apn-card:hover .apn-go { color: var(--apn-accent); transform: translateX(3px); }
       `}</style>
 
-      <section style={{ padding: '0 28px clamp(56px,7vw,88px)', background: '#f7f9fc' }}>
+      <section style={{ padding: 'clamp(32px,4vw,48px) 28px clamp(56px,7vw,88px)', background: '#f7f9fc' }}>
         <div style={{ maxWidth: 'var(--w-1120)', margin: '0 auto' }}>
-          <p data-reveal style={{ margin: '0 0 20px', fontSize: 'var(--f-12)', fontWeight: 700, letterSpacing: '.08em', textTransform: 'uppercase', color: '#9a9aa2' }}>
-            Explore more about Locator
-          </p>
+          {/* Section H2 on every About page; styled as the small grey label it replaces. */}
+          <h2 data-reveal style={{ margin: '0 0 20px', fontFamily: 'inherit', lineHeight: 'inherit', fontSize: 'var(--f-12)', fontWeight: 700, letterSpacing: '.08em', textTransform: 'uppercase', color: '#9a9aa2' }}>
+            Explore More About LOCATOR
+          </h2>
           <div className="apn-grid">
             {others.map((p, i) => (
               <Link

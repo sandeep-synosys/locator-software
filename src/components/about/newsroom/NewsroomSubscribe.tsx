@@ -4,7 +4,9 @@ import { useState } from 'react'
 
 const EASE = 'cubic-bezier(.22,.61,.36,1)'
 
-export default function NewsroomSubscribe() {
+// `title` lets the Newsroom use its SEO heading while other pages (the blog
+// listing) keep the original wording.
+export default function NewsroomSubscribe({ title = 'Stay in the loop' }: { title?: string }) {
   const [email, setEmail] = useState('')
   const [sent, setSent] = useState(false)
 
@@ -60,7 +62,7 @@ export default function NewsroomSubscribe() {
           </div>
 
           <div>
-            <h2 className="nrs-title">Stay in the loop</h2>
+            <h2 className="nrs-title">{title}</h2>
             <p className="nrs-sub">
               Subscribe to get the latest product releases, events, customer stories, and company news
               delivered to your inbox.

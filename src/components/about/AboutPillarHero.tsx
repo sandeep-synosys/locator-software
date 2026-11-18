@@ -81,8 +81,11 @@ export default function AboutPillarHero({
             z-index: 2;
             flex: 1;
             display: flex;
-            align-items: center;
-            padding: 0 28px clamp(40px, 5vw, 60px);
+            /* Top-anchored with the same top padding as VisionHero, so the
+               eyebrow sits the same distance below the navbar on every About
+               hero (it was vertically centred, which left it tighter here). */
+            align-items: flex-start;
+            padding: clamp(40px, 5vw, 64px) 28px clamp(40px, 5vw, 60px);
           }
 
           .cv-inner { max-width: var(--w-1280); width: 100%; margin: 0 auto; }
@@ -108,22 +111,24 @@ export default function AboutPillarHero({
             margin-bottom: 12px;
           }
 
+          /* Sized for a multi-line headline — matches the Mission hero H1. */
           .cv-title {
             margin: 0;
             max-width: 42ch;
-            font-size: clamp(28px, calc(2.5vw + 16px), 46px);
+            font-size: clamp(28px, calc(1.6vw + 16px), 40px);
             font-weight: 800;
             line-height: 1.16;
             letter-spacing: -.022em;
             color: #0b1220;
+            text-wrap: balance;
           }
           .cv-title .cv-accent {
             color: #1360ee;
           }
 
           .cv-desc {
-            margin: clamp(14px, 1.6vw, 18px) 0 0;
-            max-width: 48ch;
+            margin: clamp(18px, 2vw, 24px) 0 0;
+            max-width: 54ch;
             font-size: clamp(15px, 1.05vw, 17px);
             line-height: 1.72;
             color: #55607a;
@@ -247,8 +252,8 @@ export default function AboutPillarHero({
               padding: clamp(180px, 35vw, 280px) 22px clamp(40px, 9vw, 60px);
             }
             .cv-content { max-width: 100%; }
-            .cv-kicker { font-size: clamp(24px, 7vw, 38px); }
-            .cv-title { font-size: clamp(30px, 8vw, 54px); line-height: 1.02; }
+            .cv-kicker { font-size: clamp(13px, 3.4vw, 15px); }
+            .cv-title { font-size: clamp(26px, 7.4vw, 34px); line-height: 1.16; }
             .cv-btn { padding: 14px 20px; }
             .cv-float { display: none; }
           }
@@ -277,11 +282,13 @@ export default function AboutPillarHero({
           <div className="cv-body">
             <div className="cv-inner">
               <div className="cv-content">
+                <span className="cv-kicker">Our core values</span>
                 <h1 className="cv-title">
-                  CORE <span className="cv-accent">VALUE</span>
+                  How Our Core Values Shape the Future of <span className="cv-accent">Fleet Technology</span>
                 </h1>
                 <p className="cv-desc">
-                  Built on principles that put people, trust, and long-term partnerships first..
+                  At LOCATOR, our core values shape how we develop technology, support our customers and
+                  build lasting partnerships.
                 </p>
                 {/* A shared system of values shapes how we build, collaborate, and deliver better outcomes for every customer, partner, and team member. */}
 
