@@ -61,7 +61,7 @@ export default function MissionHero() {
            Subtle backdrop behind the text only — no visible box, just enough
            white underneath to lift the text off the image naturally. */
         .msh-content {
-          max-width: min(560px, 100%);
+          max-width: min(620px, 100%);
           background: linear-gradient(135deg, rgba(248,249,251,.72) 0%, rgba(248,249,251,0) 100%);
           border-radius: 16px;
           padding: clamp(20px,2.4vw,28px);
@@ -79,20 +79,27 @@ export default function MissionHero() {
 
         /* Accent bar */
         .msh-bar { display: none; }
-        .msh-eyebrow { display: none; }
+        /* Eyebrow label — same treatment as the Who We Are and Vision heroes. */
+        .msh-eyebrow {
+          margin: 0 0 clamp(10px,1.2vw,14px);
+          font-size: var(--f-13, 13px); font-weight: 800; letter-spacing: .12em;
+          text-transform: uppercase; color: #1360ee;
+        }
 
-        /* H1 — matches WhoWeAreHero title scale */
+        /* H1 — matches WhoWeAreHero title scale (sized for a multi-line headline) */
         .msh-h1 {
           margin: 0;
-          font-size: clamp(28px, calc(2.5vw + 16px), 46px);
+          font-size: clamp(28px, calc(1.6vw + 16px), 40px);
           font-weight: 800; line-height: 1.16; letter-spacing: -.022em;
           color: #0b1220;
+          /* Even line lengths: keeps "UAE Businesses" from being stranded alone. */
+          text-wrap: balance;
         }
         .msh-h1 em { font-style: normal; color: #1360ee; }
 
         /* Lead paragraph — matches .wwa-lead */
         .msh-lead {
-          margin: clamp(14px,1.6vw,18px) 0 0; max-width: 48ch;
+          margin: clamp(18px,2vw,24px) 0 0; max-width: 54ch;
           font-size: clamp(15px, 1.05vw, 17px);
           line-height: 1.72; color: #55607a;
         }
@@ -214,13 +221,14 @@ export default function MissionHero() {
           <div className="msh-inner">
             <div className="msh-content">
 
+              <p className="msh-eyebrow msh-anim" style={{ animationDelay: '0s' }}>Our mission</p>
+
               <h1 className="msh-h1 msh-anim" style={{ animationDelay: '.04s' }}>
-                <span style={{ color: '#0b1220' }}>Our</span>{' '}
-                <em>Mission</em>
+                Delivering GPS Tracking &amp; IoT Solutions <em>for UAE Businesses</em>
               </h1>
 
               <p className="msh-lead msh-anim" style={{ animationDelay: '.14s' }}>
-                Creating technology that helps businesses operate with greater clarity, intelligence, and confidence. Built for Smarter Operations.
+                Our mission is to empower businesses with intelligent GPS tracking, AI-powered IoT and fleet management software that make everyday operations safer, smarter and more efficient.
               </p>
 
               <div className="msh-cta-row msh-anim" style={{ animationDelay: '.3s' }}>

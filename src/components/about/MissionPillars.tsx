@@ -15,7 +15,7 @@ const PILLARS = [
   },
   {
     num: '03',
-    title: 'More Efficient Growth',
+    title: 'Efficient Growth',
     desc: 'Empowering businesses worldwide to run leaner operations while scaling profitably and sustainably.',
     accent: '#1360ee',
   },
@@ -45,10 +45,11 @@ export default function MissionPillars() {
       <section style={{ padding: 'clamp(56px,7vw,88px) 28px', background: '#f7f9fc' }}>
         <div style={{ maxWidth: 'var(--w-1120)', margin: '0 auto' }}>
           <div data-reveal style={{ textAlign: 'center', maxWidth: '920px', margin: '0 auto clamp(36px,5vw,52px)' }}>
-            <span style={{ display: 'block', fontSize: 'max(clamp(22px,2.8vw,32px), min(2.222vw, 46.4px))', fontWeight: 800, letterSpacing: '.04em', color: '#1360ee', textTransform: 'uppercase', marginBottom: '20px' }}>
-              <span style={{ display: 'block', marginBottom: '12px' }}><span style={{ display: 'inline-block', width: '34px', height: '3px', background: '#1360ee', borderRadius: '2px' }} /></span>
-              Built for smarter operations
-            </span>
+            {/* Section H2 — keeps the look of the uppercase blue label it replaces. */}
+            <h2 style={{ display: 'block', margin: '0 0 20px', fontFamily: 'inherit', lineHeight: 'inherit', fontSize: 'max(clamp(22px,2.8vw,32px), min(2.222vw, 46.4px))', fontWeight: 800, letterSpacing: '.04em', color: '#1360ee', textTransform: 'uppercase' }}>
+              <span aria-hidden="true" style={{ display: 'block', marginBottom: '12px' }}><span style={{ display: 'inline-block', width: '34px', height: '3px', background: '#1360ee', borderRadius: '2px' }} /></span>
+              Technology Built for Smarter Business Operations
+            </h2>
             <div style={{ margin: '24px auto', height: '4px', width: '80px', borderRadius: '999px', background: 'linear-gradient(90deg,#1360ee,#0d4fd4)' }} />
             <p style={{ margin: '0 auto', fontSize: 'max(clamp(15.5px,1.65vw,18px), min(1.25vw, 26px))', lineHeight: 1.72, color: '#52525e', maxWidth: '780px' }}>
               Our mission is to empower businesses worldwide with AI-powered IoT solutions that create safer, smarter, and more efficient operations — turning complexity into clarity and growth.
