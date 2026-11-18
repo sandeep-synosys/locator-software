@@ -12,9 +12,9 @@ import Footer from '@/components/layouts/Footer'
 const SoftwareFAQ = dynamic(() => import('@/components/software/SoftwareFAQ'))
 
 export const metadata: Metadata = {
-  title: { absolute: 'Fleet Management Software in UAE | LOCATOR' },
+  title: { absolute: 'Fleet Management Software & GPS Tracking UAE | LOCATOR' },
   description:
-    'Manage your fleet with LOCATOR software in the UAE. Track vehicles live, assign tasks, monitor expenses and inspections, and improve driver safety.',
+    'Discover LOCATOR fleet management software in the UAE. Manage GPS tracking, drivers, fuel, expenses, inspections and AI dashcams on one platform.',
   keywords: [
     'Fleet Management Software UAE',
     'GPS Fleet Tracking',
