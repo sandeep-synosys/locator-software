@@ -312,7 +312,7 @@ export default function SoftwareHero() {
                 One Platform for Complete Fleet Visibility <span style={{ display: 'inline-block', width: '34px', height: '3px', background: '#1360ee', borderRadius: '2px', marginLeft: '8px', verticalAlign: 'middle' }} />
               </h1>
               <p style={{ maxWidth: '560px', margin: 'clamp(8px,1.4vh,14px) auto 0', fontSize: 'max(clamp(13px, 1.35vw, 16px), min(1.111vw, 23.2px))', lineHeight: 1.5, color: '#3a3a3c' }}>
-                GPS tracking, telematics, tasks, expenses, inspections, maintenance and AI dashcams for your whole fleet, on web and mobile.
+                GPS tracking, fleet management, driver monitoring, tasks, expenses, inspections, maintenance and AI dashcams for your entire fleet, all in one platform across the UAE.
               </p>
               <div style={{ display: 'flex', gap: '14px', justifyContent: 'center', marginTop: 'clamp(14px, 2.2vh, 24px)', flexWrap: 'wrap' }}>
                 <Link href="/get-a-quote" className="sw-btn sw-btn-primary">Get a quote</Link>
