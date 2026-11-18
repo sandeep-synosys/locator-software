@@ -51,38 +51,50 @@ export default function VisionHero() {
         .vsh-body {
           position: relative; z-index: 2;
           display: flex; align-items: flex-start;
-          padding: clamp(40px,5.5vw,70px) 28px clamp(40px,5vw,60px);
+          padding: clamp(40px,5vw,64px) 28px clamp(48px,5.5vw,72px);
         }
         .vsh-inner { max-width: var(--w-1280); width: 100%; margin: 0 auto; }
-        .vsh-content { max-width: min(580px, 100%); }
+        .vsh-content { max-width: min(780px, 100%); }
 
         @keyframes vshRise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
         @media (prefers-reduced-motion: no-preference) { .vsh-anim { opacity: 0; animation: vshRise .8s ${EASE} forwards; } }
 
-        .vsh-kicker { display: block; margin-bottom: 18px; }
-        .vsh-kicker span { display: inline-block; width: 38px; height: 3px; border-radius: 2px; background: linear-gradient(90deg,#1360ee,#06a4e2); }
-
+        /* Accent line and label share one row, so the hero opens with a single
+           small line above the headline instead of two stacked ones. */
         .vsh-eyebrow {
-          margin: 0 0 clamp(10px,1.2vw,14px);
-          font-size: var(--f-13, 13px); font-weight: 800; letter-spacing: .12em;
+          display: flex; align-items: center; gap: 12px;
+          margin: 0 0 clamp(14px,1.6vw,20px);
+          font-size: var(--f-13, 13px); font-weight: 800; letter-spacing: .12em; line-height: 1;
           text-transform: uppercase; color: #1360ee;
         }
+        .vsh-eyebrow-line { flex-shrink: 0; width: 38px; height: 3px; border-radius: 2px; background: linear-gradient(90deg,#1360ee,#06a4e2); }
+
+        /* Two-line headline: looser leading than the old one-word title, and a
+           little bottom padding so the gradient-clipped text never cuts off
+           descenders (the "g" in "Shaping"). */
         .vsh-title {
-          margin: 0;
+          margin: 0; padding-bottom: .06em;
           font-size: clamp(30px, calc(1.9vw + 16px), 46px);
-          font-weight: 800; line-height: 1.08; letter-spacing: -.026em;
+          font-weight: 800; line-height: 1.16; letter-spacing: -.022em;
           background: linear-gradient(105deg, #1360ee 0%, #0d73e3 46%, #06a4e2 100%);
           -webkit-background-clip: text; background-clip: text;
           -webkit-text-fill-color: transparent; color: transparent;
         }
 
+        /* "Connected Mobility" starts its own line on wider screens; on phones the
+           headline wraps naturally so "of" is never stranded on a line alone. */
+        .vsh-title-lead { display: block; }
+        @media (max-width: 768px) { .vsh-title-break { display: none; } }
+
         .vsh-divider { margin: clamp(18px,2vw,24px) 0; height: 4px; width: 76px; border-radius: 999px; background: linear-gradient(90deg,#1360ee,#06a4e2); }
 
+        /* The divider above is switched off site-wide (the decorative-dash sweep
+           in globals.css), so the headline-to-paragraph gap lives here. */
         .vsh-tagline {
-          margin: 0;
+          margin: clamp(20px,2.2vw,28px) 0 0;
           font-size: clamp(15px, 1.05vw, 17px);
-          font-weight: 400; line-height: 1.72;
-          color: #3a4459; max-width: 46ch;
+          font-weight: 400; line-height: 1.7;
+          color: #3a4459; max-width: 58ch;
         }
         .vsh-tagline em { font-style: normal; color: #1360ee; }
 
@@ -97,7 +109,7 @@ export default function VisionHero() {
               rgba(248,249,251,0)   62%
             );
           }
-          .vsh-content { max-width: min(520px, 100%); }
+          .vsh-content { max-width: min(600px, 100%); } 
         }
 
         /* Mobile — eye visible at top, text pushed to bottom with scrim behind it */
@@ -133,7 +145,7 @@ export default function VisionHero() {
 
         @media (max-width: 420px) {
           .vsh-hero { padding-top: 60vw; background-position: 85% center; }
-          .vsh-title { font-size: clamp(30px, 9.6vw, 36px); }
+          .vsh-title { font-size: clamp(28px, 8.4vw, 33px); }
         }
       `}</style>
 
@@ -159,17 +171,21 @@ export default function VisionHero() {
           <div className="vsh-inner">
             <div className="vsh-content">
 
-              <span className="vsh-kicker vsh-anim" style={{ animationDelay: '0s' }} aria-hidden="true">
-                <span />
-              </span>
+              <p className="vsh-eyebrow vsh-anim" style={{ animationDelay: '0s' }}>
+                {/* <span className="vsh-eyebrow-line" aria-hidden="true" /> */}
+                Our vision
+              </p>
 
-              <p className="vsh-eyebrow vsh-anim" style={{ animationDelay: '.03s' }}>Our vision</p>
+              {/* <h1 className="vsh-title vsh-anim" style={{ animationDelay: '.06s' }}>
+                <span className="vsh-title-lead" style={{ WebkitTextFillColor: '#0b1220', color: '#0b1220' }}>Shaping the Future of</span>{' '}
+                Connected Mobility
+              </h1> */}
 
               <h1 className="vsh-title vsh-anim" style={{ animationDelay: '.06s' }}>
                 <span style={{ WebkitTextFillColor: '#0b1220', color: '#0b1220' }}>Shaping the Future of</span>{' '}
-                Connected Mobility
+                Connected <br className="vsh-title-break" />
+                Mobility
               </h1>
-
               <div className="vsh-divider vsh-anim" style={{ animationDelay: '.14s' }} />
 
               <p className="vsh-tagline vsh-anim" style={{ animationDelay: '.2s' }}>
