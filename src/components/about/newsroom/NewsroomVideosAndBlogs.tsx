@@ -202,7 +202,7 @@ export default function NewsroomVideosAndBlogs() {
 function BlogHeader() {
   return (
     <div className="nvc-head">
-      <h2>From the Locator Blog</h2>
+      <h2>Latest Insights from LOCATOR</h2>
 
       <Link href={BLOG_BASE}>
         View All →

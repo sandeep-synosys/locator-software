@@ -80,10 +80,10 @@ function FeaturedVideo({ v }: { v: NewsItem }) {
         <PlayButton />
       </span>
 
-      <span className="crv-feat-body">
-        <span className="crv-feat-title">{v.title}</span>
+      <div className="crv-feat-body">
+        <h3 className="crv-feat-title">{v.title}</h3>
         <DateLine date={v.date} />
-      </span>
+      </div>
     </a>
   )
 }
@@ -97,10 +97,10 @@ function CompactVideo({ v }: { v: NewsItem }) {
         <PlayButton small />
       </span>
 
-      <span>
-        <span className="crv-vid-title">{v.title}</span>
+      <div>
+        <h3 className="crv-vid-title">{v.title}</h3>
         <DateLine date={v.date} small />
-      </span>
+      </div>
     </a>
   )
 }
@@ -420,7 +420,7 @@ export default function CustomerReviewVideos() {
         <div className="crv-inner">
           <div className="crv-head">
             <h2 id="customer-review-videos-title" className="crv-title">
-              Customer Review Videos
+              Customer Stories &amp; Success Videos
             </h2>
 
             <a

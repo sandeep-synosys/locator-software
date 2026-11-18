@@ -420,6 +420,9 @@ export default function NewsroomBoard() {
       `}</style>
 
       <div className="nrb-inner">
+        {/* Section heading for SEO and screen readers. Visually hidden so the
+            board's existing layout (tab bar first) is unchanged. */}
+        <h2 className="sr-only">Featured News &amp; Highlights</h2>
         <div className="nrb-tabs" role="tablist" aria-label="Newsroom categories">
           {TABS.map((t) => (
             <button
@@ -465,7 +468,7 @@ export default function NewsroomBoard() {
                   <div className="nrb-hero-content">
                     <span className="nrb-hero-chip">Featured Story</span>
                     <span className="nrb-hero-date">{featured.date}</span>
-                    <h2 className="nrb-hero-title">{renderHeroTitle(featured.title)}</h2>
+                    <h3 className="nrb-hero-title">{renderHeroTitle(featured.title)}</h3>
                     <p className="nrb-hero-excerpt">{featured.excerpt}</p>
                     <span className="nrb-hero-more">Read Full Story →</span>
                   </div>

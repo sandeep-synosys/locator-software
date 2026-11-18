@@ -196,14 +196,14 @@ function MediaRow({
       href={m.href}
       className="nrx-media"
     >
-      <span className="nrx-media-text">
+      <div className="nrx-media-text">
         <span className="nrx-pub">
           {m.publication}
         </span>
 
-        <span className="nrx-media-title">
+        <h3 className="nrx-media-title">
           {m.title}
-        </span>
+        </h3>
 
         <span className="nrx-date">
           <svg
@@ -229,7 +229,7 @@ function MediaRow({
 
           {m.date}
         </span>
-      </span>
+      </div>
 
       <span className="nrx-media-thumb">
         <Image
@@ -924,7 +924,7 @@ export default function NewsroomHighlights() {
             onBlurCapture={() => setPaused(false)}
           >
             <Rail
-              title="Live from Social"
+              title="Follow LOCATOR on Social Media"
               pages={pool.length}
               index={idx}
               onIndex={setSi}
@@ -1001,7 +1001,7 @@ export default function NewsroomHighlights() {
              ───────────────────────────────────────────── */}
 
           <Rail
-            title="Media Coverage"
+            title="LOCATOR in the Media"
             pages={MEDIA_PAGES.length}
             index={mi}
             onIndex={setMi}

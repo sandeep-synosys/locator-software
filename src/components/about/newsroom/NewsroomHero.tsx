@@ -28,7 +28,11 @@ export default function NewsroomHero() {
            toward the globe (right two-thirds of the source image), which is
            the visual focal point, so a narrow crop keeps it in frame instead
            of centring on the empty dark space to its left. */
-        .nrh-photo { position: relative; overflow: hidden; height: clamp(300px, 38vw, 460px); background: #000b23; }
+        /* min-height (not a fixed height) so the band keeps its usual size but
+           grows if the copy ever outgrows it, instead of clipping the eyebrow
+           and headline off the top. Flex lets the body fill the band so the
+           copy stays anchored to the bottom exactly as before. */
+        .nrh-photo { position: relative; overflow: hidden; display: flex; min-height: clamp(300px, 38vw, 460px); background: #000b23; }
         .nrh-photo img { object-fit: cover; object-position: 68% center; }
         /* Layered scrim: strong bottom-up fade so the headline sits on dark
            pixels, plus a left-side wash so text stays legible on bright areas. */
@@ -40,11 +44,11 @@ export default function NewsroomHero() {
         }
 
         .nrh-photo-body {
-          position: relative; z-index: 2; height: 100%;
+          position: relative; z-index: 2; flex: 1; width: 100%;
           display: flex; align-items: flex-end;
-          max-width: var(--w-1280); margin: 0 auto; padding: 0 28px clamp(26px,4vw,46px);
+          max-width: var(--w-1280); margin: 0 auto; padding: clamp(28px,4vw,46px) 28px clamp(26px,4vw,46px);
         }
-        .nrh-content { max-width: min(660px, 100%); }
+        .nrh-content { max-width: min(720px, 100%); }
 
         .nrh-eyebrow {
           display: inline-flex; align-items: center; gap: 12px;
@@ -58,10 +62,11 @@ export default function NewsroomHero() {
           margin: 0; font-size: clamp(28px, calc(2.5vw + 16px), 46px); font-weight: 800;
           line-height: 1.16; letter-spacing: -.022em; color: #ffffff;
           text-shadow: 0 2px 24px rgba(0,0,0,.4);
+          text-wrap: balance;
         }
         .nrh-title-accent { color: #1360ee; }
 
-        .nrh-lead { margin: clamp(14px,1.6vw,18px) 0 0; max-width: 48ch; font-size: clamp(15px, 1.05vw, 17px); line-height: 1.72; color: rgba(255,255,255,.8); }
+        .nrh-lead { margin: clamp(14px,1.6vw,18px) 0 0; max-width: 62ch; font-size: clamp(15px, 1.05vw, 17px); line-height: 1.72; color: rgba(255,255,255,.8); }
 
         .nrh-ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: clamp(22px,3vw,30px); }
         .nrh-btn {
@@ -114,14 +119,16 @@ export default function NewsroomHero() {
           <div className="nrh-photo-body">
             <div className="nrh-content">
               <span className="nrh-eyebrow"><i />Newsroom</span>
-              <h1 className="nrh-title">Stay updated with everything <span className="nrh-title-accent">Locator</span></h1>
+              <h1 className="nrh-title">The Latest from <span className="nrh-title-accent">LOCATOR</span>: News, Innovations &amp; Updates</h1>
               <p className="nrh-lead">
-                Discover the latest product updates, company news, customer stories, events,
-                videos, and live updates from Locator — all in one place.
+                Explore LOCATOR’s latest company announcements, GPS tracking product releases,
+                customer success stories, industry events and technology developments. Stay informed
+                about our innovations and developments in fleet management and connected mobility
+                across the UAE and beyond.
               </p>
               <div className="nrh-ctas">
                 <a href="#newsroom-feed" className="nrh-btn nrh-btn-primary">
-                  Latest Release: v4.6
+                  Latest Product Updates
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M5 12h14M13 6l6 6-6 6" />
                   </svg>

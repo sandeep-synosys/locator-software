@@ -54,7 +54,9 @@ export default function MissionHero() {
         .msh-body {
           position: relative; z-index: 1;
           display: flex; align-items: flex-start;
-          padding: clamp(20px,2.5vw,32px) 28px clamp(48px,6vw,72px);
+          /* Top padding + .msh-content's own padding = VisionHero's
+             clamp(40px,5vw,64px), so all About heroes open with the same gap. */
+          padding: calc(clamp(40px,5vw,64px) - clamp(20px,2.4vw,28px)) 28px clamp(48px,6vw,72px);
         }
         .msh-inner { max-width: var(--w-1280); width: 100%; margin: 0 auto; }
         /* Content column — left-aligned, never wider than ~half the section.
