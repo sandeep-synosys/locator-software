@@ -224,8 +224,11 @@ export default function MissionHero() {
               <p className="msh-eyebrow msh-anim" style={{ animationDelay: '0s' }}>Our mission</p>
 
               <h1 className="msh-h1 msh-anim" style={{ animationDelay: '.04s' }}>
-                Delivering GPS Tracking &amp; IoT Solutions <em>for UAE Businesses</em>
+                Helping UAE Businesses Work Smarter with <em>Connected Technology</em>
               </h1>
+              {/* <h1 className="msh-h1 msh-anim" style={{ animationDelay: '.04s' }}>
+                Delivering GPS Tracking &amp; IoT Solutions <em>for UAE Businesses</em>
+              </h1> */}
 
               <p className="msh-lead msh-anim" style={{ animationDelay: '.14s' }}>
                 Our mission is to empower businesses with intelligent GPS tracking, AI-powered IoT and fleet management software that make everyday operations safer, smarter and more efficient.
