@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 import dynamic from 'next/dynamic'
+import Link from 'next/link'
+import { siteConfig } from '@/config/site'
 import ServiceHero from '@/components/service/ServiceHero'
 import BenefitsSection from '@/components/software/BenefitsSection'
 import ServiceFleetShowcase from '@/components/service/ServiceFleetShowcase'
@@ -24,17 +26,33 @@ const SERVICE_STATS = [
   { value: '99.9%',  label: 'Tracking network uptime',   side: 'right', row: 'bottom', icon: 'chart' },
 ]
 
+// In-copy links (SEO brief) — styled like the site's other inline text links.
+const inlineLink = { color: '#1360ee', fontWeight: 600, textDecoration: 'none' }
+
 export const metadata: Metadata = {
-  title: 'Fleet Telematics — Service',
+  // Absolute: the brief's title already names the brand, so skip the "| LOCATOR" template.
+  title: { absolute: 'Fleet Telematics UAE | GPS Tracking & Live Alerts – LOCATOR' },
   description:
-    'Improve fleet operations with real-time GPS tracking and telematics. Manage drivers, routes, and road operations with ease across all UAE industries.',
+    'Track every vehicle, driver and route in real time with LOCATOR GPS fleet telematics. Get idle alerts, geofencing and service reminders. Book a free UAE site visit.',
   alternates: { canonical: '/service/fleet-telematics' },
+  // Page-level openGraph/twitter replace the layout's objects wholesale, so the
+  // shared image, site name and locale are restated here.
   openGraph: {
-    title: 'Fleet Telematics | Locator',
+    title: 'Fleet Telematics UAE | GPS Tracking & Live Alerts – LOCATOR',
     description:
-      'Real-time GPS tracking and telematics for fleets across the UAE.',
+      'Track every vehicle, driver and route in real time with LOCATOR GPS fleet telematics. Get idle alerts, geofencing and service reminders. Book a free UAE site visit.',
     url: '/service/fleet-telematics',
     type: 'website',
+    siteName: siteConfig.name,
+    locale: siteConfig.locale,
+    images: [{ url: siteConfig.ogImage, width: 1200, height: 630, alt: 'Fleet Telematics UAE | GPS Tracking & Live Alerts – LOCATOR' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Fleet Telematics UAE | GPS Tracking & Live Alerts – LOCATOR',
+    description:
+      'Track every vehicle, driver and route in real time with LOCATOR GPS fleet telematics. Get idle alerts, geofencing and service reminders. Book a free UAE site visit.',
+    images: [siteConfig.ogImage],
   },
 }
 
@@ -43,7 +61,18 @@ export default function FleetTelematicsPage() {
     <main style={{ background: '#ffffff', minHeight: '100vh' }}>
       <ScrollReveal />
       <ServiceHero />
-      <BenefitsSection />
+      <BenefitsSection
+        title="What LOCATOR Fleet Telematics Includes"
+        shortOverrides={{
+          // Field Tasks Manager
+          6: (
+            <>
+              Assign tasks to drivers, track progress, and monitor completion live with{' '}
+              <Link href="/service/task-manager" style={inlineLink}>LOCATOR Task Manager</Link>.
+            </>
+          ),
+        }}
+      />
       {/* Landing target for the Fleet Telematics feature cards on the home page —
           they link to /service/fleet-telematics#fleet-telematics, where the same
           six features are spelled out in full. */}
@@ -53,9 +82,21 @@ export default function FleetTelematicsPage() {
       <AnimatedGlobeHero stats={SERVICE_STATS} />
       <ServiceVideo />
       <ServiceWhyChoose />
-      <DashcamShowcase />
+      {/* Kept as a short teaser that links out — the full story lives on
+          /service/video-telematics, which owns this topic. */}
+      <DashcamShowcase
+        title="AI Dash Cameras with Video Telematics"
+        cardTitles={{ 0: 'Live HD video' }}
+        intro={
+          <>
+            Real-time driver monitoring, cargo surveillance, and multi-camera recording for trucks,
+            taxis, buses, delivery vehicles, and commercial fleets. Explore{' '}
+            <Link href="/service/video-telematics" style={inlineLink}>AI dash cameras and video telematics</Link>.
+          </>
+        }
+      />
       <SoftwareBlog tag={['Fleet Tracking', 'Fleet Management']} />
-      <ServiceFAQ />
+      <ServiceFAQ title="Fleet Telematics FAQs" schema />
       <SoftwareCTA />
       <Footer />
     </main>

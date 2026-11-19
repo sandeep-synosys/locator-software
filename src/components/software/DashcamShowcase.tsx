@@ -39,7 +39,13 @@ const STATS = [
   { v: 'AI', l: 'Driver detection' },
 ]
 
-export default function DashcamShowcase() {
+// Optional overrides so a page can use its own SEO heading, intro (e.g. with a
+// link) and card titles; without them the section is unchanged.
+export default function DashcamShowcase({
+  title = 'AI-Powered Dash Cameras & MDVR',
+  intro,
+  cardTitles,
+}: { title?: string; intro?: React.ReactNode; cardTitles?: Partial<Record<number, string>> } = {}) {
   const [active, setActive] = useState(0)
 
   return (
@@ -176,16 +182,22 @@ export default function DashcamShowcase() {
               AI Video Telematics
             </span>
             <h2 style={{ margin: 0, fontSize: 'max(clamp(19px,2.2vw,26px), min(1.806vw, 37.7px))', fontWeight: 800, lineHeight: 1.1, letterSpacing: '-.015em', color: '#1d1d1f' }}>
-              AI-Powered Dash Cameras &amp; MDVR
+              {title}
             </h2>
             <p style={{ margin: '16px 0 0', fontSize: 'max(clamp(14px,1.2vw,15.5px), min(1.076vw, 22.47px))', lineHeight: 1.7, color: '#6e6e73' }}>
-              Real-time driver monitoring, cargo surveillance, and multi-camera recording for trucks,
-              taxis, buses, delivery vehicles, and commercial fleets.
+              {intro ?? (
+                <>
+                  Real-time driver monitoring, cargo surveillance, and multi-camera recording for trucks,
+                  taxis, buses, delivery vehicles, and commercial fleets.
+                </>
+              )}
             </p>
           </div>
 
           <div className="dc-rail" data-reveal>
-            {CARDS.map((c, i) => (
+            {CARDS.map((card, i) => {
+              const c = { ...card, title: cardTitles?.[i] ?? card.title }
+              return (
               <button
                 key={c.title}
                 className="dc-panel"
@@ -212,7 +224,8 @@ export default function DashcamShowcase() {
                   <p>{c.desc}</p>
                 </div>
               </button>
-            ))}
+              )
+            })}
           </div>
 
           <div className="dc-stats" data-reveal>

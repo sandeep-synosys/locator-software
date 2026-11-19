@@ -13,6 +13,8 @@ interface Industry {
   id: string
   num: string
   title: string
+  /** Descriptive alt text for the industry photo (SEO brief). */
+  alt: string
   desc: string
   vehicles: string[]
   count: number
@@ -28,6 +30,7 @@ const INDUSTRIES: Industry[] = [
     id: 'fmcg',
     num: '01',
     title: 'FMCG Fleet\nTelematics',
+    alt: 'FMCG delivery truck loading stock at a warehouse, tracked with LOCATOR fleet telematics',
     desc: 'GPS fleet telematics helps vans, pickups, mini-trucks, delivery bikes track distributors and supermarket deliveries live. It reduces fuel loss, improves route planning, automates maintenance, monitors drivers, and prevents delivery delays, giving FMCG companies in UAE full control over sales teams and daily stock movement.',
     vehicles: ['Delivery vans', 'Pickups', 'Mini-trucks', 'Delivery bikes'],
     count: 8,
@@ -39,6 +42,7 @@ const INDUSTRIES: Industry[] = [
     id: 'transport',
     num: '02',
     title: 'Transport &\nLogistics Telematics',
+    alt: 'Container trucks at a UAE port, tracked with LOCATOR fleet telematics',
     desc: 'LOCATOR GPS fleet systems support cars, vans, trucks, buses, bikes, yachts used for cargo, courier, and staff transport. It enables live trip tracking, driver behavior alerts, geofencing, and route history, helping UAE logistics companies reduce accidents, optimize delivery schedules, improve dispatch, and resolve claims faster with data proof.',
     vehicles: ['Cars', 'Vans', 'Trucks', 'Buses', 'Bikes', 'Yachts'],
     count: 12,
@@ -50,6 +54,7 @@ const INDUSTRIES: Industry[] = [
     id: 'construction',
     num: '03',
     title: 'Construction Site\nFleet Intelligence',
+    alt: 'Construction site trucks, forklift and heavy equipment tracked with LOCATOR fleet telematics',
     desc: 'Fleet telematics tracks site cars, pickups, trucks, generators, forklifts, bulldozers, boom loaders, JCBs and loaders. It improves machine utilization, validates site activity, prevents unauthorized use, sends service reminders, and optimizes routes, helping UAE construction firms reduce equipment damage, delays, and fuel waste.',
     vehicles: ['Trucks', 'Generators', 'Forklifts', 'Bulldozers', 'Boom loaders', 'JCBs'],
     count: 10,
@@ -61,6 +66,7 @@ const INDUSTRIES: Industry[] = [
     id: 'facility',
     num: '04',
     title: 'Facility Management\nFleet Control',
+    alt: 'Facility management service vans parked outside a building, tracked with LOCATOR',
     desc: 'GPS telematics gives real-time oversight on service vans, cars, pickup trucks, forklifts, generators, boom loaders and field machines. It improves task dispatch, idle control, geofence alerts, expense logging, and maintenance planning, helping UAE facility companies solve road team chaos, reduce response time, and validate service completion instantly.',
     vehicles: ['Service vans', 'Cars', 'Pickup trucks', 'Forklifts', 'Generators', 'Boom loaders'],
     count: 9,
@@ -72,6 +78,7 @@ const INDUSTRIES: Industry[] = [
     id: 'healthcare',
     num: '05',
     title: 'Healthcare Fleet\nMonitoring',
+    alt: 'Ambulance and paramedic crew, part of a healthcare fleet monitored with LOCATOR',
     desc: 'For ambulances, cars, vans, pickup trucks, delivery bikes, and mobile medical units, GPS telematics ensures live tracking, driver safety alerts, geofence hospitals, and automate service schedules. It improves emergency dispatch, reduces fleet downtime, and provides accurate trip logs, helping UAE healthcare providers deliver faster and safer medical support.',
     vehicles: ['Ambulances', 'Cars', 'Vans', 'Delivery bikes', 'Mobile medical units'],
     count: 6,
@@ -83,6 +90,7 @@ const INDUSTRIES: Industry[] = [
     id: 'travel',
     num: '06',
     title: 'Travel & Tourism\nFleet Telematics',
+    alt: 'Tourist passenger van on a UAE highway, tracked with LOCATOR fleet telematics',
     desc: 'GPS fleet systems track tourist cars, vans, buses, bikes, yachts, and boats operating on UAE roads and waters. It improves guest transport scheduling, geofencing attractions, tracking trips, and monitoring drivers, helping tourism companies reduce delays, ensure safety, improve driver training, and provide better customer experience.',
     vehicles: ['Tourist cars', 'Vans', 'Buses', 'Bikes', 'Yachts', 'Boats'],
     count: 7,
@@ -94,6 +102,7 @@ const INDUSTRIES: Industry[] = [
     id: 'rental',
     num: '07',
     title: 'Rental & Leasing\nFleet Management',
+    alt: 'Rental car keys handed to a customer, with the rental fleet tracked by LOCATOR',
     desc: 'Fleet telematics supports leased cars, vans, buses, bikes, trucks and boats. It tracks vehicle usage, monitors unauthorized trips, sends service alerts, and retrieves incident logs instantly. Rental companies in UAE benefit from reduced fraud, better asset utilization, improved maintenance scheduling, and faster claims resolution.',
     vehicles: ['Cars', 'Vans', 'Buses', 'Bikes', 'Trucks', 'Boats'],
     count: 15,
@@ -105,6 +114,7 @@ const INDUSTRIES: Industry[] = [
     id: 'petroleum',
     num: '08',
     title: 'Petroleum & Energy\nFleet Intelligence',
+    alt: 'Fuel tanker trucks near a refinery, tracked with LOCATOR fleet telematics',
     desc: 'For tankers, trucks, pickups, cars, generator units, cranes, bulldozers, forklifts, boats and energy assets, GPS telematics tracks fuel transport, field teams, and machines live. It reduces fuel theft, monitors driver safety, geofences depots, and automates maintenance, helping UAE energy companies improve compliance and prevent asset misuse.',
     vehicles: ['Tankers', 'Trucks', 'Cranes', 'Bulldozers', 'Forklifts', 'Boats'],
     count: 11,
@@ -116,6 +126,7 @@ const INDUSTRIES: Industry[] = [
     id: 'vet',
     num: '09',
     title: 'Veterinary & Pet Care\nFleet Monitoring',
+    alt: 'Veterinary mobile clinic van, monitored with LOCATOR fleet telematics',
     desc: 'Fleet telematics tracks cars, service vans, bikes, pickup trucks, boats and mobile pet-care units used for rescue and home services. It improves dispatch, monitors drivers, geofences clinics, and retrieves trip logs, helping UAE pet-care providers reduce delays, improve training, validate service, and enhance customer trust.',
     vehicles: ['Cars', 'Service vans', 'Bikes', 'Pickup trucks', 'Boats'],
     count: 4,
@@ -127,6 +138,7 @@ const INDUSTRIES: Industry[] = [
     id: 'government',
     num: '10',
     title: 'Public & Government\nFleet Telematics',
+    alt: 'Taxi in a public transport fleet, tracked with LOCATOR fleet telematics',
     desc: 'For cars, pickup trucks, vans, buses, patrol boats, bikes, forklifts, loaders, generators and government machines, GPS telematics ensures live asset tracking, route audit, geofencing, and automated service reminders. It improves road-team coordination, enforces compliance, reduces downtime, and helps UAE public services operate faster and transparently.',
     vehicles: ['Cars', 'Vans', 'Buses', 'Patrol boats', 'Forklifts', 'Generators'],
     count: 14,
@@ -138,6 +150,7 @@ const INDUSTRIES: Industry[] = [
     id: 'waste',
     num: '11',
     title: 'Waste Management\nFleet Visibility',
+    alt: 'Waste collection truck on a residential street, tracked with LOCATOR fleet telematics',
     desc: 'GPS fleet systems track garbage trucks, pickup fleets, vans, forklifts, loaders, generators and depot machines. It monitors trips, idle time, driver behavior, and geofences yards, helping UAE waste companies improve driver training, resolve complaints faster, reduce vehicle damage, prevent fraud, and enhance daily collection operations.',
     vehicles: ['Garbage trucks', 'Pickup fleets', 'Vans', 'Forklifts', 'Loaders', 'Generators'],
     count: 8,
@@ -149,6 +162,7 @@ const INDUSTRIES: Industry[] = [
     id: 'school',
     num: '12',
     title: 'School & Educational\nFleet Monitoring',
+    alt: 'Students boarding a yellow school bus, monitored with LOCATOR fleet telematics',
     desc: 'Fleet telematics tracks school buses, vans, cars, bikes, boats and campus machines like generators and forklifts. It monitors student pickup trips, stop-arm violations, driver behavior, and geofence campuses, helping UAE schools improve safety, reduce road incidents, enforce compliance, and retrieve video or trip evidence quickly.',
     vehicles: ['School buses', 'Vans', 'Cars', 'Bikes', 'Boats', 'Generators'],
     count: 6,
@@ -163,6 +177,9 @@ const N = INDUSTRIES.length
 // fold) — by the time the user scrolls here each one is cached and appears
 // instantly instead of loading in with a white box.
 const IMAGE_LIST = INDUSTRIES.map(i => i.image).filter((s): s is string => !!s)
+const IMAGE_ALT: Record<string, string> = Object.fromEntries(
+  INDUSTRIES.filter(i => i.image).map(i => [i.image as string, i.alt]),
+)
 const IMG_SIZES = '(max-width: 800px) 0px, 46vw'
 
 // Each industry occupies one full viewport of scroll; a hidden snap anchor per
@@ -472,7 +489,7 @@ export default function ServiceIndustries() {
             already cached and appears instantly when scrolled to. */}
         <div aria-hidden="true" style={{ position: 'absolute', width: 1, height: 1, overflow: 'hidden', opacity: 0, pointerEvents: 'none', top: 0, left: -9999 }}>
           {IMAGE_LIST.map(src => (
-            <Image key={src} src={src} alt="" width={880} height={560} sizes={IMG_SIZES} loading="eager" onLoad={() => markLoaded(src)} />
+            <Image key={src} src={src} alt={IMAGE_ALT[src] ?? ''} width={880} height={560} sizes={IMG_SIZES} loading="eager" onLoad={() => markLoaded(src)} />
           ))}
         </div>
 
@@ -533,16 +550,20 @@ export default function ServiceIndustries() {
                   GPS Fleet Services
                 </div>
 
-                <h2 style={{
+                {/* h3: these industry titles sit under the section's H2 (SEO brief). */}
+                <h3 style={{
                   margin: '0 0 18px',
                   fontSize: 'max(clamp(21px,2.5vw,28px), min(1.944vw, 40.6px))',
                   fontWeight: 800, lineHeight: 1.18,
                   letterSpacing: '-.015em', color: '#1d1d1f',
                 }}>
+                  {/* The leading space keeps the two lines as separate words in the
+                      HTML text ("FMCG Fleet Telematics", not "FMCG FleetTelematics");
+                      it collapses visually at the start of the block line. */}
                   {ind.title.split('\n').map((line, i) => (
-                    <span key={i} style={{ display: 'block' }}>{line}</span>
+                    <span key={i} style={{ display: 'block' }}>{i > 0 ? ' ' : ''}{line}</span>
                   ))}
-                </h2>
+                </h3>
 
                 <div style={{ width: '44px', height: '3px', borderRadius: '2px', background: BLUE, marginBottom: '20px' }} />
 

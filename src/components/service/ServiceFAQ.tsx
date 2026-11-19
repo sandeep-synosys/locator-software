@@ -70,7 +70,13 @@ const ALL_FAQS = [
   },
 ]
 
-export default function ServiceFAQ() {
+// `title` lets a page use its own SEO heading; `schema` adds FAQPage JSON-LD.
+// Both default off so the other pages that share this section are unchanged
+// (the /faq page already outputs its own FAQPage markup).
+export default function ServiceFAQ({
+  title = 'Frequently asked questions',
+  schema = false,
+}: { title?: string; schema?: boolean } = {}) {
   const [activeCat, setActiveCat] = useState('all')
   const [openIdx,   setOpenIdx]   = useState<number>(0)
 
@@ -183,6 +189,12 @@ export default function ServiceFAQ() {
       `}</style>
 
       <section id="faq" style={{ padding: 'clamp(56px,7vw,80px) 28px', background: '#fff', borderTop: '1px solid #f0f0f3' }}>
+        {schema && (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: ALL_FAQS.map(f => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) }) }}
+          />
+        )}
         <div style={{ maxWidth: 'var(--w-1120)', margin: '0 auto' }}>
 
           {/* Header */}
@@ -201,7 +213,7 @@ export default function ServiceFAQ() {
               fontWeight: 800, lineHeight: 1.06,
               letterSpacing: '-.015em', color: '#1d1d1f',
             }}>
-              Frequently asked questions
+              {title}
             </h2>
           </div>
 
