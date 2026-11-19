@@ -18,7 +18,13 @@ const STEPS = [
   {
     num: '02',
     title: 'Professional Installation',
-    desc: 'Certified technicians install GPS tracking devices on all your vehicles, machines, and assets — typically 30–60 min per unit.',
+    desc: (
+      <>
+        Certified technicians install{' '}
+        <Link href="/service/tracking-devices" style={{ color: '#1360ee', fontWeight: 600, textDecoration: 'none' }}>GPS tracking devices and accessories</Link>{' '}
+        on all your vehicles, machines, and assets — typically 30–60 min per unit.
+      </>
+    ),
     icon: (
       <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
         <circle cx="14" cy="14" r="9" stroke="currentColor" strokeWidth="1.8" />
@@ -164,6 +170,7 @@ export default function ServiceProcess() {
               fontSize: 'max(clamp(14px,1.35vw,16px), min(1.111vw, 23.2px))', color: '#6e6e73', lineHeight: 1.6,
             }}>
               From consultation to live fleet tracking — we handle everything so your team can focus on operations.
+              {' '}Learn more <Link href="/about/who-we-are" style={{ color: '#1360ee', fontWeight: 600, textDecoration: 'none' }}>about LOCATOR</Link>.
             </p>
           </div>
 

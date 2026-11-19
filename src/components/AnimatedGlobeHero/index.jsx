@@ -276,9 +276,11 @@ function AnimatedNumber({ value, active, delay = 0, duration = 1600 }) {
   const info = useMemo(() => parseStat(value), [value]);
   const startValue = info ? getStartValue(info.target) : 0;
 
-  const [display, setDisplay] = useState(() =>
-    info ? startValue.toLocaleString("en-US") : String(value)
-  );
+  // Starts on the real figure so the server-rendered HTML (what search engines
+  // read) says "99.9%", not the count-up's starting number ("85"). The count
+  // jumps to its start value on its first frame, which runs only once the card
+  // begins its entrance (both use the same delay), while it is still invisible.
+  const [display, setDisplay] = useState(() => String(value));
   const startedRef = useRef(false);
 
   useEffect(() => {

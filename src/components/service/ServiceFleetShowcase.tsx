@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 
 // The six features are the same set the home page ScrollShowcase shows on its
 // Fleet Telematics row (see components/ScrollShowcase/index.jsx → fleetFeatures);
@@ -42,7 +43,13 @@ const FEATURES = [
       </svg>
     ),
     title: 'Dynamic Fleet Dashboard',
-    desc: 'One central dashboard for trip insights, live vehicle status, and a performance overview of the whole fleet.',
+    desc: (
+      <>
+        One central dashboard in{' '}
+        <Link href="/software" style={{ color: '#1360ee', fontWeight: 600, textDecoration: 'none' }}>LOCATOR fleet management software</Link>{' '}
+        for trip insights, live vehicle status, and a performance overview of the whole fleet.
+      </>
+    ),
   },
   {
     icon: (
@@ -152,7 +159,7 @@ export default function ServiceFleetShowcase() {
               Fleet Telematics
             </span>
             <h2 style={{ fontSize: 'max(clamp(24px,3vw,36px), min(2.500vw, 52.2px))', fontWeight: 800, lineHeight: 1.15, color: '#1d1d1f', margin: '0 0 16px' }}>
-              Improve Fleet Operations with GPS Tracking &amp; Telematics
+              Fleet Telematics for Every Industry
             </h2>
             <p style={{ fontSize: 'max(clamp(13px,1.2vw,15px), min(1.042vw, 21.75px))', lineHeight: 1.65, color: '#6e6e73', margin: '0 0 28px', maxWidth: 440 }}>
               Real-time GPS tracking to manage drivers, routes, and road operations with ease.

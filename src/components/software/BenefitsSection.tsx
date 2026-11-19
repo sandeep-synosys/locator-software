@@ -312,7 +312,12 @@ function MockupPrefetch() {
 
 // ── Main export ──────────────────────────────────────────────────────────────
 
-export default function BenefitsSection() {
+// `title` and `shortOverrides` (item index → description) let a page use its own
+// SEO heading and add in-copy links; without them the section is unchanged.
+export default function BenefitsSection({
+  title = 'AI-Driven GPS Tracking & Fleet Telematics Benefits',
+  shortOverrides,
+}: { title?: string; shortOverrides?: Partial<Record<number, React.ReactNode>> } = {}) {
   const [active, setActive] = useState(0)
   const videoEntry = VIDEO_MAP[active] ?? null
   const videoSrc = videoEntry?.src ?? null
@@ -668,7 +673,7 @@ export default function BenefitsSection() {
               letterSpacing: '-.015em', color: '#1d1d1f',
               maxWidth: '600px',
             }}>
-              AI-Driven GPS Tracking &amp; Fleet Telematics Benefits
+              {title}
             </h2>
           </div>
 
@@ -762,7 +767,7 @@ export default function BenefitsSection() {
                       <div className="bf-acc-inner">
                         <p className="bf-acc-desc">
                           <strong style={{ color: '#1d1d1f', fontWeight: 700 }}>{item.label}.</strong>{' '}
-                          {item.short}
+                          {shortOverrides?.[i] ?? item.short}
                         </p>
                       </div>
                     </div>

@@ -379,7 +379,7 @@ export default function ServiceHero() {
           <div className="srv-hero-bg" aria-hidden="true">
             <Image
               src="/services/service-hero.webp"
-              alt=""
+              alt="Truck fleet with the UAE skyline, tracked with LOCATOR fleet telematics"
               fill
               priority
               sizes="100vw"
@@ -395,13 +395,16 @@ export default function ServiceHero() {
             <div className="srv-copy">
               <p style={{ display: 'block', fontSize: 'max(clamp(22px,2.8vw,32px), min(2.222vw, 46.4px))', fontWeight: 800, letterSpacing: '.04em', textTransform: 'uppercase', color: '#1360ee', marginBottom: 'clamp(6px,1vh,10px)' }}>
                 <span style={{ display: 'block', marginBottom: '6px' }}><span style={{ display: 'inline-block', width: '34px', height: '3px', background: '#1360ee', borderRadius: '2px' }} /></span>
-                Fleet Telemteics
+                Fleet Telematics
               </p>
               <h1 style={{ fontSize: 'max(clamp(21px,2.5vw,28px), min(1.944vw, 40.6px))', fontWeight: 800, lineHeight: 1.18, letterSpacing: '-.015em', color: '#1d1d1f', maxWidth: '30ch', margin: '0 auto' }}>
-                Improve Fleet Operations with GPS Tracking &amp; Telematics
+                GPS Fleet Telematics UAE for Live Vehicle, Driver &amp; Route Visibility
               </h1>
+              {/* Short definition for informational searches (SEO brief). The old
+                  line still appears in the Fleet Telematics section below. */}
               <p style={{ maxWidth: '560px', margin: 'clamp(6px,1vh,10px) auto 0', fontSize: 'max(clamp(13px,1.35vw,16px), min(1.111vw, 23.2px))', lineHeight: 1.5, color: '#3a3a3c' }}>
-                Real-time GPS tracking to manage drivers, routes, and road operations with ease.
+                Fleet telematics combines GPS tracking with vehicle and driver data, so you can see where
+                every vehicle is and how it is being used.
               </p>
               <div className="srv-cta-row" style={{ marginTop: 'clamp(10px,1.6vh,18px)' }}>
                 <Link href="/get-a-quote" className="srv-btn srv-btn-primary">Get a quote</Link>
