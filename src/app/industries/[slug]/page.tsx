@@ -11,6 +11,7 @@ import SoftwareBlog from '@/components/software/SoftwareBlog'
 import SoftwareCTA from '@/components/software/SoftwareCTA'
 import Footer from '@/components/layouts/Footer'
 import { INDUSTRIES, getIndustry } from '@/components/industries/industries-data'
+import { siteConfig } from '@/config/site'
 
 // Same trailing sections as the rest of the site (Why Locator, Videos, Blogs,
 // FAQ, Footer) — generic and shared, not duplicated per industry.
@@ -28,6 +29,33 @@ export async function generateMetadata({
   const { slug } = await params
   const industry = getIndustry(slug)
   if (!industry) return {}
+
+  // Pages with an approved SEO brief: absolute title (it already names the
+  // brand) and full social tags, since page-level openGraph/twitter replace
+  // the layout's objects wholesale.
+  if (industry.seo) {
+    const { title, description } = industry.seo
+    return {
+      title: { absolute: title },
+      description,
+      alternates: { canonical: `/industries/${industry.slug}` },
+      openGraph: {
+        title,
+        description,
+        url: `/industries/${industry.slug}`,
+        type: 'website',
+        siteName: siteConfig.name,
+        locale: siteConfig.locale,
+        images: [{ url: siteConfig.ogImage, width: 1200, height: 630, alt: title }],
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title,
+        description,
+        images: [siteConfig.ogImage],
+      },
+    }
+  }
 
   return {
     title: `${industry.name} — Industries`,
@@ -60,7 +88,7 @@ export default async function IndustryDetailPage({
       <WhoWeAreNumbers />
       <ServiceVideo
         eyebrow=""
-        title="All your Vehicles, Assets & Staffs on One Software"
+        title="All Your Vehicles, Assets & Staff on One Platform"
         titleColor="#1360ee"
         headingMaxWidth="none"
         lead="Take control of your whole operation with LOCATOR GPS Tracking"

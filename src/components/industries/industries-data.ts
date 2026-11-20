@@ -32,6 +32,8 @@ export type Industry = {
   lead: string
   block1: IndustryBlock & { image?: string; imagePosition?: string }
   block2: IndustryBlock & { image?: string; imagePosition?: string }
+  /** Approved SEO brief for this page; pages without one keep the generic metadata. */
+  seo?: { title: string; description: string }
 }
 
 export const INDUSTRIES: Industry[] = [
@@ -232,8 +234,13 @@ export const INDUSTRIES: Industry[] = [
     heroImage: '/industries/field-services/card.webp',
     heroImageW: 1254,
     heroImageH: 1254,
-    tagline: 'GPS Tracking and Telematics for Field Services',
+    tagline: 'GPS Tracking for Field Service Teams and Vehicles',
     lead: 'Track service vehicles and field teams in real time. Improve scheduling, response times, productivity, and customer service with LOCATOR.',
+    seo: {
+      title: 'Field Service Vehicle Tracking UAE – Teams & Jobs | LOCATOR',
+      description:
+        'Field service vehicle tracking that shows every technician and van live. Assign jobs by location, track working time and send customers accurate ETAs.',
+    },
     block1: {
       title: 'Real-Time Field Team Visibility',
       subtitle: 'Know Where Every Team Is',
