@@ -47,8 +47,13 @@ export const INDUSTRIES: Industry[] = [
     heroImage: '/industries/rental-leasing/card.webp',
     heroImageW: 1254,
     heroImageH: 1254,
-    tagline: 'Track, Protect and Optimize Every Rental Asset',
+    tagline: 'Rental Fleet Tracking for Cars, Trucks and Equipment',
     lead: 'LOCATOR helps rental and leasing companies track, protect, and optimize vehicles, machines, and equipment from one centralized telematics platform.',
+    seo: {
+      title: 'Rental Fleet Tracking UAE – Cars & Equipment | LOCATOR',
+      description:
+        'LOCATOR rental fleet tracking shows every car, truck and machine live, with engine hours, geofence alerts and remote immobilisation for compatible assets.',
+    },
     block1: {
       title: 'Complete Visibility for Rental Vehicles and Equipment',
       subtitle: 'Know Where Every Asset Is and How It Is Being Used',
@@ -95,10 +100,15 @@ export const INDUSTRIES: Industry[] = [
     heroImage: '/industries/transportation-logistics/hero.webp',
     heroImageW: 1254,
     heroImageH: 1254,
-    tagline: 'Smarter Fleet Operations. Faster Deliveries. Lower Costs.',
+    tagline: 'Logistics Fleet Tracking for Faster, Lower-Cost Deliveries',
     lead: 'LOCATOR helps logistics companies track fleets, optimize routes, monitor drivers, and improve delivery performance.',
+    seo: {
+      title: 'Logistics Fleet Tracking UAE – Routes & Drivers | LOCATOR',
+      description:
+        'LOCATOR logistics fleet tracking shows every vehicle, trip and stop live, with route-deviation alerts, idling reports and accurate customer delivery updates.',
+    },
     block1: {
-      title: 'Real-Time Fleet Visibility and Route Control',
+      title: 'Real-Time Logistics Fleet Visibility and Route Control',
       subtitle: 'Track Every Vehicle, Trip, and Delivery',
       desc: [
         'Monitor live vehicle locations, routes, stops, idling, and trip progress in real time. LOCATOR helps dispatch teams improve route planning, respond quickly to delays, and provide accurate delivery updates to customers.',
@@ -144,8 +154,13 @@ export const INDUSTRIES: Industry[] = [
     heroImageH: 1254,
     tagline: 'Smarter GPS Tracking for Courier & Last-Mile Delivery',
     lead: 'Track delivery vehicles and riders, optimize routes, monitor performance, and complete every delivery faster with LOCATOR’s GPS tracking and telematics platform.',
+    seo: {
+      title: 'Last-Mile Delivery Tracking UAE – Vans & Riders | LOCATOR',
+      description:
+        'Last-mile delivery tracking for courier vans and bikes. LOCATOR shows every rider live, with route history, stop monitoring and accurate delivery updates.',
+    },
     block1: {
-      title: 'Real-Time Delivery Fleet Visibility',
+      title: 'Real-Time Courier Fleet Visibility',
       subtitle: 'Know Where Every Delivery Is',
       desc: [
         'Track courier vehicles, delivery vans, and bikes in real time from one centralized platform. Monitor routes, stops, idle time, trip history, and delivery progress to improve visibility and respond quickly to delays.',
@@ -192,8 +207,13 @@ export const INDUSTRIES: Industry[] = [
     heroImageH: 1254,
     tagline: 'GPS Tracking and Telematics for Construction Fleets',
     lead: 'Track construction vehicles, heavy machinery, and equipment in real time. Improve asset utilization, safety, maintenance, and operational control with LOCATOR.',
+    seo: {
+      title: 'Construction Fleet & Equipment Tracking UAE | LOCATOR',
+      description:
+        'Construction fleet tracking for trucks, excavators and cranes. LOCATOR logs engine hours and idle time and alerts you to site exits and unauthorised use.',
+    },
     block1: {
-      title: 'Real-Time Visibility of Vehicles and Machines',
+      title: 'Real-Time Visibility of Construction Vehicles and Machines',
       subtitle: 'Know Where Every Asset Is',
       desc: [
         'Monitor trucks, pickups, excavators, cranes, loaders, generators, and other construction equipment from one centralized platform. Track location, movement, operating hours, idle time, and unauthorized usage across multiple sites.',
