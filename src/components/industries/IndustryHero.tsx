@@ -20,7 +20,12 @@ export default function IndustryHero({ industry }: { industry: Industry }) {
         .ixh-crumbs svg { color: #b8bcc4; flex-shrink: 0; }
         .ixh-crumbs .cur { color: #8e8e93; }
 
-        .ixh-photo { position: relative; overflow: hidden; height: clamp(300px, 38vw, 460px); }
+        /* min-height (not a fixed height): the band keeps its usual size but
+           grows when the copy needs more room, so the eyebrow is never pushed
+           against (or clipped by) the top edge on wide screens, where the
+           vw-based type is larger. Flex lets the body fill the band and keep
+           the copy anchored to the bottom as before. */
+        .ixh-photo { position: relative; overflow: hidden; display: flex; min-height: clamp(300px, 38vw, 460px); }
         .ixh-photo img { object-fit: cover; }
         /* Layered scrim: a strong bottom-up fade so the multi-line headline
            always sits on dark pixels, plus a left-side wash so text stays
@@ -33,9 +38,10 @@ export default function IndustryHero({ industry }: { industry: Industry }) {
         }
 
         .ixh-photo-body {
-          position: relative; z-index: 2; height: 100%;
+          position: relative; z-index: 2; flex: 1; width: 100%;
           display: flex; align-items: flex-end;
-          max-width: var(--w-1280); margin: 0 auto; padding: 0 28px clamp(26px,4vw,46px);
+          max-width: var(--w-1280); margin: 0 auto;
+          padding: clamp(32px,4vw,64px) 28px clamp(26px,4vw,46px);
         }
         .ixh-content { max-width: min(760px, 90vw); }
 
