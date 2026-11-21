@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { siteConfig } from '@/config/site'
 import ScrollReveal from '@/components/software/ScrollReveal'
 import AsateelHero from '@/components/regulatory/asateel/AsateelHero'
 import AsateelExplainer from '@/components/regulatory/asateel/AsateelExplainer'
@@ -12,16 +13,29 @@ import RegulatoryBlogFeed from '@/components/regulatory/RegulatoryBlogFeed'
 import Footer from '@/components/layouts/Footer'
 
 export const metadata: Metadata = {
-  title: 'ASATEEL Certified OBU — Regulatory GPS Certification',
+  // Absolute: the brief's title already names the brand, so skip the "| LOCATOR" template.
+  title: { absolute: 'ASATEEL Certified OBU Installation Abu Dhabi | LOCATOR' },
   description:
-    'Get your commercial fleet ASATEEL-certified with a fully managed on-board unit (OBU) installation service — approved by Abu Dhabi\'s ITC, with real-time compliance reporting.',
+    'ASATEEL certified OBU installation for Abu Dhabi freight, passenger and school bus fleets. LOCATOR supplies, installs and certifies so you can get your permit.',
   alternates: { canonical: '/asateel-certified-obu' },
+  // Page-level openGraph/twitter replace the layout's objects wholesale, so the
+  // shared image, site name and locale are restated here.
   openGraph: {
-    title: 'ASATEEL Certified OBU Installation | Locator',
+    title: 'ASATEEL Certified OBU Installation Abu Dhabi | LOCATOR',
     description:
-      'ITC-approved ASATEEL OBU installation for Abu Dhabi commercial fleets — enrollment, certified installation, and compliance reporting.',
+      'ASATEEL certified OBU installation for Abu Dhabi freight, passenger and school bus fleets. LOCATOR supplies, installs and certifies so you can get your permit.',
     url: '/asateel-certified-obu',
     type: 'website',
+    siteName: siteConfig.name,
+    locale: siteConfig.locale,
+    images: [{ url: siteConfig.ogImage, width: 1200, height: 630, alt: 'ASATEEL Certified OBU Installation Abu Dhabi | LOCATOR' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'ASATEEL Certified OBU Installation Abu Dhabi | LOCATOR',
+    description:
+      'ASATEEL certified OBU installation for Abu Dhabi freight, passenger and school bus fleets. LOCATOR supplies, installs and certifies so you can get your permit.',
+    images: [siteConfig.ogImage],
   },
 }
 

@@ -303,10 +303,15 @@ export const INDUSTRIES: Industry[] = [
     heroImage: '/industries/food-beverage/card.webp',
     heroImageW: 1254,
     heroImageH: 1254,
-    tagline: 'GPS Tracking and Telematics for Food & Beverage Delivery',
+    tagline: 'Food & Beverage Fleet Tracking with Cold-Chain Monitoring',
     lead: 'Track delivery vehicles, protect temperature-sensitive products, and improve on-time deliveries with LOCATOR’s GPS tracking and fleet management platform.',
+    seo: {
+      title: 'Food & Beverage Fleet Tracking UAE – Cold Chain | LOCATOR',
+      description:
+        'Food and beverage fleet tracking with cold-chain monitoring. LOCATOR tracks refrigerated trucks and vans live and alerts you when cargo temperature drifts.',
+    },
     block1: {
-      title: 'Real-Time Delivery Fleet Visibility',
+      title: 'Real-Time Food Delivery Fleet Visibility',
       subtitle: 'Track Every Vehicle and Delivery',
       desc: [
         'Monitor food and beverage delivery vans, trucks, and refrigerated vehicles in real time. Track routes, stops, delivery progress, and cargo temperature from one centralized platform.',

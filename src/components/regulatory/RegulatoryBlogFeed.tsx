@@ -64,7 +64,7 @@ export default function RegulatoryBlogFeed({ tag, limit = 2 }: { tag?: string | 
               </svg>
             </div>
             <h2 style={{ margin: '0 0 12px', fontSize: 'max(clamp(24px,3vw,34px), min(2.361vw, 49.3px))', fontWeight: 700, color: '#1d1d1f' }}>
-              From Our Blog List Latest Feed
+              Latest from Our Blog
             </h2>
             <p style={{ margin: '0 auto', maxWidth: '520px', fontSize: 'var(--f-15)', color: '#8e8e93', lineHeight: 1.6 }}>
               We are right here to share the valuable insights on our area of Expertise. We help you to master on managing your Vehicle &amp; Team.

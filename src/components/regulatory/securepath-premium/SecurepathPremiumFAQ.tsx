@@ -112,7 +112,7 @@ export default function SecurepathPremiumFAQ() {
 
           <div data-reveal style={{ marginBottom: '32px' }}>
             <h2 style={{ margin: 0, fontSize: 'max(clamp(22px,2.8vw,30px), min(2.083vw, 43.5px))', fontWeight: 800, lineHeight: 1.15, letterSpacing: '-.02em', color: '#1d1d1f' }}>
-              Frequently Asked Questions (FAQ)
+              SecurePath Premium FAQs
             </h2>
           </div>
 

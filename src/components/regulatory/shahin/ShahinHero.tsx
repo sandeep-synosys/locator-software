@@ -73,10 +73,13 @@ export default function ShahinHero() {
 
         .shh-navwrap { position: relative; z-index: 3; }
 
+        /* Same body padding on all four regulatory heroes (SecurePath, SecurePath
+           Premium, SHAHIN, ASATEEL), so the back link never sits tight under the
+           navbar when the copy outgrows the 3:1 banner height. */
         .shh-body {
           position: relative; z-index: 2; flex: 1;
           display: flex; align-items: center;
-          padding: clamp(14px,1.6vw,22px) 28px clamp(26px,3vw,40px);
+          padding: clamp(32px,3.2vw,52px) 28px clamp(36px,3.6vw,56px);
         }
         .shh-inner { max-width: var(--w-1280); width: 100%; margin: 0 auto; }
         .shh-content { max-width: min(660px, 100%); }
@@ -223,7 +226,7 @@ export default function ShahinHero() {
               </Link>
 
               <h1 className="shh-title shh-anim" style={{ animationDelay: '.05s' }}>
-                <em>SHAHIN</em>
+                <em>SHAHIN</em>{' '}
                 Registration, Handled End to End
               </h1>
 

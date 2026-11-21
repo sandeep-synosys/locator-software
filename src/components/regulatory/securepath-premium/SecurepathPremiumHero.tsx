@@ -53,10 +53,13 @@ export default function SecurepathPremiumHero() {
 
         .spp-navwrap { position: relative; z-index: 3; }
 
+        /* Same body padding on all four regulatory heroes (SecurePath, SecurePath
+           Premium, SHAHIN, ASATEEL), so the back link never sits tight under the
+           navbar when the copy outgrows the 3:1 banner height. */
         .spp-body {
           position: relative; z-index: 2; flex: 1;
           display: flex; align-items: center;
-          padding: clamp(14px,1.6vw,22px) 28px clamp(26px,3vw,40px);
+          padding: clamp(32px,3.2vw,52px) 28px clamp(36px,3.6vw,56px);
         }
         .spp-inner { max-width: var(--w-1280); width: 100%; margin: 0 auto; }
         .spp-content { max-width: min(660px, 100%); }
@@ -194,8 +197,8 @@ export default function SecurepathPremiumHero() {
               </Link>
 
               <h1 className="spp-title spp-anim" style={{ animationDelay: '.05s' }}>
-                <em>SecurePath Premium</em>
-                Your Hassle-Free GPS Solution Provider in Dubai
+                <em>SecurePath Premium:</em>{' '}
+                GPS Certification for Dubai Businesses
               </h1>
 
               <p className="spp-lead spp-anim" style={{ animationDelay: '.14s' }}>

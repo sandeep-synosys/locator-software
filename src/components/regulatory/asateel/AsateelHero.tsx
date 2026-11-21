@@ -73,10 +73,13 @@ export default function AsateelHero() {
 
         .asa-navwrap { position: relative; z-index: 3; }
 
+        /* Same body padding on all four regulatory heroes (SecurePath, SecurePath
+           Premium, SHAHIN, ASATEEL), so the back link never sits tight under the
+           navbar when the copy outgrows the 3:1 banner height. */
         .asa-body {
           position: relative; z-index: 2; flex: 1;
           display: flex; align-items: center;
-          padding: clamp(12px,1.3vw,18px) 28px clamp(20px,2.4vw,32px);
+          padding: clamp(32px,3.2vw,52px) 28px clamp(36px,3.6vw,56px);
         }
         .asa-inner { max-width: var(--w-1280); width: 100%; margin: 0 auto; }
         .asa-content { max-width: min(660px, 100%); }
@@ -235,7 +238,7 @@ export default function AsateelHero() {
               </div>
 
               <h1 className="asa-title asa-anim" style={{ animationDelay: '.05s' }}>
-                <em>ASATEEL</em>
+                <em>ASATEEL</em>{' '}
                 Certified OBU Installation You Can Rely On
               </h1>
 

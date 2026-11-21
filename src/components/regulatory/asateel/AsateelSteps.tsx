@@ -23,7 +23,7 @@ export default function AsateelSteps() {
 
           <div data-reveal="left">
             <h2 style={{ margin: '0 0 14px', fontSize: 'max(clamp(22px,2.8vw,30px), min(2.083vw, 43.5px))', fontWeight: 800, lineHeight: 1.2, letterSpacing: '-.02em', color: '#1360ee' }}>
-              Enroll in the ASATEEL Platform
+              How to Enrol in the ASATEEL Platform
             </h2>
             <p style={{ margin: '0 0 8px', fontSize: 'max(clamp(14px,1.25vw,15.5px), min(1.076vw, 22.47px))', lineHeight: 1.8, color: '#6e6e73' }}>
               Enrolling on the <strong style={{ color: '#1d1d1f' }}>ASATEEL</strong> platform is quite simple. Transport operators can apply online through the ASATEEL portal{' '}
