@@ -114,7 +114,7 @@ export default function CarTrackingOffering() {
         <div className="cto-inner">
           <header className="cto-head" data-reveal>
             <p className="cto-eyebrow">What we offer</p>
-            <h2 className="cto-title">A vehicle tracking system that makes fleet monitoring a walk in the park</h2>
+            <h2 className="cto-title">A Car Tracking System That Makes Fleet Monitoring Simple</h2>
             <p className="cto-lead">
               With LOCATOR fitted, it does not matter what your vehicles are being used for or
               where they are working — you can see all of it. These are the three reasons it is

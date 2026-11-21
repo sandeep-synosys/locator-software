@@ -102,7 +102,7 @@ export default function BenefitsHero() {
           </p>
 
           <h1 className="bgt-title bgt-anim" style={{ '--d': '150ms' } as React.CSSProperties}>
-            One platform, a <em>million reasons</em> to use it.
+            11 Benefits of <em>GPS Tracking</em> for Your Fleet
           </h1>
 
           <p className="bgt-lead bgt-anim" style={{ '--d': '240ms' } as React.CSSProperties}>

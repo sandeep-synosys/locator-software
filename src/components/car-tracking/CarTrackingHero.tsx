@@ -144,7 +144,7 @@ export default function CarTrackingHero() {
             </p>
 
             <h1 className="cts-title cts-anim" style={{ '--d': '140ms' } as React.CSSProperties}>
-              Unrestricted access to your <em>car tracking system</em>
+              <em>Car Tracking System</em> for UAE Business Fleets
             </h1>
 
             <p className="cts-lead cts-anim" style={{ '--d': '210ms' } as React.CSSProperties}>

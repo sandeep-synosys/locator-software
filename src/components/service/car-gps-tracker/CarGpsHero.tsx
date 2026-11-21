@@ -45,7 +45,7 @@ export default function CarGpsHero() {
           {/* Copy */}
           <div className="cgh-copy cgh-copy-align" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', paddingTop: 'clamp(20px,3vw,40px)' }}>
             <h1 style={{ margin: 0, fontSize: 'max(clamp(24px, calc(1.5vw + 15px), 34px), min(2.361vw, 49.3px))', fontWeight: 800, lineHeight: 1.22, letterSpacing: '-.02em', color: '#1d1d1f', maxWidth: '480px' }}>
-              The best <span style={{ color: '#1360ee' }}>Car GPS Tracker</span> for maximum visibility
+              The Best <span style={{ color: '#1360ee' }}>Car GPS Tracker</span> for Maximum Visibility
             </h1>
             <p style={{ margin: '14px 0 0', fontSize: 'max(clamp(14px,1.35vw,16.5px), min(1.146vw, 23.93px))', color: '#8a93a2', fontWeight: 600 }}>
               A perfect solution to monitor your vehicles

@@ -62,7 +62,7 @@ export default function GpsTrackingLaptop() {
               Built To Keep Watch
             </span>
             <h2 style={{ margin: '0 0 16px', fontSize: 'max(clamp(19px,2.2vw,26px), min(1.806vw, 37.7px))', fontWeight: 800, lineHeight: 1.25, letterSpacing: '-.015em', color: '#1d1d1f' }}>
-              The best GPS tracking system for UAE
+              The Best GPS Tracking System for the UAE
             </h2>
             <p style={{ margin: '0 0 24px', fontSize: 'max(clamp(13.5px,1.25vw,15px), min(1.042vw, 21.75px))', lineHeight: 1.8, color: '#6e6e73', maxWidth: '48ch' }}>
               LOCATOR makes monitoring your vehicles a complete walk in the park. Thanks to its innovative

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { siteConfig } from '@/config/site'
 import ScrollReveal from '@/components/software/ScrollReveal'
 import GpsTrackingHero from '@/components/service/gps-tracking-system/GpsTrackingHero'
 import LogoMarquee from '@/components/Logomarquee'
@@ -15,9 +16,10 @@ import Footer from '@/components/layouts/Footer'
 import WhoWeAreNumbers from '@/components/about/who-we-are/WhoWeAreNumbers'
 
 export const metadata: Metadata = {
-  title: { absolute: 'GPS Tracking System for Vehicles in UAE | LOCATOR' },
+  // Absolute: the brief's title already names the brand, so skip the "| LOCATOR" template.
+  title: { absolute: 'GPS Tracking System UAE – Software & Live Alerts | LOCATOR' },
   description:
-    'Track vehicles in real time with LOCATOR GPS tracking in the UAE. Monitor routes, driver activity and idle time, set alerts and manage your fleet with ease.',
+    'LOCATOR’s GPS tracking system gives UAE businesses live tracking, a year of route playback, geofencing, idle alerts and scheduled reports on web and mobile.',
   keywords: [
     'GPS tracking system UAE',
     'GPS vehicle tracking',
@@ -26,12 +28,24 @@ export const metadata: Metadata = {
     'GPS tracking software UAE',
   ],
   alternates: { canonical: '/service/gps-tracking-system' },
+  // Page-level openGraph/twitter replace the layout's objects wholesale, so the
+  // shared image, site name and locale are restated here.
   openGraph: {
-    title: 'GPS Tracking System for Vehicles in UAE | LOCATOR',
+    title: 'GPS Tracking System UAE – Software & Live Alerts | LOCATOR',
     description:
-      'Track vehicles in real time with LOCATOR GPS tracking in the UAE. Monitor routes, driver activity and idle time, set alerts and manage your fleet with ease.',
+      'LOCATOR’s GPS tracking system gives UAE businesses live tracking, a year of route playback, geofencing, idle alerts and scheduled reports on web and mobile.',
     url: '/service/gps-tracking-system',
     type: 'website',
+    siteName: siteConfig.name,
+    locale: siteConfig.locale,
+    images: [{ url: siteConfig.ogImage, width: 1200, height: 630, alt: 'GPS Tracking System UAE – Software & Live Alerts | LOCATOR' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'GPS Tracking System UAE – Software & Live Alerts | LOCATOR',
+    description:
+      'LOCATOR’s GPS tracking system gives UAE businesses live tracking, a year of route playback, geofencing, idle alerts and scheduled reports on web and mobile.',
+    images: [siteConfig.ogImage],
   },
 }
 
@@ -51,7 +65,7 @@ export default function GpsTrackingSystemPage() {
       <GpsTrackingWhy />
       <ServiceAppScreens
         eyebrow="The App In Action"
-        heading="See screenshots of our GPS tracking system for vehicles in UAE"
+        heading="See Our GPS Tracking System in Action"
         lead="From these screenshots, you can see that LOCATOR is highly customizable. It has been developed to meet the varying needs of individuals and businesses."
         screens={[
           { src: '/services/gps-tracking-system/home-page.png', alt: 'LOCATOR app login screen', w: 592, h: 1024 },
@@ -62,7 +76,7 @@ export default function GpsTrackingSystemPage() {
       />
       <ServiceVideo
         eyebrow=""
-        title="All your Vehicles, Assets & Staffs on One Software"
+        title="All Your Vehicles, Assets & Staff on One Platform"
         titleColor="#1360ee"
         lead="Take control of your whole operation with LOCATOR GPS Tracking"
         headingMaxWidth="760px"

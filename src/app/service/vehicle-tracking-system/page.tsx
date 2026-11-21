@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { siteConfig } from '@/config/site'
 import dynamic from 'next/dynamic'
 import ScrollReveal from '@/components/software/ScrollReveal'
 import VehicleTrackingHero from '@/components/vehicle-tracking/VehicleTrackingHero'
@@ -20,9 +21,10 @@ import WhoWeAreNumbers from '@/components/about/who-we-are/WhoWeAreNumbers'
 const ServiceFAQ = dynamic(() => import('@/components/service/ServiceFAQ'))
 
 export const metadata: Metadata = {
-  title: { absolute: 'Vehicle Tracking System UAE — The Best GPS Tracker | LOCATOR' },
+  // Absolute: the brief's title already names the brand, so skip the "| LOCATOR" template.
+  title: { absolute: 'Vehicle Tracking System UAE – Live Fleet Tracking | LOCATOR' },
   description:
-    'Manage your fleet with LOCATOR’s vehicle tracking system in the UAE. Track live locations, monitor routes and driver activity. Get a free demo.',
+    'LOCATOR’s vehicle tracking system shows every fleet vehicle live, with fuel monitoring, speeding and idling alerts, and setup within 48 hours across the UAE.',
   keywords: [
     'Vehicle tracking system UAE',
     'GPS vehicle tracking',
@@ -31,12 +33,24 @@ export const metadata: Metadata = {
     'GPS fleet monitoring',
   ],
   alternates: { canonical: '/service/vehicle-tracking-system' },
+  // Page-level openGraph/twitter replace the layout's objects wholesale, so the
+  // shared image, site name and locale are restated here.
   openGraph: {
-    title: 'Vehicle Tracking System UAE — The Best GPS Tracker | LOCATOR',
+    title: 'Vehicle Tracking System UAE – Live Fleet Tracking | LOCATOR',
     description:
-      'Manage your fleet with LOCATOR’s vehicle tracking system in the UAE. Track live locations, monitor routes and driver activity. Get a free demo.',
+      'LOCATOR’s vehicle tracking system shows every fleet vehicle live, with fuel monitoring, speeding and idling alerts, and setup within 48 hours across the UAE.',
     url: '/service/vehicle-tracking-system',
     type: 'website',
+    siteName: siteConfig.name,
+    locale: siteConfig.locale,
+    images: [{ url: siteConfig.ogImage, width: 1200, height: 630, alt: 'Vehicle Tracking System UAE – Live Fleet Tracking | LOCATOR' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Vehicle Tracking System UAE – Live Fleet Tracking | LOCATOR',
+    description:
+      'LOCATOR’s vehicle tracking system shows every fleet vehicle live, with fuel monitoring, speeding and idling alerts, and setup within 48 hours across the UAE.',
+    images: [siteConfig.ogImage],
   },
 }
 
@@ -52,7 +66,7 @@ export default function VehicleTrackingSystemPage() {
       <VehicleTrackingBenefits />
       <ServiceVideo
         eyebrow=""
-        title="All your Vehicles, Assets & Staffs on One Software"
+        title="All Your Vehicles, Assets & Staff on One Platform"
         titleColor="#1360ee"
         lead="Take control of your whole operation with LOCATOR GPS Tracking"
         headingMaxWidth="760px"

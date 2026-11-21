@@ -128,7 +128,7 @@ export default function VehicleTrackingWhy() {
 
           <div className="vtw-copy" data-reveal="left" data-reveal-delay={100}>
             <p className="vtw-eyebrow">Why Locator</p>
-            <h2 className="vtw-title">Why choose Locator over other GPS tracking companies</h2>
+            <h2 className="vtw-title">Why Choose LOCATOR Over Other Vehicle Tracking Companies</h2>
             <p className="vtw-lead">
               Compared against the other GPS tracking applications operating in the UAE,
               five things consistently decide it — and all five are things you feel every

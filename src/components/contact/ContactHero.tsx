@@ -78,7 +78,7 @@ export default function ContactHero() {
           <div className="cth-body">
             <div className="cth-content">
               <span className="cth-eyebrow">Get in touch</span>
-              <h1 className="cth-title">Contact Us</h1>
+              <h1 className="cth-title">Contact LOCATOR</h1>
               <p className="cth-lead">
                 We&rsquo;re here to help your business move smarter. Reach out to our team for sales,
                 support, partnerships or any other inquiries.

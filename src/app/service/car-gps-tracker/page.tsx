@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { siteConfig } from '@/config/site'
 import ScrollReveal from '@/components/software/ScrollReveal'
 import CarGpsHero from '@/components/service/car-gps-tracker/CarGpsHero'
 import CarGpsOffers from '@/components/service/car-gps-tracker/CarGpsOffers'
@@ -14,16 +15,29 @@ import Footer from '@/components/layouts/Footer'
 import WhoWeAreNumbers from '@/components/about/who-we-are/WhoWeAreNumbers'
 
 export const metadata: Metadata = {
-  title: 'Car GPS Tracker — Service',
+  // Absolute: the brief's title already names the brand, so skip the "| LOCATOR" template.
+  title: { absolute: 'Car GPS Tracker UAE – Fuel, Location & Alerts | LOCATOR' },
   description:
-    'The best car GPS tracker for maximum visibility — fuel management, real-time location, and customizable alerts for every vehicle in your fleet across the UAE.',
+    'Car GPS tracker for UAE fleets with fuel management, real-time location and custom alerts. Installed by LOCATOR’s own engineers, with setup within 48 hours.',
   alternates: { canonical: '/service/car-gps-tracker' },
+  // Page-level openGraph/twitter replace the layout's objects wholesale, so the
+  // shared image, site name and locale are restated here.
   openGraph: {
-    title: 'Car GPS Tracker | Locator',
+    title: 'Car GPS Tracker UAE – Fuel, Location & Alerts | LOCATOR',
     description:
-      'A perfect solution to monitor your vehicles — live location, fuel management, and smart alerts from LOCATOR.',
+      'Car GPS tracker for UAE fleets with fuel management, real-time location and custom alerts. Installed by LOCATOR’s own engineers, with setup within 48 hours.',
     url: '/service/car-gps-tracker',
     type: 'website',
+    siteName: siteConfig.name,
+    locale: siteConfig.locale,
+    images: [{ url: siteConfig.ogImage, width: 1200, height: 630, alt: 'Car GPS Tracker UAE – Fuel, Location & Alerts | LOCATOR' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Car GPS Tracker UAE – Fuel, Location & Alerts | LOCATOR',
+    description:
+      'Car GPS tracker for UAE fleets with fuel management, real-time location and custom alerts. Installed by LOCATOR’s own engineers, with setup within 48 hours.',
+    images: [siteConfig.ogImage],
   },
 }
 
@@ -42,13 +56,13 @@ export default function CarGpsTrackerPage() {
       />
       <ServiceVideo
         eyebrow=""
-        title="All your Vehicles, Assets & Staffs on One Software"
+        title="All Your Vehicles, Assets & Staff on One Platform"
         titleColor="#1360ee"
         lead="Take control of your whole operation with LOCATOR GPS Tracking"
         headingMaxWidth="760px"
       />
       <ServiceUseCases />
-      <DeviceCarousel />
+      <DeviceCarousel title="Compatible Tracking Hardware" deviceHeadings={false} />
       <SoftwareBlog tag="Car Tracking" />
       <SoftwareCTA />
       <Footer />

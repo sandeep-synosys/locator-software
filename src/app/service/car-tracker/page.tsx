@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { siteConfig } from '@/config/site'
 import ScrollReveal from '@/components/software/ScrollReveal'
 import CarTrackerHero from '@/components/service/car-tracker/CarTrackerHero'
 import LogoMarquee from '@/components/Logomarquee'
@@ -16,16 +17,29 @@ import Footer from '@/components/layouts/Footer'
 import WhoWeAreNumbers from '@/components/about/who-we-are/WhoWeAreNumbers'
 
 export const metadata: Metadata = {
-  title: 'Car Tracker — Service',
+  // Absolute: the brief's title already names the brand, so skip the "| LOCATOR" template.
+  title: { absolute: 'Car Tracker App UAE – Live Tracking & Alerts | LOCATOR' },
   description:
-    'The revolutionary LOCATOR car tracker app — live tracking, instant notifications, route history, and service reminders for every vehicle in your fleet across the UAE.',
+    'LOCATOR’s car tracker app shows every vehicle live, sends instant and after-hours alerts, replays routes and reminds you when service is due. Setup in 48 hours.',
   alternates: { canonical: '/service/car-tracker' },
+  // Page-level openGraph/twitter replace the layout's objects wholesale, so the
+  // shared image, site name and locale are restated here.
   openGraph: {
-    title: 'Car Tracker | Locator',
+    title: 'Car Tracker App UAE – Live Tracking & Alerts | LOCATOR',
     description:
-      'Live tracking, alerts, and a dynamic dashboard for every car in your fleet — powered by LOCATOR.',
+      'LOCATOR’s car tracker app shows every vehicle live, sends instant and after-hours alerts, replays routes and reminds you when service is due. Setup in 48 hours.',
     url: '/service/car-tracker',
     type: 'website',
+    siteName: siteConfig.name,
+    locale: siteConfig.locale,
+    images: [{ url: siteConfig.ogImage, width: 1200, height: 630, alt: 'Car Tracker App UAE – Live Tracking & Alerts | LOCATOR' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Car Tracker App UAE – Live Tracking & Alerts | LOCATOR',
+    description:
+      'LOCATOR’s car tracker app shows every vehicle live, sends instant and after-hours alerts, replays routes and reminds you when service is due. Setup in 48 hours.',
+    images: [siteConfig.ogImage],
   },
 }
 
@@ -46,13 +60,13 @@ export default function CarTrackerPage() {
       />
       <ServiceVideo
         eyebrow=""
-        title="All your Vehicles, Assets & Staffs on One Software"
+        title="All Your Vehicles, Assets & Staff on One Platform"
         titleColor="#1360ee"
         lead="Take control of your whole operation with LOCATOR GPS Tracking"
         headingMaxWidth="760px"
       />
       <ServiceUseCases />
-      <DeviceCarousel />
+      <DeviceCarousel title="Compatible Tracking Hardware" deviceHeadings={false} />
       <SoftwareBlog tag="Car Tracking" />
       <SoftwareCTA />
       <Footer />

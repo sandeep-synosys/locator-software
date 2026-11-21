@@ -75,7 +75,7 @@ export default function CarTrackerFeatures() {
               Everything You Need
             </span>
             <h2 style={{ margin: 0, fontSize: 'max(clamp(19px,2.2vw,26px), min(1.806vw, 37.7px))', fontWeight: 800, lineHeight: 1.25, letterSpacing: '-.015em', color: '#1d1d1f' }}>
-              The best GPS tracker for your vehicles
+              Car Tracker App Features
             </h2>
 
             <div className="ctf-items">

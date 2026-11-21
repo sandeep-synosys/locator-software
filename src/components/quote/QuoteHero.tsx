@@ -24,7 +24,7 @@ export default function QuoteHero() {
       <section className="qh-hero">
         <SoftwareNavbar />
         <div className="qh-inner">
-          <h1 className="qh-title">Get your <b>free quote</b></h1>
+          <h1 className="qh-title">Get a Free <b>GPS Tracking Quote</b></h1>
           <nav className="qh-crumbs" aria-label="Breadcrumb">
             <Link href="/">Home</Link>
             <span>/</span>

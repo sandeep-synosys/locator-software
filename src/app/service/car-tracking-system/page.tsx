@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { siteConfig } from '@/config/site'
 import dynamic from 'next/dynamic'
 import ScrollReveal from '@/components/software/ScrollReveal'
 import CarTrackingHero from '@/components/car-tracking/CarTrackingHero'
@@ -20,16 +21,29 @@ import WhoWeAreNumbers from '@/components/about/who-we-are/WhoWeAreNumbers'
 const ServiceFAQ = dynamic(() => import('@/components/service/ServiceFAQ'))
 
 export const metadata: Metadata = {
-  title: 'Car Tracking System UAE — Best Vehicle Tracker',
+  // Absolute: the brief's title already names the brand, so skip the "| LOCATOR" template.
+  title: { absolute: 'Car Tracking System Dubai & UAE for Businesses | LOCATOR' },
   description:
-    'Track every vehicle you own on one live map. LOCATOR car tracking for UAE businesses — real-time visibility, lower fuel cost, effortless reporting and 24/7 local support.',
+    'A car tracking system for UAE businesses: see every company car on one live map, control fuel costs with driver data and get automated reports. 24/7 support.',
   alternates: { canonical: '/service/car-tracking-system' },
+  // Page-level openGraph/twitter replace the layout's objects wholesale, so the
+  // shared image, site name and locale are restated here.
   openGraph: {
-    title: 'Car Tracking System UAE | LOCATOR',
+    title: 'Car Tracking System Dubai & UAE for Businesses | LOCATOR',
     description:
-      'Be in control of your vehicles with the best car tracker in the UAE — live tracking, reduced fleet cost and reporting that runs itself.',
+      'A car tracking system for UAE businesses: see every company car on one live map, control fuel costs with driver data and get automated reports. 24/7 support.',
     url: '/service/car-tracking-system',
     type: 'website',
+    siteName: siteConfig.name,
+    locale: siteConfig.locale,
+    images: [{ url: siteConfig.ogImage, width: 1200, height: 630, alt: 'Car Tracking System Dubai & UAE for Businesses | LOCATOR' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Car Tracking System Dubai & UAE for Businesses | LOCATOR',
+    description:
+      'A car tracking system for UAE businesses: see every company car on one live map, control fuel costs with driver data and get automated reports. 24/7 support.',
+    images: [siteConfig.ogImage],
   },
 }
 
@@ -45,7 +59,7 @@ export default function CarTrackingSystemPage() {
       <TrackingVoices />
       <ServiceVideo
         eyebrow=""
-        title="All your Vehicles, Assets & Staffs on One Software"
+        title="All Your Vehicles, Assets & Staff on One Platform"
         titleColor="#1360ee"
         lead="Take control of your whole operation with LOCATOR GPS Tracking"
         headingMaxWidth="760px"

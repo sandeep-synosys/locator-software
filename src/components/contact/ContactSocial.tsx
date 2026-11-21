@@ -181,7 +181,7 @@ export default function ContactSocial() {
       <div className="cts-inner">
         <div className="cts-head" data-reveal>
           <span className="cts-eyebrow"><i />Follow us<i /></span>
-          <h2 className="cts-title">Keep up with Locator</h2>
+          <h2 className="cts-title">Follow LOCATOR</h2>
           <p className="cts-sub">
             Product releases, install stories, and what our engineers are shipping — pick the feed you already use.
           </p>

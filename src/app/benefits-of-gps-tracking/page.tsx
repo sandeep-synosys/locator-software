@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { siteConfig } from '@/config/site'
 import ScrollReveal from '@/components/software/ScrollReveal'
 import BenefitsHero from '@/components/benefits/BenefitsHero'
 import BenefitsIndex from '@/components/benefits/BenefitsIndex'
@@ -9,16 +10,29 @@ import { BENEFITS } from '@/components/benefits/data'
 import WhoWeAreNumbers from '@/components/about/who-we-are/WhoWeAreNumbers'
 
 export const metadata: Metadata = {
-  title: 'Benefits of GPS Tracking',
+  // Absolute: the brief's title already names the brand, so skip the "| LOCATOR" template.
+  title: { absolute: '11 Benefits of GPS Tracking for UAE Fleets | LOCATOR' },
   description:
-    'Lower operating costs, less overtime, recovered vehicles and up to 20% off fuel — the eleven measurable returns UAE fleets get from GPS vehicle tracking.',
+    'Explore 11 benefits of GPS tracking for UAE fleets, from lower operating and maintenance costs to less overtime, vehicle recovery and fuel savings of up to 20%.',
   alternates: { canonical: '/benefits-of-gps-tracking' },
+  // Page-level openGraph/twitter replace the layout's objects wholesale, so the
+  // shared image, site name and locale are restated here.
   openGraph: {
-    title: 'Benefits of GPS Tracking | LOCATOR',
+    title: '11 Benefits of GPS Tracking for UAE Fleets | LOCATOR',
     description:
-      'Eleven measurable returns UAE fleets get from GPS vehicle tracking — from fuel and overtime savings to route compliance and vehicle recovery.',
+      'Explore 11 benefits of GPS tracking for UAE fleets, from lower operating and maintenance costs to less overtime, vehicle recovery and fuel savings of up to 20%.',
     url: '/benefits-of-gps-tracking',
     type: 'website',
+    siteName: siteConfig.name,
+    locale: siteConfig.locale,
+    images: [{ url: siteConfig.ogImage, width: 1200, height: 630, alt: '11 Benefits of GPS Tracking for UAE Fleets | LOCATOR' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: '11 Benefits of GPS Tracking for UAE Fleets | LOCATOR',
+    description:
+      'Explore 11 benefits of GPS tracking for UAE fleets, from lower operating and maintenance costs to less overtime, vehicle recovery and fuel savings of up to 20%.',
+    images: [siteConfig.ogImage],
   },
 }
 
