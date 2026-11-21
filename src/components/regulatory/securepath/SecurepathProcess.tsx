@@ -16,14 +16,14 @@ export default function SecurepathProcess() {
 
           <div data-reveal="left">
             <h2 style={{ margin: '0 0 14px', fontSize: 'max(clamp(22px,2.8vw,30px), min(2.083vw, 43.5px))', fontWeight: 800, lineHeight: 1.2, letterSpacing: '-.02em', color: '#1360ee' }}>
-              Process of GPS Tracking Device Installation and SecurePath Certification
+              SecurePath Installation and Certification Process
             </h2>
             <p style={{ margin: '0 0 32px', fontSize: 'max(clamp(14px,1.25vw,15.5px), min(1.076vw, 22.47px))', lineHeight: 1.8, color: '#6e6e73' }}>
               As one of the approved vendors in installing GPS Tracking Device, our technician will come and install the approved GPS Tracker with Data Sim Card. After the successful installation of the GPS Tracker, Certificate of Installation will be issued in order to register the vehicle in <a href="https://www.rta.ae" target="_blank" rel="noopener noreferrer">Road and Transport Authority (RTA)</a>. Log-in credentials will be provided and user can start tracking and monitoring the vehicles.
             </p>
 
             <h2 style={{ margin: '0 0 14px', fontSize: 'max(clamp(22px,2.8vw,30px), min(2.083vw, 43.5px))', fontWeight: 800, lineHeight: 1.2, letterSpacing: '-.02em', color: '#1360ee' }}>
-              Customer Reviews and Testimonials
+              Why Rent a Car Companies Choose LOCATOR for SecurePath
             </h2>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <p style={{ margin: 0, fontSize: 'max(clamp(14px,1.25vw,15.5px), min(1.076vw, 22.47px))', lineHeight: 1.8, color: '#6e6e73' }}>

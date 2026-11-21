@@ -164,7 +164,7 @@ export default function SecurepathExplainer() {
             </div>
 
             <h3 style={subheadingStyle}>
-              What is SecurePath?
+              What Is SecurePath?
             </h3>
 
             <div

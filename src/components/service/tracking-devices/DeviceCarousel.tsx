@@ -11,7 +11,15 @@ const DRAG_THRESHOLD = 60
 
 const AUTOPLAY_MS = 4200
 
-export default function DeviceCarousel() {
+// `title` lets each page set its own H2. `deviceHeadings` keeps the device names
+// as H3s only where the page owns them (/service/tracking-devices); elsewhere the
+// same names render as styled text, so the catalogue's headings aren't repeated
+// across pages. The look is identical either way.
+export default function DeviceCarousel({
+  title = 'A great platform needs great hardware.',
+  deviceHeadings = true,
+}: { title?: string; deviceHeadings?: boolean } = {}) {
+  const DeviceName = deviceHeadings ? 'h3' : 'p'
   const [active, setActive] = useState(0)
   const [lightbox, setLightbox] = useState(false)
   const [paused, setPaused] = useState(false)
@@ -337,7 +345,7 @@ export default function DeviceCarousel() {
       <section className="dv-wrap">
         <div className="dv-head" data-reveal>
           <span className="dv-eyebrow">Tracking Devices &amp; Accessories</span>
-          <h2 className="dv-h2">A great platform needs great hardware.</h2>
+          <h2 className="dv-h2">{title}</h2>
           <p className="dv-sub">
             Certified GPS terminals, driver-ID readers, and sensors — supplied, installed, and
             configured by our own engineers.
@@ -427,7 +435,7 @@ export default function DeviceCarousel() {
                       <span className="dv-kicker" data-anim>
                         {d.group === 'trackers' ? 'GPS Tracker' : 'Sensor & Accessory'}
                       </span>
-                      <h3 className="dv-name" data-anim>{d.name}</h3>
+                      <DeviceName className="dv-name" data-anim>{d.name}</DeviceName>
                       <p className="dv-tag" data-anim>{d.tagline}</p>
 
                     </div>

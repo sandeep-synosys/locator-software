@@ -97,7 +97,7 @@ export default function VehicleTrackingBenefits() {
         <div className="vtb-inner">
           <div data-reveal="right">
             <p className="vtb-eyebrow">The payoff</p>
-            <h2 className="vtb-title">Benefits of having a tracking system for vehicles</h2>
+            <h2 className="vtb-title">Benefits of a Vehicle Tracking System</h2>
             <p className="vtb-lead">
               Some of the changes operators notice first, in the order they usually notice them.
             </p>

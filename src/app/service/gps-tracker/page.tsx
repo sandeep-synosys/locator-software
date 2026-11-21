@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { siteConfig } from '@/config/site'
 import ScrollReveal from '@/components/software/ScrollReveal'
 import GpsTrackerHero from '@/components/service/gps-tracker/GpsTrackerHero'
 import GpsTrackerData from '@/components/service/gps-tracker/GpsTrackerData'
@@ -15,16 +16,29 @@ import Footer from '@/components/layouts/Footer'
 import WhoWeAreNumbers from '@/components/about/who-we-are/WhoWeAreNumbers'
 
 export const metadata: Metadata = {
-  title: 'GPS Tracker — Service',
+  // Absolute: the brief's title already names the brand, so skip the "| LOCATOR" template.
+  title: { absolute: 'GPS Tracker UAE – Teltonika Device for Fleets | LOCATOR' },
   description:
-    'The complete GPS tracker device for vehicles and fleets in the UAE — certified Teltonika hardware, professional installation, and real-time reporting on the LOCATOR platform.',
+    'GPS tracker for vehicles and fleets in the UAE: certified Teltonika hardware, professional installation and live reporting on the LOCATOR platform. Free quote.',
   alternates: { canonical: '/service/gps-tracker' },
+  // Page-level openGraph/twitter replace the layout's objects wholesale, so the
+  // shared image, site name and locale are restated here.
   openGraph: {
-    title: 'GPS Tracker | Locator',
+    title: 'GPS Tracker UAE – Teltonika Device for Fleets | LOCATOR',
     description:
-      'Certified GPS tracker devices, installed and monitored by Locator across the UAE.',
+      'GPS tracker for vehicles and fleets in the UAE: certified Teltonika hardware, professional installation and live reporting on the LOCATOR platform. Free quote.',
     url: '/service/gps-tracker',
     type: 'website',
+    siteName: siteConfig.name,
+    locale: siteConfig.locale,
+    images: [{ url: siteConfig.ogImage, width: 1200, height: 630, alt: 'GPS Tracker UAE – Teltonika Device for Fleets | LOCATOR' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'GPS Tracker UAE – Teltonika Device for Fleets | LOCATOR',
+    description:
+      'GPS tracker for vehicles and fleets in the UAE: certified Teltonika hardware, professional installation and live reporting on the LOCATOR platform. Free quote.',
+    images: [siteConfig.ogImage],
   },
 }
 
@@ -52,12 +66,12 @@ export default function GpsTrackerPage() {
       <ServiceUseCases />
       <ServiceVideo
         eyebrow=""
-        title="All your Vehicles, Assets & Staffs on One Software"
+        title="All Your Vehicles, Assets & Staff on One Platform"
         titleColor="#1360ee"
         lead="Take control of your whole operation with LOCATOR GPS Tracking"
         headingMaxWidth="760px"
       />
-      <DeviceCarousel />
+      <DeviceCarousel title="Compatible Tracking Hardware" deviceHeadings={false} />
       <SoftwareBlog tag="GPS Tracking" />
       <SoftwareCTA />
       <Footer />

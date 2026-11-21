@@ -62,7 +62,7 @@ export default function CarTrackerHero() {
           {/* Copy */}
           <div className="ct-hero-copy ct-hero-copy-align" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
             <h1 style={{ margin: 0, fontSize: 'max(clamp(28px,4vw,46px), min(3.194vw, 66.7px))', fontWeight: 400, lineHeight: 1.22, letterSpacing: '-.015em', color: 'rgba(255,255,255,.92)', maxWidth: '15ch' }}>
-              Try out our revolutionary <strong style={{ fontWeight: 800, color: '#fff' }}>Car Tracker App</strong> today
+              <strong style={{ fontWeight: 800, color: '#fff' }}>Car Tracker App</strong> for Live Fleet Tracking and Alerts
             </h1>
 
             <p style={{ margin: '18px 0 0', fontSize: 'max(clamp(14px,1.35vw,16.5px), min(1.146vw, 23.93px))', lineHeight: 1.65, color: 'rgba(255,255,255,.78)', maxWidth: '42ch' }}>

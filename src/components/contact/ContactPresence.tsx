@@ -286,7 +286,7 @@ export default function ContactPresence() {
         <div className="ctp-head" data-reveal>
           <div>
             <span className="ctp-eyebrow"><i />Global presence</span>
-            <h2 className="ctp-title">Where Locator operates</h2>
+            <h2 className="ctp-title">Where LOCATOR Operates</h2>
             <p className="ctp-sub">
               Live in the UAE and India, with five more Gulf markets on the way.
               Tell us where you operate and we&rsquo;ll tell you when we land.

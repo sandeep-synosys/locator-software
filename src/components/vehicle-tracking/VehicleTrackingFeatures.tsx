@@ -104,7 +104,7 @@ export default function VehicleTrackingFeatures() {
         <div className="vtf-inner">
           <header className="vtf-head" data-reveal>
             <p className="vtf-eyebrow">What it does</p>
-            <h2 className="vtf-title">Three things every tracking system should get right</h2>
+            <h2 className="vtf-title">Three Things Every Vehicle Tracking System Should Get Right</h2>
             <p className="vtf-lead">
               Most vehicle tracking software can put a dot on a map. These are the parts that
               decide whether it is still earning its keep a year later.

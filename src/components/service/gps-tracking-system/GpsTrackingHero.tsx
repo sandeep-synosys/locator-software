@@ -64,7 +64,7 @@ export default function GpsTrackingHero() {
           {/* Copy */}
           <div className="gts-copy gts-copy-align" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
             <h1 style={{ margin: 0, fontSize: 'max(clamp(24px, calc(1.5vw + 15px), 34px), min(2.361vw, 49.3px))', fontWeight: 800, lineHeight: 1.22, letterSpacing: '-.02em', color: '#1d1d1f', maxWidth: '480px' }}>
-              GPS Tracking System for Vehicles | UAE &mdash; <span style={{ color: '#1360ee' }}>Locator</span>
+              <span style={{ color: '#1360ee' }}>GPS Tracking System</span> for Vehicles in the UAE
             </h1>
             <p style={{ margin: '14px 0 0', fontSize: 'max(clamp(14px,1.25vw,15.5px), min(1.076vw, 22.47px))', lineHeight: 1.7, color: '#6e6e73', maxWidth: '42ch' }}>
               Our GPS tracker software makes your life easier when it comes to managing your vehicles and team &mdash;

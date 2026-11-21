@@ -239,7 +239,7 @@ export default function ContactOffices() {
             <Image src="/flags/uae.svg" alt="" width={22} height={22} />
             Our offices
           </span>
-          <h2 className="cto-title"><span>UAE</span></h2>
+          <h2 className="cto-title"><span>Visit Our UAE Offices</span></h2>
           <p className="cto-sub">
             Two teams on the ground — Dubai and Abu Dhabi — covering installation, support,
             and compliance across all seven emirates.
@@ -255,7 +255,7 @@ export default function ContactOffices() {
                 <span className="cto-n">{o.n}</span>
                 <span className="cto-badge"><i />{o.badge}</span>
                 <div className="cto-media-copy">
-                  <h3 className="cto-city">{o.city}</h3>
+                  <h3 className="cto-city">{o.city} Office</h3>
                   <p className="cto-emirate">{o.emirate}</p>
                 </div>
               </div>

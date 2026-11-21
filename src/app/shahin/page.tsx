@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { siteConfig } from '@/config/site'
 import ScrollReveal from '@/components/software/ScrollReveal'
 import ShahinHero from '@/components/regulatory/shahin/ShahinHero'
 import ShahinExplainer from '@/components/regulatory/shahin/ShahinExplainer'
@@ -11,16 +12,29 @@ import RegulatoryBlogFeed from '@/components/regulatory/RegulatoryBlogFeed'
 import Footer from '@/components/layouts/Footer'
 
 export const metadata: Metadata = {
-  title: 'SHAHIN — Regulatory GPS Certification',
+  // Absolute: the brief's title already names the brand, so skip the "| LOCATOR" template.
+  title: { absolute: 'SHAHIN Registration Dubai – Cargo Truck GPS | LOCATOR' },
   description:
-    'Get your fleet SHAHIN-certified with a fully managed, SIRA-compliant GPS tracking solution — registration, installation, and real-time compliance reporting.',
+    'SHAHIN registration for Dubai cargo trucks, handled end to end. LOCATOR supplies and installs the approved GPS device and guides your fleet through the portal.',
   alternates: { canonical: '/shahin' },
+  // Page-level openGraph/twitter replace the layout's objects wholesale, so the
+  // shared image, site name and locale are restated here.
   openGraph: {
-    title: 'SHAHIN — Regulatory GPS Certification | Locator',
+    title: 'SHAHIN Registration Dubai – Cargo Truck GPS | LOCATOR',
     description:
-      'SIRA-compliant SHAHIN GPS certification for Dubai cargo fleets — fully managed registration, installation, and compliance reporting.',
+      'SHAHIN registration for Dubai cargo trucks, handled end to end. LOCATOR supplies and installs the approved GPS device and guides your fleet through the portal.',
     url: '/shahin',
     type: 'website',
+    siteName: siteConfig.name,
+    locale: siteConfig.locale,
+    images: [{ url: siteConfig.ogImage, width: 1200, height: 630, alt: 'SHAHIN Registration Dubai – Cargo Truck GPS | LOCATOR' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'SHAHIN Registration Dubai – Cargo Truck GPS | LOCATOR',
+    description:
+      'SHAHIN registration for Dubai cargo trucks, handled end to end. LOCATOR supplies and installs the approved GPS device and guides your fleet through the portal.',
+    images: [siteConfig.ogImage],
   },
 }
 

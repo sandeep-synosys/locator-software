@@ -24,7 +24,9 @@ const NAV_LINKS = [
 // Nav items that open the shutter mega-menu instead of navigating directly.
 type NavDropdownItem = { slug: string; name: string; tagline: string; accent: string; icon: React.ReactNode }
 const DROPDOWNS: Record<string, { items: NavDropdownItem[]; base: string; label: string; blurb: string; hash?: boolean; navigable?: boolean }> = {
-  '/regulatory': { items: REGULATORY_PRODUCTS, base: '',         label: 'Regulatory GPS Certifications', blurb: 'Certified GPS & OBU solutions built to meet UAE regulatory requirements.' },
+  // navigable: clicking the label goes to the /regulatory overview (like /industries);
+  // hover still opens the menu.
+  '/regulatory': { items: REGULATORY_PRODUCTS, base: '',         label: 'Regulatory GPS Certifications', blurb: 'Certified GPS & OBU solutions built to meet UAE regulatory requirements.', navigable: true },
   '/about':      { items: ABOUT_PAGES,         base: '/about',   label: 'About Locator',                 blurb: 'Who we are, where we’re headed, and the people behind the platform.' },
   '/software':   { items: SOFTWARE_MODULES,    base: '/software', label: 'Software Platform',            blurb: 'Jump straight to any module of the Locator fleet platform.', hash: true, navigable: true },
   '/service':    { items: SERVICE_PAGES,       base: '/service', label: 'Locator Services',              blurb: 'End-to-end fleet, video, and IoT services for every operation.' },

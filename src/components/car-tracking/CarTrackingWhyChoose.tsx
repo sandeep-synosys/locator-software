@@ -93,7 +93,7 @@ export default function CarTrackingWhyChoose() {
         <div className="ctw-inner">
           <header className="ctw-head" data-reveal="right">
             <p className="ctw-eyebrow">Why LOCATOR</p>
-            <h2 className="ctw-title">Why choose this car tracking device for your UAE business</h2>
+            <h2 className="ctw-title">Why Choose LOCATOR’s Car Tracking System</h2>
             <p className="ctw-lead">
               Four things decide whether a tracking platform is still worth having in year
               three: what it can do, what it costs, who answers when it breaks, and whether

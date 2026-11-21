@@ -17,7 +17,7 @@ const TABS = [
   {
     key: 'quote',
     label: 'Request a quote',
-    headline: 'Request for a quote — it’s free',
+    headline: 'Request a Quote — It’s Free',
     body: 'Tell us your fleet size and we’ll put together a tailored, no-obligation quote within one business day.',
     stat: { value: '950,104+', sub: 'quotes generated to date' },
     cta: { label: 'Get a free quote', href: '/get-a-quote' },
@@ -88,7 +88,7 @@ export default function GpsTrackerWhy() {
               Built For Every Fleet
             </span>
             <h2 style={{ margin: '0 0 16px', fontSize: 'max(clamp(19px,2.2vw,26px), min(1.806vw, 37.7px))', fontWeight: 800, lineHeight: 1.3, letterSpacing: '-.015em', color: '#fff' }}>
-              The complete GPS tracking device for everyone
+              The Complete GPS Tracker for Every Fleet
             </h2>
             <p style={{ margin: '0 0 28px', fontSize: 'max(clamp(13.5px,1.25vw,15px), min(1.042vw, 21.75px))', lineHeight: 1.75, color: 'rgba(255,255,255,.62)', maxWidth: '48ch' }}>
               A reliable, trusted tracking device that puts your business on steroids today. With this

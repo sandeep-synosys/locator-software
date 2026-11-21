@@ -3,7 +3,7 @@ export default function SecurepathPremiumConclusion() {
     <section style={{ padding: '0 28px clamp(56px,7vw,80px)', background: '#fff' }}>
       <div data-reveal style={{ maxWidth: 'var(--w-1180)', margin: '0 auto' }}>
         <h2 style={{ margin: '0 0 16px', fontSize: 'max(clamp(20px,2.4vw,26px), min(1.806vw, 37.7px))', fontWeight: 800, letterSpacing: '-.02em', color: '#1360ee' }}>
-          Conclusion
+          Get Your Vehicles SecurePath Premium Certified
         </h2>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <p style={{ margin: 0, fontSize: 'max(clamp(14px,1.25vw,15.5px), min(1.076vw, 22.47px))', lineHeight: 1.85, color: '#6e6e73' }}>

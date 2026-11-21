@@ -3,7 +3,7 @@ import Image from 'next/image'
 const EASE = 'cubic-bezier(.22,.61,.36,1)'
 
 const LEFT_ITEMS = [
-  { title: 'Real Time Tracking',    desc: 'The exact location of your cars will be provided, including all their activities.' },
+  { title: 'Real-Time Tracking',    desc: 'The exact location of your cars will be provided, including all their activities.' },
   { title: 'Intuitive Interface',   desc: 'LOCATOR has been designed by some of the best hands in the industry.' },
   { title: 'Route Tracking',        desc: 'Review daily activities, trips, and parking with detailed route playback for a period of one year.' },
   { title: 'Geofencing Technology', desc: 'With this feature, you’ll know the moment a car enters or exits a pre-specified zone.' },
@@ -11,7 +11,7 @@ const LEFT_ITEMS = [
 
 const RIGHT_ITEMS = [
   { title: 'Idle Alerts',              desc: 'If any vehicles are sitting idle, you’ll be notified right away.' },
-  { title: 'After Hours Notifications', desc: 'If any of your vehicles is used after official hours, you’ll be instantly notified.' },
+  { title: 'After-Hours Notifications', desc: 'If any of your vehicles is used after official hours, you’ll be instantly notified.' },
   { title: 'Service Reminders',        desc: 'Get alerts about servicing and RTA renewals as per UAE regulations.' },
   { title: 'Report Scheduler',         desc: 'Easily schedule your own preferred time for reports to be delivered.' },
 ]
@@ -67,7 +67,7 @@ export default function GpsTrackingWhy() {
             Why LOCATOR
           </span>
           <h2 style={{ margin: '0 0 14px', fontSize: 'max(clamp(19px,2.2vw,26px), min(1.806vw, 37.7px))', fontWeight: 800, lineHeight: 1.3, letterSpacing: '-.015em', color: '#1d1d1f' }}>
-            Why you need our GPS tracking system for vehicles in UAE
+            Why You Need Our GPS Tracking System
           </h2>
           <p style={{ margin: 0, fontSize: 'max(clamp(13.5px,1.25vw,15px), min(1.042vw, 21.75px))', lineHeight: 1.75, color: '#6e6e73' }}>
             There are plenty of reasons to start using LOCATOR — its features are breathtaking and impressive,

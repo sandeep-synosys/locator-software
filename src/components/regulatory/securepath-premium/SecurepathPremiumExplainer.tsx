@@ -15,7 +15,7 @@ export default function SecurepathPremiumExplainer() {
         </div>
 
         <h2 data-reveal style={{ margin: '0 0 18px', fontSize: 'max(clamp(22px,2.8vw,30px), min(2.083vw, 43.5px))', fontWeight: 800, lineHeight: 1.2, letterSpacing: '-.02em', color: '#1360ee' }}>
-          What is SecurePath Premium
+          What Is SecurePath Premium?
         </h2>
 
         <div data-reveal style={{ display: 'flex', flexDirection: 'column', gap: '16px', maxWidth: 'var(--w-1000)' }}>

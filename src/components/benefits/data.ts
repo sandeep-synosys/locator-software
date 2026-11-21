@@ -42,7 +42,7 @@ export const BENEFITS: Benefit[] = [
     desc: 'Fleet maintenance costs fall as total mileage comes down and driving behaviour improves the two things that wear a vehicle out fastest.',
   },
   {
-    title: 'Vicinity of the fleet',
+    title: 'Fleet Visibility for Owners',
     desc: 'Detailed information on where every vehicle and employee is puts owners far more in touch with day-to-day operations, and gives them a real level of control over how the company runs.',
   },
   {

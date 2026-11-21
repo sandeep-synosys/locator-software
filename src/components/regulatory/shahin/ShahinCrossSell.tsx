@@ -18,7 +18,7 @@ export default function ShahinCrossSell() {
 
         <h2 style={{ margin: '0 0 18px', fontSize: 'max(clamp(22px,2.8vw,30px), min(2.083vw, 43.5px))', fontWeight: 800, lineHeight: 1.2, letterSpacing: '-.02em', color: '#1360ee' }}>
           <Link href="/securepath-premium" style={{ color: 'inherit', textDecoration: 'none' }}>
-            SecurePath Premium: The Platform to Monitor the Vehicles
+            How SHAHIN Works with SecurePath Premium
           </Link>
         </h2>
 

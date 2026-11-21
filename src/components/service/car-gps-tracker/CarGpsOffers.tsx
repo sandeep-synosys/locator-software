@@ -54,7 +54,7 @@ export default function CarGpsOffers() {
             What This App Offers
           </span>
           <h2 style={{ margin: '0 0 16px', fontSize: 'max(clamp(19px,2.2vw,26px), min(1.806vw, 37.7px))', fontWeight: 800, lineHeight: 1.25, letterSpacing: '-.015em', color: '#1d1d1f' }}>
-            What our Car Tracker app offers
+            What Our Car GPS Tracker Offers
           </h2>
           <p style={{ margin: 0, fontSize: 'max(clamp(13.5px,1.25vw,15px), min(1.042vw, 21.75px))', lineHeight: 1.8, color: '#6e6e73' }}>
             LOCATOR is an app that has been developed with one goal in mind — to give you greater control over

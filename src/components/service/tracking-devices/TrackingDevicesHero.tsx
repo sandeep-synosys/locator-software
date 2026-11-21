@@ -190,8 +190,8 @@ export default function TrackingDevicesHero() {
               </span>
 
               <h1 className="td-h1 td-anim" style={{ animationDelay: '.1s' }}>
-                The hardware behind<br />
-                every <em>Locator</em> install.
+                GPS Tracking Devices{' '}<br />
+                Behind Every <em>LOCATOR</em> Install
               </h1>
 
               <p className="td-lead td-anim" style={{ animationDelay: '.18s' }}>
