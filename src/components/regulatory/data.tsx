@@ -13,7 +13,7 @@ export const REGULATORY_PRODUCTS: RegulatoryProduct[] = [
   {
     slug: 'shahin',
     name: 'SHAHIN',
-    tagline: 'Certified GPS tracking for regulated fleets',
+    tagline: 'GPS registration for cargo trucks in Dubai',
     description:
       'A certified GPS vehicle-tracking solution built to meet SHAHIN monitoring requirements, giving fleet owners and regulators continuous, verifiable visibility into vehicle location, movement, and compliance status.',
     accent: '#1360ee',
@@ -27,7 +27,7 @@ export const REGULATORY_PRODUCTS: RegulatoryProduct[] = [
   {
     slug: 'asateel-certified-obu',
     name: 'ASATEEL Certified OBU',
-    tagline: 'Certified on-board unit for heavy vehicles',
+    tagline: 'Certified OBU for Abu Dhabi freight & buses',
     description:
       'An ASATEEL-certified on-board unit (OBU) for trucks and heavy vehicles, delivering the real-time location and movement data required for regulatory compliance and reporting.',
     accent: '#13923f',
@@ -40,8 +40,8 @@ export const REGULATORY_PRODUCTS: RegulatoryProduct[] = [
   },
   {
     slug: 'securepath',
-    name: 'Securepath',
-    tagline: 'Real-time safety tracking for passengers & cargo',
+    name: 'SecurePath',
+    tagline: 'GPS certification for Dubai rent a car fleets',
     description:
       'A dedicated safety-tracking layer for passenger and cargo vehicles, combining live location tracking with route and safety alerts to keep every trip accounted for.',
     accent: '#7c3aed',
@@ -54,8 +54,8 @@ export const REGULATORY_PRODUCTS: RegulatoryProduct[] = [
   },
   {
     slug: 'securepath-premium',
-    name: 'Securepath Premium',
-    tagline: 'Advanced safety monitoring with AI-powered insights',
+    name: 'SecurePath Premium',
+    tagline: 'SIRA GPS for regulated businesses in Dubai',
     description:
       'The premium tier of Securepath, adding AI-assisted driver-behavior insights, deeper analytics, and priority support for fleets that need the highest level of oversight.',
     accent: '#c2740a',
