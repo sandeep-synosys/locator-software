@@ -60,11 +60,19 @@ export default function RegulatoryGrid() {
           overflow: hidden;
         }
 
+        /* Section heading over the cards, so the card H3s sit under an H2. */
+        .reg-grid-title {
+          margin: 0 0 clamp(14px,1.8vw,20px); text-align: center;
+          font-size: max(clamp(17px,1.8vw,21px), min(1.458vw, 30.45px)); font-weight: 800;
+          line-height: 1.2; letter-spacing: -.015em; color: #1d1d1f;
+        }
+
         .reg-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: clamp(12px,1.6vw,18px); }
         @media (max-width: 900px) { .reg-grid { grid-template-columns: repeat(2,1fr); } }
         @media (max-width: 560px) { .reg-grid { grid-template-columns: 1fr; } }
       `}</style>
 
+      <h2 className="reg-grid-title" data-reveal>Choose Your Regulatory GPS Certification</h2>
       <div className="reg-grid" data-reveal>
         {REGULATORY_PRODUCTS.map((p, i) => (
           <Link
