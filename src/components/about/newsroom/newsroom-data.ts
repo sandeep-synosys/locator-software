@@ -86,11 +86,31 @@ export const CATEGORY_COLOR: Record<NewsCategory, string> = {
   blog: '#4d94ff',
 }
 
+/** Events listing page (the Events tab's "View all events" link). */
+export const EVENTS_BASE = '/about/newsroom/events'
+/** The one event with its own page so far; the other event cards are placeholders. */
+export const GITEX_2026_HREF = `${EVENTS_BASE}/gitexglobal2026`
+
 export const NEWS_ITEMS: NewsItem[] = [
+  // First so it also leads the Events tab; `featured` puts it in the big slot on "All".
+  {
+    id: 'gitex-2026',
+    category: 'events',
+    tag: 'Event',
+    title: 'Locator at GITEX Global 2026',
+    excerpt:
+      'Meet the team at Hall 3, D120 for live demos of AI Fleet Intelligence and the new driver-coaching suite.',
+    image: '/newsroom/gitex-global.png',
+    fit: 'contain',
+    imageAspect: '1536 / 1024',
+    date: 'May 28, 2026',
+    href: GITEX_2026_HREF,
+    featured: true,
+  },
   {
     id: 'visionx-2035-summit',
     category: 'events',
-    tag: 'Featured Story',
+    tag: 'Event',
     // NBSP between VisionX and 2035: as one unbreakable token it no longer fits
     // after the em dash, so the line breaks there and the event name starts line 2.
     title: 'Our Journey to the Future Begins — VisionX 2035 Summit',
@@ -101,7 +121,6 @@ export const NEWS_ITEMS: NewsItem[] = [
     imageAspect: '2048 / 1288',
     date: 'May 30, 2026',
     href: '#',
-    featured: true,
   },
   {
     id: 'indoor-asset-tracking',
@@ -114,19 +133,6 @@ export const NEWS_ITEMS: NewsItem[] = [
     fit: 'contain',
     imageAspect: '1536 / 1024',
     date: 'May 30, 2026',
-    href: '#',
-  },
-  {
-    id: 'gitex-2026',
-    category: 'events',
-    tag: 'Event',
-    title: 'Locator at GITEX Global 2026',
-    excerpt:
-      'Meet the team at Hall 3, D120 for live demos of AI Fleet Intelligence and the new driver-coaching suite.',
-    image: '/newsroom/gitex-global.png',
-    fit: 'contain',
-    imageAspect: '1536 / 1024',
-    date: 'May 28, 2026',
     href: '#',
   },
   {
@@ -387,6 +393,15 @@ export const NEWS_ITEMS: NewsItem[] = [
     youtubeId: 'hwqB52vVUig',
     href: 'https://www.youtube.com/watch?v=hwqB52vVUig',
   },
+]
+
+/** True when the item has a real page to open ('#' marks a placeholder card). */
+export const hasPage = (item: NewsItem) => item.href !== '#'
+
+/** Every event, those with a page first (GITEX), then the placeholder cards. */
+export const EVENT_ITEMS: NewsItem[] = [
+  ...NEWS_ITEMS.filter((i) => i.category === 'events' && hasPage(i)),
+  ...NEWS_ITEMS.filter((i) => i.category === 'events' && !hasPage(i)),
 ]
 
 export type SocialPost = {

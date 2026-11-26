@@ -11,6 +11,9 @@ import {
   BLOG_POSTS,
   CATEGORY_COLOR,
   CATEGORY_LABEL,
+  EVENT_ITEMS,
+  EVENTS_BASE,
+  hasPage,
   MEDIA_MENTIONS,
   NEWS_ITEMS,
   RELEASE_TIMELINE,
@@ -79,6 +82,8 @@ function renderHeroTitle(title: string) {
 
 function Card({ item, size = 'md' }: { item: NewsItem; size?: 'md' | 'lg' }) {
   const color = CATEGORY_COLOR[item.category]
+  // Placeholder events have no page yet: show them as plain, non-clickable cards.
+  if (item.category === 'events' && !hasPage(item)) return <StaticCard item={item} size={size} />
   // Real routes (the migrated blog) go through Link so they prefetch and
   // navigate client-side; placeholder '#' hrefs stay plain anchors.
   const Shell = item.href.startsWith('/') ? Link : 'a'
@@ -126,6 +131,31 @@ function Card({ item, size = 'md' }: { item: NewsItem; size?: 'md' | 'lg' }) {
   )
 }
 
+/** A card with no link: same look, no hover lift and no "Read More". */
+function StaticCard({ item, size = 'md' }: { item: NewsItem; size?: 'md' | 'lg' }) {
+  return (
+    <div className={`nrb-card nrb-card--${size} nrb-card--static`}>
+      <div className="nrb-card-media" data-fit={item.fit ?? 'cover'} style={item.fit === 'contain' && item.imageAspect ? { aspectRatio: item.imageAspect } : undefined}>
+        <Image
+          src={item.image}
+          alt={item.alt ?? ''}
+          fill
+          style={{ objectFit: item.fit ?? 'cover' }}
+          sizes={size === 'lg' ? '(max-width: 1040px) 100vw, 700px' : '(max-width: 700px) 100vw, 340px'}
+        />
+        <span className="nrb-chip" style={{ background: CATEGORY_COLOR[item.category] }}>
+          {item.tag || CATEGORY_LABEL[item.category]}
+        </span>
+      </div>
+      <div className="nrb-card-body">
+        <span className="nrb-card-date">{item.date}</span>
+        <h3 className="nrb-card-title">{item.title}</h3>
+        <p className="nrb-card-excerpt">{item.excerpt}</p>
+      </div>
+    </div>
+  )
+}
+
 export default function NewsroomBoard() {
   const [tab, setTab] = useState<Tab>('all')
   // Set when another section (or a #video-… link) asks to open a video. A new
@@ -165,6 +195,7 @@ export default function NewsroomBoard() {
   const pool = useMemo(() => {
     if (tab === 'blog') return BLOG_POSTS
     if (tab === 'all') return NEWS_ITEMS
+    if (tab === 'events') return EVENT_ITEMS
     return NEWS_ITEMS.filter((i) => i.category === tab)
   }, [tab])
 
@@ -226,6 +257,9 @@ export default function NewsroomBoard() {
            so contained cards lift without scaling. */
         .nrb-card:hover .nrb-card-media[data-fit="contain"] img { transform: none; }
         .nrb-card--lg .nrb-card-media { aspect-ratio: 16 / 8.8; }
+        /* Placeholder cards aren't links, so they don't react to hover. */
+        .nrb-card--static:hover { transform: none; border-color: #e7ecf6; box-shadow: none; }
+        .nrb-card--static:hover .nrb-card-media img { transform: none; }
 
         .nrb-chip {
           position: absolute; left: 12px; top: 12px; z-index: 2;
@@ -451,7 +485,8 @@ export default function NewsroomBoard() {
             <div className="nrb-swap" key={tab}>
             {tab === 'all' && (
               <>
-                <a
+                {/* Link: the featured story is a real page (GITEX), so it navigates client-side. */}
+                <Link
                   href={featured.href}
                   className="nrb-hero-card"
                   style={featured.fit === 'contain' && featured.imageAspect ? { aspectRatio: featured.imageAspect } : undefined}
@@ -472,7 +507,7 @@ export default function NewsroomBoard() {
                     <p className="nrb-hero-excerpt">{featured.excerpt}</p>
                     <span className="nrb-hero-more">Read Full Story →</span>
                   </div>
-                </a>
+                </Link>
 
                 {/* <div className="nrb-grid">
                   {highlights.map((item) => (
@@ -570,6 +605,15 @@ export default function NewsroomBoard() {
                     </div>
                   </a>
                 ))}
+              </div>
+            )}
+
+            {tab === 'events' && (
+              <div className="nrb-section-head">
+                <h2>Events</h2>
+                <Link href={EVENTS_BASE} className="nrb-viewall">
+                  View all events →
+                </Link>
               </div>
             )}
 
