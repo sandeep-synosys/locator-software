@@ -89,7 +89,7 @@ export const CATEGORY_COLOR: Record<NewsCategory, string> = {
 /** Events listing page (the Events tab's "View all events" link). */
 export const EVENTS_BASE = '/about/newsroom/events'
 /** The one event with its own page so far; the other event cards are placeholders. */
-export const GITEX_2026_HREF = `${EVENTS_BASE}/gitexglobal2026`
+export const GITEX_2026_HREF = `${EVENTS_BASE}/locator-at-gitex-global-2026`
 
 export const NEWS_ITEMS: NewsItem[] = [
   // First so it also leads the Events tab; `featured` puts it in the big slot on "All".
@@ -97,13 +97,13 @@ export const NEWS_ITEMS: NewsItem[] = [
     id: 'gitex-2026',
     category: 'events',
     tag: 'Event',
-    title: 'Locator at GITEX Global 2026',
+    title: 'LOCATOR at GITEX GLOBAL 2026',
     excerpt:
-      'Meet the team at Hall 3, D120 for live demos of AI Fleet Intelligence and the new driver-coaching suite.',
+      'LOCATOR heads to GITEX GLOBAL 2026 in Dubai (7–11 Dec) to discuss industry-specific fleet management for construction, rental, FM and trading. Stand H15-5.',
     image: '/newsroom/gitex-global.png',
     fit: 'contain',
     imageAspect: '1536 / 1024',
-    date: 'May 28, 2026',
+    date: 'Nov 26, 2026',
     href: GITEX_2026_HREF,
     featured: true,
   },

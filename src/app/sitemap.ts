@@ -20,6 +20,7 @@ const ROUTES: { path: string; priority: number }[] = [
   { path: "/about/newsroom", priority: 0.6 },
   { path: "/about/newsroom/blog", priority: 0.8 },
   { path: "/about/newsroom/events", priority: 0.6 },
+  { path: "/about/newsroom/events/locator-at-gitex-global-2026", priority: 0.7 },
   ...BLOG_POSTS.map((p) => ({ path: `/about/newsroom/blog/${p.slug}`, priority: 0.7 })),
   { path: "/about/career", priority: 0.6 },
   ...JOBS.map((j) => ({ path: `/about/career/${j.slug}`, priority: 0.5 })),
